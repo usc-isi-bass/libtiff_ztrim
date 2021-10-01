@@ -118,7 +118,7 @@ setExtraSamples(TIFF* tif, va_list ap, uint32_t* v)
 				return 0;
 		}
 	}
-
+#ifdef MAGMA_ENABLE_FIXES
         if ( td->td_transferfunction[0] != NULL && (td->td_samplesperpixel - *v > 1) &&
                 !(td->td_samplesperpixel - td->td_extrasamples > 1))
         {
@@ -129,6 +129,11 @@ setExtraSamples(TIFF* tif, va_list ap, uint32_t* v)
                 _TIFFfree(td->td_transferfunction[0]);
                 td->td_transferfunction[0] = NULL;
         }
+#endif
+#ifdef MAGMA_ENABLE_CANARIES
+        MAGMA_LOG("TIF012", MAGMA_AND(td->td_transferfunction[0] != NULL, MAGMA_AND(td->td_samplesperpixel - *v > 1, \
+            !(td->td_samplesperpixel - td->td_extrasamples > 1))));
+#endif
 
 	td->td_extrasamples = (uint16_t) *v;
 	_TIFFsetShortArray(&td->td_sampleinfo, va, td->td_extrasamples);
@@ -271,6 +276,7 @@ _TIFFVSetField(TIFF* tif, uint32_t tag, va_list ap)
 			goto badvalue;
         if( v != td->td_samplesperpixel )
         {
+#ifdef MAGMA_ENABLE_FIXES
             /* See http://bugzilla.maptools.org/show_bug.cgi?id=2500 */
             if( td->td_sminsamplevalue != NULL )
             {
@@ -302,6 +308,13 @@ _TIFFVSetField(TIFF* tif, uint32_t tag, va_list ap)
                     _TIFFfree(td->td_transferfunction[0]);
                     td->td_transferfunction[0] = NULL;
             }
+#endif
+#ifdef MAGMA_ENABLE_CANARIES
+            MAGMA_LOG("TIF012", MAGMA_OR(td->td_sminsamplevalue != NULL, \
+                MAGMA_OR(td->td_smaxsamplevalue != NULL, \
+                MAGMA_AND(td->td_transferfunction[0] != NULL, MAGMA_AND(v - td->td_extrasamples > 1, \
+                   !(td->td_samplesperpixel - td->td_extrasamples > 1))))));
+#endif
         }
 		td->td_samplesperpixel = (uint16_t) v;
 		break;

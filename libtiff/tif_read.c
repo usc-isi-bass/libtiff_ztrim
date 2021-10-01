@@ -484,7 +484,14 @@ static tmsize_t TIFFReadEncodedStripGetStripSize(TIFF* tif, uint32_t strip, uint
 	rowsperstrip=td->td_rowsperstrip;
 	if (rowsperstrip>td->td_imagelength)
 		rowsperstrip=td->td_imagelength;
+#ifdef MAGMA_ENABLE_FIXES
 	stripsperplane= TIFFhowmany_32_maxuint_compat(td->td_imagelength, rowsperstrip);
+#else
+    stripsperplane=((td->td_imagelength+rowsperstrip-1)/rowsperstrip);
+#endif
+#ifdef MAGMA_ENABLE_CANARIES
+    MAGMA_LOG("TIF003", stripsperplane == 0);
+#endif
 	stripinplane=(strip%stripsperplane);
 	if( pplane ) *pplane=(uint16_t)(strip / stripsperplane);
 	rows=td->td_imagelength-stripinplane*rowsperstrip;

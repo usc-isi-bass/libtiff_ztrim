@@ -2101,14 +2101,28 @@ TIFFWriteDirectoryTagTransferfunction(TIFF* tif, uint32_t* ndir, TIFFDirEntry* d
 		n=3;
 	if (n==3)
 	{
+#ifdef MAGMA_ENABLE_CANARIES
+		MAGMA_LOG("TIF009", tif->tif_dir.td_transferfunction[2] == NULL);
+#endif
+#ifdef MAGMA_ENABLE_FIXES
 		if (tif->tif_dir.td_transferfunction[2] == NULL ||
 		    !_TIFFmemcmp(tif->tif_dir.td_transferfunction[0],tif->tif_dir.td_transferfunction[2],m*sizeof(uint16_t)))
+#else
+		if (!_TIFFmemcmp(tif->tif_dir.td_transferfunction[0],tif->tif_dir.td_transferfunction[2],m*sizeof(uint16_t)))
+#endif
 			n=2;
 	}
 	if (n==2)
 	{
+#ifdef MAGMA_ENABLE_CANARIES
+		MAGMA_LOG("TIF009", tif->tif_dir.td_transferfunction[1] == NULL);
+#endif
+#ifdef MAGMA_ENABLE_FIXES
 		if (tif->tif_dir.td_transferfunction[1] == NULL ||
 		    !_TIFFmemcmp(tif->tif_dir.td_transferfunction[0],tif->tif_dir.td_transferfunction[1],m*sizeof(uint16_t)))
+#else
+		if (!_TIFFmemcmp(tif->tif_dir.td_transferfunction[0],tif->tif_dir.td_transferfunction[1],m*sizeof(uint16_t)))
+#endif
 			n=1;
 	}
 	if (n==0)

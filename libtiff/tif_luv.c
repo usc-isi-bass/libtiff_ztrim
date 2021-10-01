@@ -1566,7 +1566,9 @@ LogLuvClose(TIFF* tif)
 	 * before they have been recorded in the file, we reset them here.
          * Note: this is really a nasty approach. See PixarLogClose
 	 */
+#ifdef MAGMA_ENABLE_FIXES
         if( sp->encoder_state )
+#endif
         {
             /* See PixarLogClose. Might avoid issues with tags whose size depends
              * on those below, but not completely sure this is enough. */
@@ -1575,6 +1577,9 @@ LogLuvClose(TIFF* tif)
             td->td_bitspersample = 16;
             td->td_sampleformat = SAMPLEFORMAT_INT;
         }
+#ifdef MAGMA_ENABLE_CANARIES
+    MAGMA_LOG("TIF005", sp->encoder_state == 0);
+#endif
 }
 
 static void

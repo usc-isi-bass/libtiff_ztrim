@@ -106,12 +106,21 @@ static int JBIGDecode(TIFF* tif, uint8_t* buffer, tmsize_t size, uint16_t s)
 	}
 	else if( (tmsize_t)decodedSize > size )
 	{
+#ifdef MAGMA_ENABLE_FIXES
 	    TIFFErrorExt(tif->tif_clientdata, "JBIG",
 	                 "Decoded %lu bytes, whereas %"TIFF_SSIZE_FORMAT" were requested",
 	                 decodedSize, size);
 	    jbg_dec_free(&decoder);
 	    return 0;
+#else
+	    TIFFWarningExt(tif->tif_clientdata, "JBIG",
+	                 "Decoded %lu bytes, whereas %lu were requested",
+	                 decodedSize, (unsigned long)size);
+#endif
 	}
+#ifdef MAGMA_ENABLE_CANARIES
+	MAGMA_LOG("TIF013", (tmsize_t)decodedSize > size);
+#endif
 	pImage = jbg_dec_getimage(&decoder, 0);
 	_TIFFmemcpy(buffer, pImage, decodedSize);
 	jbg_dec_free(&decoder);

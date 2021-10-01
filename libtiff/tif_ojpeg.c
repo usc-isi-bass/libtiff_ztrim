@@ -790,6 +790,7 @@ OJPEGDecode(TIFF* tif, uint8_t* buf, tmsize_t cc, uint16_t s)
         static const char module[]="OJPEGDecode";
 	OJPEGState* sp=(OJPEGState*)tif->tif_data;
 	(void)s;
+#ifdef MAGMA_ENABLE_FIXES
         if( !sp->decoder_ok )
         {
             TIFFErrorExt(tif->tif_clientdata,module,"Cannot decode: decoder not correctly initialized");
@@ -799,6 +800,10 @@ OJPEGDecode(TIFF* tif, uint8_t* buf, tmsize_t cc, uint16_t s)
         {
             return 0;
         }
+#endif
+#ifdef MAGMA_ENABLE_CANARIES
+    MAGMA_LOG("TIF004", sp->decoder_ok == 0);
+#endif
 	if (sp->libjpeg_jpeg_query_style==0)
 	{
 		if (OJPEGDecodeRaw(tif,buf,cc)==0)

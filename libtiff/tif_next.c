@@ -122,15 +122,26 @@ NeXTDecode(TIFF* tif, uint8_t* buf, tmsize_t occ, uint16_t s)
 				 * bounds, potentially resulting in a security
 				 * issue.
 				 */
+#ifdef MAGMA_ENABLE_FIXES
 				while (n-- > 0 && npixels < imagewidth && op_offset < scanline)
+#else
+                while (n-- > 0 && npixels < imagewidth)
+#endif
+                {
+#ifdef MAGMA_ENABLE_CANARIES
+                    MAGMA_LOG("TIF008", op_offset >= scanline);
+#endif
 					SETPIXEL(op, grey);
+                }
 				if (npixels >= imagewidth)
 					break;
+#ifdef MAGMA_ENABLE_FIXES
                 if (op_offset >= scanline ) {
                     TIFFErrorExt(tif->tif_clientdata, module, "Invalid data for scanline %"PRIu32,
                         tif->tif_row);
                     return (0);
                 }
+#endif
 				if (cc == 0)
 					goto bad;
 				n = *bp++;

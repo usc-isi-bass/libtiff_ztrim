@@ -5879,7 +5879,11 @@ static void allocChoppedUpStripArrays(TIFF* tif, uint32_t nstrips,
         if (stripbytes > bytecount)
             stripbytes = bytecount;
         newcounts[i] = stripbytes;
+#ifdef MAGMA_ENABLE_FIXES
         newoffsets[i] = stripbytes ? offset : 0;
+#else
+        newoffsets[i] = offset;
+#endif
         offset += stripbytes;
         bytecount -= stripbytes;
     }
@@ -5954,12 +5958,22 @@ ChopUpSingleUncompressedStrip(TIFF* tif)
 	 */
 	if (rowsperstrip >= td->td_rowsperstrip)
 		return;
+#ifdef MAGMA_ENABLE_FIXES
         nstrips = TIFFhowmany_32(td->td_imagelength, rowsperstrip);
         if( nstrips == 0 )
             return;
-
+#else
+        uint64_t nstrips64 = TIFFhowmany_64(bytecount, stripbytes);
+        if ((nstrips64==0)||(nstrips64>0xFFFFFFFF)) /* something is wonky, do nothing. */
+            return;
+        nstrips = (uint32_t)nstrips64;
+#endif
+#ifdef MAGMA_ENABLE_CANARIES
+        MAGMA_LOG("TIF007", nstrips > TIFFhowmany_32(td->td_imagelength, rowsperstrip));
+#endif
         /* If we are going to allocate a lot of memory, make sure that the */
         /* file is as big as needed */
+#ifdef MAGMA_ENABLE_FIXES
         if( tif->tif_mode == O_RDONLY &&
             nstrips > 1000000 &&
             (offset >= TIFFGetFileSize(tif) ||
@@ -5967,6 +5981,13 @@ ChopUpSingleUncompressedStrip(TIFF* tif)
         {
             return;
         }
+#endif
+#ifdef MAGMA_ENABLE_CANARIES
+        MAGMA_LOG("TIF014", MAGMA_AND(tif->tif_mode == O_RDONLY, \
+	        MAGMA_AND(nstrips > 1000000, \
+	        MAGMA_OR(offset >= TIFFGetFileSize(tif), \
+	         stripbytes * (nstrips - 1) > (TIFFGetFileSize(tif) - offset)))));
+#endif
 
         allocChoppedUpStripArrays(tif, nstrips, stripbytes, rowsperstrip);
 }

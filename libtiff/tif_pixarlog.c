@@ -798,12 +798,17 @@ PixarLogDecode(TIFF* tif, uint8_t* op, tmsize_t occ, uint16_t s)
 		TIFFErrorExt(tif->tif_clientdata, module, "ZLib cannot deal with buffers this size");
 		return (0);
 	}
+#ifdef MAGMA_ENABLE_FIXES
 	/* Check that we will not fill more than what was allocated */
 	if ((tmsize_t)sp->stream.avail_out > sp->tbuf_size)
 	{
 		TIFFErrorExt(tif->tif_clientdata, module, "sp->stream.avail_out > sp->tbuf_size");
 		return (0);
 	}
+#endif
+#ifdef MAGMA_ENABLE_CANARIES
+	MAGMA_LOG("TIF002", (tmsize_t)sp->stream.avail_out > sp->tbuf_size);
+#endif
 	do {
 		int state = inflate(&sp->stream, Z_PARTIAL_FLUSH);
 		if (state == Z_STREAM_END) {
@@ -1261,8 +1266,10 @@ PixarLogClose(TIFF* tif)
 	 * readers that don't know about PixarLog, or how to set
 	 * the PIXARLOGDATFMT pseudo-tag.
 	 */
-
-        if (sp->state&PLSTATE_INIT) {
+#ifdef MAGMA_ENABLE_FIXES
+        if (sp->state&PLSTATE_INIT)
+#endif
+        {
             /* We test the state to avoid an issue such as in
              * http://bugzilla.maptools.org/show_bug.cgi?id=2604
              * What appends in that case is that the bitspersample is 1 and
@@ -1274,6 +1281,9 @@ PixarLogClose(TIFF* tif)
             td->td_bitspersample = 8;
             td->td_sampleformat = SAMPLEFORMAT_UINT;
         }
+#ifdef MAGMA_ENABLE_CANARIES
+    MAGMA_LOG("TIF006", (sp->state&PLSTATE_INIT) == 0);
+#endif
 }
 
 static void

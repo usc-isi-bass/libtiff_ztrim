@@ -749,9 +749,16 @@ LZWDecodeCompat(TIFF* tif, uint8_t* op0, tmsize_t occ0, uint16_t s)
 			len = codep->length;
 			tp = op + len;
 			do {
+#ifdef MAGMA_ENABLE_CANARIES
+				MAGMA_LOG("TIF010", tp <= op); // or use == instead of <= so the bug is reported once only
+#endif
 				*--tp = codep->value;
 				codep = codep->next;
+#ifdef MAGMA_ENABLE_FIXES
 			} while (codep && tp > op);
+#else
+			} while (codep);
+#endif
 			assert(occ >= len);
 			op += len;
 			occ -= len;
