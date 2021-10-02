@@ -470,6 +470,7 @@ ztrim_fInstrument(62);
  */
 static tmsize_t TIFFReadEncodedStripGetStripSize(TIFF* tif, uint32_t strip, uint16_t* pplane)
 {
+    ztrim_fInstrument(0);
 	static const char module[] = "TIFFReadEncodedStrip";
 	TIFFDirectory *td = &tif->tif_dir;
 	uint32_t rowsperstrip;
