@@ -62,23 +62,27 @@ setByteArray(void** vpp, void* vp, size_t nmemb, size_t elem_size)
 void _TIFFsetByteArray(void** vpp, void* vp, uint32_t n)
     { setByteArray(vpp, vp, n, 1); }
 void _TIFFsetString(char** cpp, char* cp)
-    { setByteArray((void**) cpp, (void*) cp, strlen(cp)+1, 1); }
+    { 
 ztrim_fInstrument(1);
+        setByteArray((void**) cpp, (void*) cp, strlen(cp)+1, 1); }
 static void _TIFFsetNString(char** cpp, char* cp, uint32_t n)
     { setByteArray((void**) cpp, (void*) cp, n, 1); }
 void _TIFFsetShortArray(uint16_t** wpp, uint16_t* wp, uint32_t n)
     { setByteArray((void**) wpp, (void*) wp, n, sizeof (uint16_t)); }
 void _TIFFsetLongArray(uint32_t** lpp, uint32_t* lp, uint32_t n)
-    { setByteArray((void**) lpp, (void*) lp, n, sizeof (uint32_t)); }
+    { 
 ztrim_fInstrument(2);
+        setByteArray((void**) lpp, (void*) lp, n, sizeof (uint32_t)); }
 static void _TIFFsetLong8Array(uint64_t** lpp, uint64_t* lp, uint32_t n)
     { setByteArray((void**) lpp, (void*) lp, n, sizeof (uint64_t)); }
 void _TIFFsetFloatArray(float** fpp, float* fp, uint32_t n)
-    { setByteArray((void**) fpp, (void*) fp, n, sizeof (float)); }
+    { 
 ztrim_fInstrument(3);
+        setByteArray((void**) fpp, (void*) fp, n, sizeof (float)); }
 void _TIFFsetDoubleArray(double** dpp, double* dp, uint32_t n)
-    { setByteArray((void**) dpp, (void*) dp, n, sizeof (double)); }
+    { 
 ztrim_fInstrument(4);
+        setByteArray((void**) dpp, (void*) dp, n, sizeof (double)); }
 
 static void
 setDoubleArrayOneValue(double** vpp, double value, size_t nmemb)

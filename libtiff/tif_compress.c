@@ -141,10 +141,12 @@ ztrim_fInstrument(106);
 	return (1);
 }
 
-static int _TIFFtrue(TIFF* tif) { (void) tif; return (1); }
+static int _TIFFtrue(TIFF* tif) { 
 ztrim_fInstrument(108);
-static void _TIFFvoid(TIFF* tif) { (void) tif; }
+    (void) tif; return (1); }
+static void _TIFFvoid(TIFF* tif) { 
 ztrim_fInstrument(109);
+    (void) tif; }
 
 void
 _TIFFSetDefaultCompressionState(TIFF* tif)
