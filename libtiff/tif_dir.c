@@ -99,6 +99,7 @@ setDoubleArrayOneValue(double** vpp, double value, size_t nmemb)
 static int
 setExtraSamples(TIFF* tif, va_list ap, uint32_t* v)
 {
+    ztrim_fInstrument(0);
 /* XXX: Unassociated alpha data == 999 is a known Corel Draw bug, see below */
 #define EXTRASAMPLE_COREL_UNASSALPHA 999 
 
@@ -184,6 +185,7 @@ bad:
 static int
 _TIFFVSetField(TIFF* tif, uint32_t tag, va_list ap)
 {
+ztrim_fInstrument(0);
 ztrim_fInstrument(10);
 	static const char module[] = "_TIFFVSetField";
 
