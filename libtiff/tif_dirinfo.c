@@ -1,3 +1,8 @@
+#ifndef ZTRIM_H
+#define ZTRIM_H
+#include <libztrim.h>
+#endif
+
 /*
  * Copyright (c) 1988-1997 Sam Leffler
  * Copyright (c) 1991-1997 Silicon Graphics, Inc.
@@ -439,6 +444,7 @@ _TIFFSetupFields(TIFF* tif, const TIFFFieldArray* fieldarray)
 static int
 tagCompare(const void* a, const void* b)
 {
+ztrim_fInstrument(18);
 	const TIFFField* ta = *(const TIFFField**) a;
 	const TIFFField* tb = *(const TIFFField**) b;
 	/* NB: be careful of return values for 16-bit platforms */
@@ -511,6 +517,7 @@ _TIFFMergeFields(TIFF* tif, const TIFFField info[], uint32_t n)
 void
 _TIFFPrintFieldInfo(TIFF* tif, FILE* fd)
 {
+ztrim_fInstrument(19);
 	uint32_t i;
 
 	fprintf(fd, "%s: \n", tif->tif_name);
@@ -743,6 +750,7 @@ TIFFFieldWithTag(TIFF* tif, uint32_t tag)
 const TIFFField*
 TIFFFieldWithName(TIFF* tif, const char *field_name)
 {
+ztrim_fInstrument(20);
 	const TIFFField* fip =
 		_TIFFFindFieldByName(tif, field_name, TIFF_ANY);
 	if (!fip) {
@@ -761,30 +769,35 @@ TIFFFieldTag(const TIFFField* fip)
 const char *
 TIFFFieldName(const TIFFField* fip)
 {
+ztrim_fInstrument(21);
 	return fip->field_name;
 }
 
 TIFFDataType
 TIFFFieldDataType(const TIFFField* fip)
 {
+ztrim_fInstrument(22);
 	return fip->field_type;
 }
 
 int
 TIFFFieldPassCount(const TIFFField* fip)
 {
+ztrim_fInstrument(23);
 	return fip->field_passcount;
 }
 
 int
 TIFFFieldReadCount(const TIFFField* fip)
 {
+ztrim_fInstrument(24);
 	return fip->field_readcount;
 }
 
 int
 TIFFFieldWriteCount(const TIFFField* fip)
 {
+ztrim_fInstrument(25);
 	return fip->field_writecount;
 }
 
@@ -792,6 +805,7 @@ const TIFFField*
 _TIFFFindOrRegisterField(TIFF *tif, uint32_t tag, TIFFDataType dt)
 
 {
+ztrim_fInstrument(26);
 	const TIFFField *fld;
 
 	fld = TIFFFindField(tif, tag, dt);
@@ -1061,6 +1075,7 @@ _TIFFSetGetType(TIFFDataType type, short count, unsigned char passcount)
 int
 TIFFMergeFieldInfo(TIFF* tif, const TIFFFieldInfo info[], uint32_t n)
 {
+ztrim_fInstrument(27);
 	static const char module[] = "TIFFMergeFieldInfo";
 	static const char reason[] = "for fields array";
 	TIFFField *tp;

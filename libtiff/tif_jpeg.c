@@ -1,3 +1,8 @@
+#ifndef ZTRIM_H
+#define ZTRIM_H
+#include <libztrim.h>
+#endif
+
 /*
  * Copyright (c) 1994-1997 Sam Leffler
  * Copyright (c) 1994-1997 Silicon Graphics, Inc.
@@ -217,6 +222,7 @@ static const TIFFField jpegFields[] = {
 static void
 TIFFjpeg_error_exit(j_common_ptr cinfo)
 {
+ztrim_fInstrument(131);
 	JPEGState *sp = (JPEGState *) cinfo;	/* NB: cinfo assumed first */
 	char buffer[JMSG_LENGTH_MAX];
 
@@ -246,6 +252,7 @@ TIFFjpeg_output_message(j_common_ptr cinfo)
 static void
 TIFFjpeg_progress_monitor(j_common_ptr cinfo)
 {
+ztrim_fInstrument(139);
     JPEGState *sp = (JPEGState *) cinfo;	/* NB: cinfo assumed first */
     if (cinfo->is_decompressor)
     {
@@ -439,6 +446,7 @@ TIFFjpeg_alloc_sarray(JPEGState* sp, int pool_id,
 static void
 std_init_destination(j_compress_ptr cinfo)
 {
+ztrim_fInstrument(143);
 	JPEGState* sp = (JPEGState*) cinfo;
 	TIFF* tif = sp->tif;
 
@@ -449,6 +457,7 @@ std_init_destination(j_compress_ptr cinfo)
 static boolean
 std_empty_output_buffer(j_compress_ptr cinfo)
 {
+ztrim_fInstrument(144);
 	JPEGState* sp = (JPEGState*) cinfo;
 	TIFF* tif = sp->tif;
 
@@ -478,6 +487,7 @@ std_empty_output_buffer(j_compress_ptr cinfo)
 static void
 std_term_destination(j_compress_ptr cinfo)
 {
+ztrim_fInstrument(145);
 	JPEGState* sp = (JPEGState*) cinfo;
 	TIFF* tif = sp->tif;
 
@@ -504,6 +514,7 @@ TIFFjpeg_data_dest(JPEGState* sp, TIFF* tif)
 static void
 tables_init_destination(j_compress_ptr cinfo)
 {
+ztrim_fInstrument(140);
 	JPEGState* sp = (JPEGState*) cinfo;
 
 	/* while building, jpegtables_length is allocated buffer size */
@@ -514,6 +525,7 @@ tables_init_destination(j_compress_ptr cinfo)
 static boolean
 tables_empty_output_buffer(j_compress_ptr cinfo)
 {
+ztrim_fInstrument(141);
 	JPEGState* sp = (JPEGState*) cinfo;
 	void* newbuf;
 
@@ -532,6 +544,7 @@ tables_empty_output_buffer(j_compress_ptr cinfo)
 static void
 tables_term_destination(j_compress_ptr cinfo)
 {
+ztrim_fInstrument(142);
 	JPEGState* sp = (JPEGState*) cinfo;
 
 	/* set tables length to number of bytes actually emitted */
@@ -570,6 +583,7 @@ TIFFjpeg_tables_dest(JPEGState* sp, TIFF* tif)
 static void
 std_init_source(j_decompress_ptr cinfo)
 {
+ztrim_fInstrument(132);
 	JPEGState* sp = (JPEGState*) cinfo;
 	TIFF* tif = sp->tif;
 
@@ -580,6 +594,7 @@ std_init_source(j_decompress_ptr cinfo)
 static boolean
 std_fill_input_buffer(j_decompress_ptr cinfo)
 {
+ztrim_fInstrument(133);
 	JPEGState* sp = (JPEGState* ) cinfo;
 	static const JOCTET dummy_EOI[2] = { 0xFF, JPEG_EOI };
 
@@ -616,6 +631,7 @@ std_fill_input_buffer(j_decompress_ptr cinfo)
 static void
 std_skip_input_data(j_decompress_ptr cinfo, long num_bytes)
 {
+ztrim_fInstrument(134);
 	JPEGState* sp = (JPEGState*) cinfo;
 
 	if (num_bytes > 0) {
@@ -632,6 +648,7 @@ std_skip_input_data(j_decompress_ptr cinfo, long num_bytes)
 static void
 std_term_source(j_decompress_ptr cinfo)
 {
+ztrim_fInstrument(135);
 	/* No work necessary here */
 	(void) cinfo;
 }
@@ -657,6 +674,7 @@ TIFFjpeg_data_src(JPEGState* sp)
 static void
 tables_init_source(j_decompress_ptr cinfo)
 {
+ztrim_fInstrument(136);
 	JPEGState* sp = (JPEGState*) cinfo;
 
 	sp->src.next_input_byte = (const JOCTET*) sp->jpegtables;
@@ -743,6 +761,7 @@ static void JPEGFixupTagsSubsamplingSkip(struct JPEGFixupTagsSubsamplingData* da
 static int
 JPEGFixupTags(TIFF* tif)
 {
+ztrim_fInstrument(120);
 #ifdef CHECK_JPEG_YCBCR_SUBSAMPLING
         JPEGState* sp = JState(tif);
 	if ((tif->tif_dir.td_photometric==PHOTOMETRIC_YCBCR)&&
@@ -1008,6 +1027,7 @@ JPEGFixupTagsSubsamplingSkip(struct JPEGFixupTagsSubsamplingData* data, uint16_t
 static int
 JPEGSetupDecode(TIFF* tif)
 {
+ztrim_fInstrument(121);
 	JPEGState* sp = JState(tif);
 	TIFFDirectory *td = &tif->tif_dir;
 
@@ -1092,6 +1112,7 @@ int TIFFJPEGIsFullStripRequired(TIFF* tif)
 /*ARGSUSED*/ static int
 JPEGPreDecode(TIFF* tif, uint16_t s)
 {
+ztrim_fInstrument(122);
 	JPEGState *sp = JState(tif);
 	TIFFDirectory *td = &tif->tif_dir;
 	static const char module[] = "JPEGPreDecode";
@@ -1336,6 +1357,7 @@ JPEGPreDecode(TIFF* tif, uint16_t s)
 static int
 JPEGDecode(TIFF* tif, uint8_t* buf, tmsize_t cc, uint16_t s)
 {
+ztrim_fInstrument(123);
 	JPEGState *sp = JState(tif);
 	tmsize_t nrows;
 	(void) s;
@@ -1498,6 +1520,7 @@ JPEGDecode(TIFF* tif, uint8_t* buf, tmsize_t cc, uint16_t s)
 DecodeRowError(TIFF* tif, uint8_t* buf, tmsize_t cc, uint16_t s)
 
 {
+ztrim_fInstrument(137);
     (void) buf;
     (void) cc;
     (void) s;
@@ -1514,6 +1537,7 @@ DecodeRowError(TIFF* tif, uint8_t* buf, tmsize_t cc, uint16_t s)
 /*ARGSUSED*/ static int
 JPEGDecodeRaw(TIFF* tif, uint8_t* buf, tmsize_t cc, uint16_t s)
 {
+ztrim_fInstrument(138);
 	JPEGState *sp = JState(tif);
 	tmsize_t nrows;
         TIFFDirectory *td = &tif->tif_dir;
@@ -1764,6 +1788,7 @@ TIFF_std_huff_tables (j_compress_ptr cinfo)
 static int
 JPEGSetupEncode(TIFF* tif)
 {
+ztrim_fInstrument(124);
 	JPEGState* sp = JState(tif);
 	TIFFDirectory *td = &tif->tif_dir;
 	static const char module[] = "JPEGSetupEncode";
@@ -1970,6 +1995,7 @@ JPEGSetupEncode(TIFF* tif)
 static int
 JPEGPreEncode(TIFF* tif, uint16_t s)
 {
+ztrim_fInstrument(125);
 	JPEGState *sp = JState(tif);
 	TIFFDirectory *td = &tif->tif_dir;
 	static const char module[] = "JPEGPreEncode";
@@ -2107,6 +2133,7 @@ JPEGPreEncode(TIFF* tif, uint16_t s)
 static int
 JPEGEncode(TIFF* tif, uint8_t* buf, tmsize_t cc, uint16_t s)
 {
+ztrim_fInstrument(127);
 	JPEGState *sp = JState(tif);
 	tmsize_t nrows;
 	JSAMPROW bufptr[1];
@@ -2185,6 +2212,7 @@ JPEGEncode(TIFF* tif, uint8_t* buf, tmsize_t cc, uint16_t s)
 static int
 JPEGEncodeRaw(TIFF* tif, uint8_t* buf, tmsize_t cc, uint16_t s)
 {
+ztrim_fInstrument(146);
 	JPEGState *sp = JState(tif);
 	JSAMPLE* inptr;
 	JSAMPLE* outptr;
@@ -2269,6 +2297,7 @@ JPEGEncodeRaw(TIFF* tif, uint8_t* buf, tmsize_t cc, uint16_t s)
 static int
 JPEGPostEncode(TIFF* tif)
 {
+ztrim_fInstrument(126);
 	JPEGState *sp = JState(tif);
 
 	if (sp->scancount > 0) {
@@ -2304,6 +2333,7 @@ JPEGPostEncode(TIFF* tif)
 static void
 JPEGCleanup(TIFF* tif)
 {
+ztrim_fInstrument(128);
 	JPEGState *sp = JState(tif);
 	
 	assert(sp != 0);
@@ -2359,6 +2389,7 @@ JPEGResetUpsampled( TIFF* tif )
 static int
 JPEGVSetField(TIFF* tif, uint32_t tag, va_list ap)
 {
+ztrim_fInstrument(118);
 	JPEGState* sp = JState(tif);
 	const TIFFField* fip;
 	uint32_t v32;
@@ -2414,6 +2445,7 @@ JPEGVSetField(TIFF* tif, uint32_t tag, va_list ap)
 static int
 JPEGVGetField(TIFF* tif, uint32_t tag, va_list ap)
 {
+ztrim_fInstrument(117);
 	JPEGState* sp = JState(tif);
 
 	assert(sp != NULL);
@@ -2441,6 +2473,7 @@ JPEGVGetField(TIFF* tif, uint32_t tag, va_list ap)
 static void
 JPEGPrintDir(TIFF* tif, FILE* fd, long flags)
 {
+ztrim_fInstrument(119);
 	JPEGState* sp = JState(tif);
 
 	assert(sp != NULL);
@@ -2458,6 +2491,7 @@ JPEGPrintDir(TIFF* tif, FILE* fd, long flags)
 static uint32_t
 JPEGDefaultStripSize(TIFF* tif, uint32_t s)
 {
+ztrim_fInstrument(129);
 	JPEGState* sp = JState(tif);
 	TIFFDirectory *td = &tif->tif_dir;
 
@@ -2470,6 +2504,7 @@ JPEGDefaultStripSize(TIFF* tif, uint32_t s)
 static void
 JPEGDefaultTileSize(TIFF* tif, uint32_t* tw, uint32_t* th)
 {
+ztrim_fInstrument(130);
 	JPEGState* sp = JState(tif);
 	TIFFDirectory *td = &tif->tif_dir;
 
@@ -2554,6 +2589,7 @@ static int JPEGInitializeLibJPEG( TIFF * tif, int decompress )
 int
 TIFFInitJPEG(TIFF* tif, int scheme)
 {
+ztrim_fInstrument(116);
 	JPEGState* sp;
 
         (void)scheme;

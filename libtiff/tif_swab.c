@@ -1,3 +1,8 @@
+#ifndef ZTRIM_H
+#define ZTRIM_H
+#include <libztrim.h>
+#endif
+
 /*
  * Copyright (c) 1988-1997 Sam Leffler
  * Copyright (c) 1991-1997 Silicon Graphics, Inc.
@@ -138,6 +143,7 @@ TIFFSwabArrayOfLong8(register uint64_t* lp, tmsize_t n)
 void
 TIFFSwabFloat(float* fp)
 {
+ztrim_fInstrument(76);
 	register unsigned char* cp = (unsigned char*) fp;
 	unsigned char t;
 	assert(sizeof(float)==4);
@@ -167,6 +173,7 @@ TIFFSwabArrayOfFloat(register float* fp, tmsize_t n)
 void
 TIFFSwabDouble(double *dp)
 {
+ztrim_fInstrument(77);
 	register unsigned char* cp = (unsigned char*) dp;
 	unsigned char t;
 	assert(sizeof(double)==8);

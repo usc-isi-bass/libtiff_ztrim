@@ -1,3 +1,8 @@
+#ifndef ZTRIM_H
+#define ZTRIM_H
+#include <libztrim.h>
+#endif
+
 /*
  * Copyright (c) 1988-1997 Sam Leffler
  * Copyright (c) 1991-1997 Silicon Graphics, Inc.
@@ -33,6 +38,7 @@
 static int
 _tiffDummyMapProc(thandle_t fd, void** pbase, toff_t* psize)
 {
+ztrim_fInstrument(38);
 	(void) fd; (void) pbase; (void) psize;
 	return (0);
 }
@@ -40,6 +46,7 @@ _tiffDummyMapProc(thandle_t fd, void** pbase, toff_t* psize)
 static void
 _tiffDummyUnmapProc(thandle_t fd, void* base, toff_t size)
 {
+ztrim_fInstrument(39);
 	(void) fd; (void) base; (void) size;
 }
 
@@ -522,6 +529,7 @@ TIFFFileName(TIFF* tif)
 const char *
 TIFFSetFileName(TIFF* tif, const char *name)
 {
+ztrim_fInstrument(40);
 	const char* old_name = tif->tif_name;
 	tif->tif_name = (char *)name;
 	return (old_name);
@@ -533,6 +541,7 @@ TIFFSetFileName(TIFF* tif, const char *name)
 int
 TIFFFileno(TIFF* tif)
 {
+ztrim_fInstrument(41);
 	return (tif->tif_fd);
 }
 
@@ -542,6 +551,7 @@ TIFFFileno(TIFF* tif)
 int
 TIFFSetFileno(TIFF* tif, int fd)
 {
+ztrim_fInstrument(42);
         int old_fd = tif->tif_fd;
 	tif->tif_fd = fd;
 	return old_fd;
@@ -553,6 +563,7 @@ TIFFSetFileno(TIFF* tif, int fd)
 thandle_t
 TIFFClientdata(TIFF* tif)
 {
+ztrim_fInstrument(43);
 	return (tif->tif_clientdata);
 }
 
@@ -562,6 +573,7 @@ TIFFClientdata(TIFF* tif)
 thandle_t
 TIFFSetClientdata(TIFF* tif, thandle_t newvalue)
 {
+ztrim_fInstrument(44);
 	thandle_t m = tif->tif_clientdata;
 	tif->tif_clientdata = newvalue;
 	return m;
@@ -573,6 +585,7 @@ TIFFSetClientdata(TIFF* tif, thandle_t newvalue)
 int
 TIFFGetMode(TIFF* tif)
 {
+ztrim_fInstrument(45);
 	return (tif->tif_mode);
 }
 
@@ -582,6 +595,7 @@ TIFFGetMode(TIFF* tif)
 int
 TIFFSetMode(TIFF* tif, int mode)
 {
+ztrim_fInstrument(46);
 	int old_mode = tif->tif_mode;
 	tif->tif_mode = mode;
 	return (old_mode);
@@ -603,6 +617,7 @@ TIFFIsTiled(TIFF* tif)
 uint32_t
 TIFFCurrentRow(TIFF* tif)
 {
+ztrim_fInstrument(47);
 	return (tif->tif_row);
 }
 
@@ -612,6 +627,7 @@ TIFFCurrentRow(TIFF* tif)
 uint16_t
 TIFFCurrentDirectory(TIFF* tif)
 {
+ztrim_fInstrument(48);
 	return (tif->tif_curdir);
 }
 
@@ -621,6 +637,7 @@ TIFFCurrentDirectory(TIFF* tif)
 uint32_t
 TIFFCurrentStrip(TIFF* tif)
 {
+ztrim_fInstrument(49);
 	return (tif->tif_curstrip);
 }
 
@@ -630,6 +647,7 @@ TIFFCurrentStrip(TIFF* tif)
 uint32_t
 TIFFCurrentTile(TIFF* tif)
 {
+ztrim_fInstrument(50);
 	return (tif->tif_curtile);
 }
 
@@ -639,6 +657,7 @@ TIFFCurrentTile(TIFF* tif)
 int
 TIFFIsByteSwapped(TIFF* tif)
 {
+ztrim_fInstrument(51);
 	return ((tif->tif_flags & TIFF_SWAB) != 0);
 }
 
@@ -648,6 +667,7 @@ TIFFIsByteSwapped(TIFF* tif)
 int
 TIFFIsUpSampled(TIFF* tif)
 {
+ztrim_fInstrument(52);
 	return (isUpSampled(tif));
 }
 
@@ -657,6 +677,7 @@ TIFFIsUpSampled(TIFF* tif)
 int
 TIFFIsMSB2LSB(TIFF* tif)
 {
+ztrim_fInstrument(53);
 	return (isFillOrder(tif, FILLORDER_MSB2LSB));
 }
 
@@ -666,6 +687,7 @@ TIFFIsMSB2LSB(TIFF* tif)
 int
 TIFFIsBigEndian(TIFF* tif)
 {
+ztrim_fInstrument(54);
 	return (tif->tif_header.common.tiff_magic == TIFF_BIGENDIAN);
 }
 
@@ -675,6 +697,7 @@ TIFFIsBigEndian(TIFF* tif)
 TIFFReadWriteProc
 TIFFGetReadProc(TIFF* tif)
 {
+ztrim_fInstrument(55);
 	return (tif->tif_readproc);
 }
 
@@ -684,6 +707,7 @@ TIFFGetReadProc(TIFF* tif)
 TIFFReadWriteProc
 TIFFGetWriteProc(TIFF* tif)
 {
+ztrim_fInstrument(56);
 	return (tif->tif_writeproc);
 }
 
@@ -693,6 +717,7 @@ TIFFGetWriteProc(TIFF* tif)
 TIFFSeekProc
 TIFFGetSeekProc(TIFF* tif)
 {
+ztrim_fInstrument(57);
 	return (tif->tif_seekproc);
 }
 
@@ -702,6 +727,7 @@ TIFFGetSeekProc(TIFF* tif)
 TIFFCloseProc
 TIFFGetCloseProc(TIFF* tif)
 {
+ztrim_fInstrument(58);
 	return (tif->tif_closeproc);
 }
 
@@ -711,6 +737,7 @@ TIFFGetCloseProc(TIFF* tif)
 TIFFSizeProc
 TIFFGetSizeProc(TIFF* tif)
 {
+ztrim_fInstrument(59);
 	return (tif->tif_sizeproc);
 }
 
@@ -720,6 +747,7 @@ TIFFGetSizeProc(TIFF* tif)
 TIFFMapFileProc
 TIFFGetMapFileProc(TIFF* tif)
 {
+ztrim_fInstrument(60);
 	return (tif->tif_mapproc);
 }
 
@@ -729,6 +757,7 @@ TIFFGetMapFileProc(TIFF* tif)
 TIFFUnmapFileProc
 TIFFGetUnmapFileProc(TIFF* tif)
 {
+ztrim_fInstrument(61);
 	return (tif->tif_unmapproc);
 }
 

@@ -1,3 +1,8 @@
+#ifndef ZTRIM_H
+#define ZTRIM_H
+#include <libztrim.h>
+#endif
+
 /*
  * Copyright (c) 1988-1997 Sam Leffler
  * Copyright (c) 1991-1997 Silicon Graphics, Inc.
@@ -193,6 +198,7 @@ static int TIFFLinkDirectory(TIFF*);
 int
 TIFFWriteDirectory(TIFF* tif)
 {
+ztrim_fInstrument(112);
 	return TIFFWriteDirectorySec(tif,TRUE,TRUE,NULL);
 }
 
@@ -223,6 +229,7 @@ TIFFWriteDirectory(TIFF* tif)
  */
 int TIFFDeferStrileArrayWriting(TIFF* tif)
 {
+ztrim_fInstrument(113);
     static const char module[] = "TIFFDeferStrileArrayWriting";
     if (tif->tif_mode == O_RDONLY)
     {
@@ -250,6 +257,7 @@ int TIFFDeferStrileArrayWriting(TIFF* tif)
 int
 TIFFCheckpointDirectory(TIFF* tif)
 {
+ztrim_fInstrument(114);
 	int rc;
 	/* Setup the strips arrays, if they haven't already been. */
 	if (tif->tif_dir.td_stripoffset_p == NULL)
@@ -262,6 +270,7 @@ TIFFCheckpointDirectory(TIFF* tif)
 int
 TIFFWriteCustomDirectory(TIFF* tif, uint64_t* pdiroff)
 {
+ztrim_fInstrument(115);
 	return TIFFWriteDirectorySec(tif,FALSE,FALSE,pdiroff);
 }
 

@@ -1,3 +1,8 @@
+#ifndef ZTRIM_H
+#define ZTRIM_H
+#include <libztrim.h>
+#endif
+
 /*
  * Copyright (c) 1997 Greg Ward Larson
  * Copyright (c) 1997 Silicon Graphics, Inc.
@@ -182,6 +187,7 @@ struct logLuvState {
 static int
 LogL16Decode(TIFF* tif, uint8_t* op, tmsize_t occ, uint16_t s)
 {
+ztrim_fInstrument(197);
 	static const char module[] = "LogL16Decode";
 	LogLuvState* sp = DecoderState(tif);
 	int shft;
@@ -252,6 +258,7 @@ LogL16Decode(TIFF* tif, uint8_t* op, tmsize_t occ, uint16_t s)
 static int
 LogLuvDecode24(TIFF* tif, uint8_t* op, tmsize_t occ, uint16_t s)
 {
+ztrim_fInstrument(189);
 	static const char module[] = "LogLuvDecode24";
 	LogLuvState* sp = DecoderState(tif);
 	tmsize_t cc;
@@ -303,6 +310,7 @@ LogLuvDecode24(TIFF* tif, uint8_t* op, tmsize_t occ, uint16_t s)
 static int
 LogLuvDecode32(TIFF* tif, uint8_t* op, tmsize_t occ, uint16_t s)
 {
+ztrim_fInstrument(193);
 	static const char module[] = "LogLuvDecode32";
 	LogLuvState* sp;
 	int shft;
@@ -376,6 +384,7 @@ LogLuvDecode32(TIFF* tif, uint8_t* op, tmsize_t occ, uint16_t s)
 static int
 LogLuvDecodeStrip(TIFF* tif, uint8_t* bp, tmsize_t cc, uint16_t s)
 {
+ztrim_fInstrument(180);
 	tmsize_t rowlen = TIFFScanlineSize(tif);
 
         if (rowlen == 0)
@@ -397,6 +406,7 @@ LogLuvDecodeStrip(TIFF* tif, uint8_t* bp, tmsize_t cc, uint16_t s)
 static int
 LogLuvDecodeTile(TIFF* tif, uint8_t* bp, tmsize_t cc, uint16_t s)
 {
+ztrim_fInstrument(181);
 	tmsize_t rowlen = TIFFTileRowSize(tif);
 
         if (rowlen == 0)
@@ -416,6 +426,7 @@ LogLuvDecodeTile(TIFF* tif, uint8_t* bp, tmsize_t cc, uint16_t s)
 static int
 LogL16Encode(TIFF* tif, uint8_t* bp, tmsize_t cc, uint16_t s)
 {
+ztrim_fInstrument(206);
 	static const char module[] = "LogL16Encode";
 	LogLuvState* sp = EncoderState(tif);
 	int shft;
@@ -516,6 +527,7 @@ LogL16Encode(TIFF* tif, uint8_t* bp, tmsize_t cc, uint16_t s)
 static int
 LogLuvEncode24(TIFF* tif, uint8_t* bp, tmsize_t cc, uint16_t s)
 {
+ztrim_fInstrument(200);
 	static const char module[] = "LogLuvEncode24";
 	LogLuvState* sp = EncoderState(tif);
 	tmsize_t i;
@@ -569,6 +581,7 @@ LogLuvEncode24(TIFF* tif, uint8_t* bp, tmsize_t cc, uint16_t s)
 static int
 LogLuvEncode32(TIFF* tif, uint8_t* bp, tmsize_t cc, uint16_t s)
 {
+ztrim_fInstrument(203);
 	static const char module[] = "LogLuvEncode32";
 	LogLuvState* sp = EncoderState(tif);
 	int shft;
@@ -671,6 +684,7 @@ LogLuvEncode32(TIFF* tif, uint8_t* bp, tmsize_t cc, uint16_t s)
 static int
 LogLuvEncodeStrip(TIFF* tif, uint8_t* bp, tmsize_t cc, uint16_t s)
 {
+ztrim_fInstrument(183);
 	tmsize_t rowlen = TIFFScanlineSize(tif);
 
         if (rowlen == 0)
@@ -691,6 +705,7 @@ LogLuvEncodeStrip(TIFF* tif, uint8_t* bp, tmsize_t cc, uint16_t s)
 static int
 LogLuvEncodeTile(TIFF* tif, uint8_t* bp, tmsize_t cc, uint16_t s)
 {
+ztrim_fInstrument(184);
 	tmsize_t rowlen = TIFFTileRowSize(tif);
 
         if (rowlen == 0)
@@ -771,6 +786,7 @@ LogL16fromY(double Y, int em)	/* get 16-bit LogL from Y */
 static void
 L16toY(LogLuvState* sp, uint8_t* op, tmsize_t n)
 {
+ztrim_fInstrument(198);
 	int16_t* l16 = (int16_t*) sp->tbuf;
 	float* yp = (float*) op;
 
@@ -781,6 +797,7 @@ L16toY(LogLuvState* sp, uint8_t* op, tmsize_t n)
 static void
 L16toGry(LogLuvState* sp, uint8_t* op, tmsize_t n)
 {
+ztrim_fInstrument(199);
 	int16_t* l16 = (int16_t*) sp->tbuf;
 	uint8_t* gp = (uint8_t*) op;
 
@@ -793,6 +810,7 @@ L16toGry(LogLuvState* sp, uint8_t* op, tmsize_t n)
 static void
 L16fromY(LogLuvState* sp, uint8_t* op, tmsize_t n)
 {
+ztrim_fInstrument(207);
 	int16_t* l16 = (int16_t*) sp->tbuf;
 	float* yp = (float*) op;
 
@@ -1011,6 +1029,7 @@ LogLuv24fromXYZ(float XYZ[3], int em)
 static void
 Luv24toXYZ(LogLuvState* sp, uint8_t* op, tmsize_t n)
 {
+ztrim_fInstrument(190);
 	uint32_t* luv = (uint32_t*) sp->tbuf;
 	float* xyz = (float*) op;
 
@@ -1024,6 +1043,7 @@ Luv24toXYZ(LogLuvState* sp, uint8_t* op, tmsize_t n)
 static void
 Luv24toLuv48(LogLuvState* sp, uint8_t* op, tmsize_t n)
 {
+ztrim_fInstrument(191);
 	uint32_t* luv = (uint32_t*) sp->tbuf;
 	int16_t* luv3 = (int16_t*) op;
 
@@ -1044,6 +1064,7 @@ Luv24toLuv48(LogLuvState* sp, uint8_t* op, tmsize_t n)
 static void
 Luv24toRGB(LogLuvState* sp, uint8_t* op, tmsize_t n)
 {
+ztrim_fInstrument(192);
 	uint32_t* luv = (uint32_t*) sp->tbuf;
 	uint8_t* rgb = (uint8_t*) op;
 
@@ -1059,6 +1080,7 @@ Luv24toRGB(LogLuvState* sp, uint8_t* op, tmsize_t n)
 static void
 Luv24fromXYZ(LogLuvState* sp, uint8_t* op, tmsize_t n)
 {
+ztrim_fInstrument(201);
 	uint32_t* luv = (uint32_t*) sp->tbuf;
 	float* xyz = (float*) op;
 
@@ -1071,6 +1093,7 @@ Luv24fromXYZ(LogLuvState* sp, uint8_t* op, tmsize_t n)
 static void
 Luv24fromLuv48(LogLuvState* sp, uint8_t* op, tmsize_t n)
 {
+ztrim_fInstrument(202);
 	uint32_t* luv = (uint32_t*) sp->tbuf;
 	int16_t* luv3 = (int16_t*) op;
 
@@ -1152,6 +1175,7 @@ LogLuv32fromXYZ(float XYZ[3], int em)
 static void
 Luv32toXYZ(LogLuvState* sp, uint8_t* op, tmsize_t n)
 {
+ztrim_fInstrument(194);
 	uint32_t* luv = (uint32_t*) sp->tbuf;
 	float* xyz = (float*) op;
 
@@ -1164,6 +1188,7 @@ Luv32toXYZ(LogLuvState* sp, uint8_t* op, tmsize_t n)
 static void
 Luv32toLuv48(LogLuvState* sp, uint8_t* op, tmsize_t n)
 {
+ztrim_fInstrument(195);
 	uint32_t* luv = (uint32_t*) sp->tbuf;
 	int16_t* luv3 = (int16_t*) op;
 
@@ -1182,6 +1207,7 @@ Luv32toLuv48(LogLuvState* sp, uint8_t* op, tmsize_t n)
 static void
 Luv32toRGB(LogLuvState* sp, uint8_t* op, tmsize_t n)
 {
+ztrim_fInstrument(196);
 	uint32_t* luv = (uint32_t*) sp->tbuf;
 	uint8_t* rgb = (uint8_t*) op;
 
@@ -1197,6 +1223,7 @@ Luv32toRGB(LogLuvState* sp, uint8_t* op, tmsize_t n)
 static void
 Luv32fromXYZ(LogLuvState* sp, uint8_t* op, tmsize_t n)
 {
+ztrim_fInstrument(204);
 	uint32_t* luv = (uint32_t*) sp->tbuf;
 	float* xyz = (float*) op;
 
@@ -1209,6 +1236,7 @@ Luv32fromXYZ(LogLuvState* sp, uint8_t* op, tmsize_t n)
 static void
 Luv32fromLuv48(LogLuvState* sp, uint8_t* op, tmsize_t n)
 {
+ztrim_fInstrument(205);
 	uint32_t* luv = (uint32_t*) sp->tbuf;
 	int16_t* luv3 = (int16_t*) op;
 
@@ -1232,6 +1260,7 @@ Luv32fromLuv48(LogLuvState* sp, uint8_t* op, tmsize_t n)
 static void
 _logLuvNop(LogLuvState* sp, uint8_t* op, tmsize_t n)
 {
+ztrim_fInstrument(177);
 	(void) sp; (void) op; (void) n;
 }
 
@@ -1415,6 +1444,7 @@ LogLuvInitState(TIFF* tif)
 static int
 LogLuvFixupTags(TIFF* tif)
 {
+ztrim_fInstrument(178);
 	(void) tif;
 	return (1);
 }
@@ -1422,6 +1452,7 @@ LogLuvFixupTags(TIFF* tif)
 static int
 LogLuvSetupDecode(TIFF* tif)
 {
+ztrim_fInstrument(179);
 	static const char module[] = "LogLuvSetupDecode";
 	LogLuvState* sp = DecoderState(tif);
 	TIFFDirectory* td = &tif->tif_dir;
@@ -1484,6 +1515,7 @@ LogLuvSetupDecode(TIFF* tif)
 static int
 LogLuvSetupEncode(TIFF* tif)
 {
+ztrim_fInstrument(182);
 	static const char module[] = "LogLuvSetupEncode";
 	LogLuvState* sp = EncoderState(tif);
 	TIFFDirectory* td = &tif->tif_dir;
@@ -1554,6 +1586,7 @@ notsupported:
 static void
 LogLuvClose(TIFF* tif)
 {
+ztrim_fInstrument(185);
         LogLuvState* sp = (LogLuvState*) tif->tif_data;
 	TIFFDirectory *td = &tif->tif_dir;
 
@@ -1585,6 +1618,7 @@ LogLuvClose(TIFF* tif)
 static void
 LogLuvCleanup(TIFF* tif)
 {
+ztrim_fInstrument(186);
 	LogLuvState* sp = (LogLuvState *)tif->tif_data;
 
 	assert(sp != 0);
@@ -1603,6 +1637,7 @@ LogLuvCleanup(TIFF* tif)
 static int
 LogLuvVSetField(TIFF* tif, uint32_t tag, va_list ap)
 {
+ztrim_fInstrument(188);
 	static const char module[] = "LogLuvVSetField";
 	LogLuvState* sp = DecoderState(tif);
 	int bps, fmt;
@@ -1666,6 +1701,7 @@ LogLuvVSetField(TIFF* tif, uint32_t tag, va_list ap)
 static int
 LogLuvVGetField(TIFF* tif, uint32_t tag, va_list ap)
 {
+ztrim_fInstrument(187);
 	LogLuvState *sp = (LogLuvState *)tif->tif_data;
 
 	switch (tag) {
@@ -1685,6 +1721,7 @@ static const TIFFField LogLuvFields[] = {
 int
 TIFFInitSGILog(TIFF* tif, int scheme)
 {
+ztrim_fInstrument(176);
 	static const char module[] = "TIFFInitSGILog";
 	LogLuvState* sp;
 

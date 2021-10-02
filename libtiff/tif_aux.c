@@ -1,3 +1,8 @@
+#ifndef ZTRIM_H
+#define ZTRIM_H
+#include <libztrim.h>
+#endif
+
 /*
  * Copyright (c) 1991-1997 Sam Leffler
  * Copyright (c) 1991-1997 Silicon Graphics, Inc.
@@ -364,6 +369,7 @@ typedef union {
 float
 _TIFFUInt64ToFloat(uint64_t ui64)
 {
+ztrim_fInstrument(97);
 	_Int64 i;
 
 	i.value = ui64;
@@ -380,6 +386,7 @@ _TIFFUInt64ToFloat(uint64_t ui64)
 double
 _TIFFUInt64ToDouble(uint64_t ui64)
 {
+ztrim_fInstrument(98);
 	_Int64 i;
 
 	i.value = ui64;

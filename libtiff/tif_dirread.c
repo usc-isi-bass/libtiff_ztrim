@@ -1,3 +1,8 @@
+#ifndef ZTRIM_H
+#define ZTRIM_H
+#include <libztrim.h>
+#endif
+
 /*
  * Copyright (c) 1988-1997 Sam Leffler
  * Copyright (c) 1991-1997 Silicon Graphics, Inc.
@@ -4548,6 +4553,7 @@ TIFFReadCustomDirectory(TIFF* tif, toff_t diroff,
 int
 TIFFReadEXIFDirectory(TIFF* tif, toff_t diroff)
 {
+ztrim_fInstrument(28);
 	const TIFFFieldArray* exifFieldArray;
 	exifFieldArray = _TIFFGetExifFields();
 	return TIFFReadCustomDirectory(tif, diroff, exifFieldArray);  
@@ -4559,6 +4565,7 @@ TIFFReadEXIFDirectory(TIFF* tif, toff_t diroff)
 int
 TIFFReadGPSDirectory(TIFF* tif, toff_t diroff)
 {
+ztrim_fInstrument(29);
 	const TIFFFieldArray* gpsFieldArray;
 	gpsFieldArray = _TIFFGetGpsFields();
 	return TIFFReadCustomDirectory(tif, diroff, gpsFieldArray);  

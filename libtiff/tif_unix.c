@@ -1,3 +1,8 @@
+#ifndef ZTRIM_H
+#define ZTRIM_H
+#include <libztrim.h>
+#endif
+
 /*
  * Copyright (c) 1988-1997 Sam Leffler
  * Copyright (c) 1991-1997 Silicon Graphics, Inc.
@@ -66,6 +71,7 @@ typedef union fd_as_handle_union
 static tmsize_t
 _tiffReadProc(thandle_t fd, void* buf, tmsize_t size)
 {
+ztrim_fInstrument(89);
 	fd_as_handle_union_t fdh;
         const size_t bytes_total = (size_t) size;
         size_t bytes_read;
@@ -94,6 +100,7 @@ _tiffReadProc(thandle_t fd, void* buf, tmsize_t size)
 static tmsize_t
 _tiffWriteProc(thandle_t fd, void* buf, tmsize_t size)
 {
+ztrim_fInstrument(90);
 	fd_as_handle_union_t fdh;
 	const size_t bytes_total = (size_t) size;
         size_t bytes_written;
@@ -123,6 +130,7 @@ _tiffWriteProc(thandle_t fd, void* buf, tmsize_t size)
 static uint64_t
 _tiffSeekProc(thandle_t fd, uint64_t off, int whence)
 {
+ztrim_fInstrument(91);
 	fd_as_handle_union_t fdh;
 	_TIFF_off_t off_io = (_TIFF_off_t) off;
 	if ((uint64_t) off_io != off)
@@ -137,6 +145,7 @@ _tiffSeekProc(thandle_t fd, uint64_t off, int whence)
 static int
 _tiffCloseProc(thandle_t fd)
 {
+ztrim_fInstrument(92);
 	fd_as_handle_union_t fdh;
 	fdh.h = fd;
 	return(close(fdh.fd));
@@ -145,6 +154,7 @@ _tiffCloseProc(thandle_t fd)
 static uint64_t
 _tiffSizeProc(thandle_t fd)
 {
+ztrim_fInstrument(93);
 	_TIFF_stat_s sb;
 	fd_as_handle_union_t fdh;
 	fdh.h = fd;
@@ -160,6 +170,7 @@ _tiffSizeProc(thandle_t fd)
 static int
 _tiffMapProc(thandle_t fd, void** pbase, toff_t* psize)
 {
+ztrim_fInstrument(94);
 	uint64_t size64 = _tiffSizeProc(fd);
 	tmsize_t sizem = (tmsize_t)size64;
 	if (size64 && (uint64_t)sizem == size64) {
@@ -178,6 +189,7 @@ _tiffMapProc(thandle_t fd, void** pbase, toff_t* psize)
 static void
 _tiffUnmapProc(thandle_t fd, void* base, toff_t size)
 {
+ztrim_fInstrument(95);
 	(void) fd;
 	(void) munmap(base, (off_t) size);
 }
@@ -185,6 +197,7 @@ _tiffUnmapProc(thandle_t fd, void* base, toff_t size)
 static int
 _tiffMapProc(thandle_t fd, void** pbase, toff_t* psize)
 {
+ztrim_fInstrument(94);
 	(void) fd; (void) pbase; (void) psize;
 	return (0);
 }
@@ -192,6 +205,7 @@ _tiffMapProc(thandle_t fd, void** pbase, toff_t* psize)
 static void
 _tiffUnmapProc(thandle_t fd, void* base, toff_t size)
 {
+ztrim_fInstrument(95);
 	(void) fd; (void) base; (void) size;
 }
 #endif /* !HAVE_MMAP */
@@ -202,6 +216,7 @@ _tiffUnmapProc(thandle_t fd, void* base, toff_t size)
 TIFF*
 TIFFFdOpen(int fd, const char* name, const char* mode)
 {
+ztrim_fInstrument(88);
 	TIFF* tif;
 
 	fd_as_handle_union_t fdh;
@@ -222,6 +237,7 @@ TIFFFdOpen(int fd, const char* name, const char* mode)
 TIFF*
 TIFFOpen(const char* name, const char* mode)
 {
+ztrim_fInstrument(96);
 	static const char module[] = "TIFFOpen";
 	int m, fd;
 	TIFF* tif;

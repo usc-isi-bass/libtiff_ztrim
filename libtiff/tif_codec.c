@@ -1,3 +1,8 @@
+#ifndef ZTRIM_H
+#define ZTRIM_H
+#include <libztrim.h>
+#endif
+
 /*
  * Copyright (c) 1988-1997 Sam Leffler
  * Copyright (c) 1991-1997 Silicon Graphics, Inc.
@@ -84,6 +89,7 @@ static int NotConfigured(TIFF*, int);
  * Compression schemes statically built into the library.
  */
 const TIFFCodec _TIFFBuiltinCODECS[] = {
+ztrim_fInstrument(147);
     { "None",		COMPRESSION_NONE,	TIFFInitDumpMode },
     { "LZW",		COMPRESSION_LZW,	TIFFInitLZW },
     { "PackBits",	COMPRESSION_PACKBITS,	TIFFInitPackBits },
@@ -111,6 +117,7 @@ const TIFFCodec _TIFFBuiltinCODECS[] = {
 static int
 _notConfigured(TIFF* tif)
 {
+ztrim_fInstrument(148);
 	const TIFFCodec* c = TIFFFindCODEC(tif->tif_dir.td_compression);
         char compression_code[20];
         

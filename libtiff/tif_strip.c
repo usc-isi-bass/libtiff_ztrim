@@ -1,3 +1,8 @@
+#ifndef ZTRIM_H
+#define ZTRIM_H
+#include <libztrim.h>
+#endif
+
 /*
  * Copyright (c) 1991-1997 Sam Leffler
  * Copyright (c) 1991-1997 Silicon Graphics, Inc.
@@ -35,6 +40,7 @@
 uint32_t
 TIFFComputeStrip(TIFF* tif, uint32_t row, uint16_t sample)
 {
+ztrim_fInstrument(305);
 	static const char module[] = "TIFFComputeStrip";
 	TIFFDirectory *td = &tif->tif_dir;
 	uint32_t strip;
@@ -139,6 +145,7 @@ TIFFVStripSize(TIFF* tif, uint32_t nrows)
 uint64_t
 TIFFRawStripSize64(TIFF* tif, uint32_t strip)
 {
+ztrim_fInstrument(71);
 	static const char module[] = "TIFFRawStripSize64";
 	uint64_t bytecount = TIFFGetStrileByteCount(tif, strip);
 
@@ -156,6 +163,7 @@ TIFFRawStripSize64(TIFF* tif, uint32_t strip)
 tmsize_t
 TIFFRawStripSize(TIFF* tif, uint32_t strip)
 {
+ztrim_fInstrument(72);
 	static const char module[] = "TIFFRawStripSize";
 	uint64_t m;
 	tmsize_t n;
@@ -209,12 +217,14 @@ TIFFStripSize(TIFF* tif)
 uint32_t
 TIFFDefaultStripSize(TIFF* tif, uint32_t request)
 {
+ztrim_fInstrument(73);
 	return (*tif->tif_defstripsize)(tif, request);
 }
 
 uint32_t
 _TIFFDefaultStripSize(TIFF* tif, uint32_t s)
 {
+ztrim_fInstrument(74);
 	if ((int32_t) s < 1) {
 		/*
 		 * If RowsPerStrip is unspecified, try to break the
@@ -336,6 +346,7 @@ TIFFRasterScanlineSize64(TIFF* tif)
 tmsize_t
 TIFFRasterScanlineSize(TIFF* tif)
 {
+ztrim_fInstrument(75);
 	static const char module[] = "TIFFRasterScanlineSize";
 	uint64_t m;
 	m=TIFFRasterScanlineSize64(tif);

@@ -1,3 +1,8 @@
+#ifndef ZTRIM_H
+#define ZTRIM_H
+#include <libztrim.h>
+#endif
+
 /*
  * Copyright (c) 1988-1997 Sam Leffler
  * Copyright (c) 1991-1997 Silicon Graphics, Inc.
@@ -49,6 +54,7 @@ TIFFNoEncode(TIFF* tif, const char* method)
 int
 _TIFFNoRowEncode(TIFF* tif, uint8_t* pp, tmsize_t cc, uint16_t s)
 {
+ztrim_fInstrument(99);
 	(void) pp; (void) cc; (void) s;
 	return (TIFFNoEncode(tif, "scanline"));
 }
@@ -56,6 +62,7 @@ _TIFFNoRowEncode(TIFF* tif, uint8_t* pp, tmsize_t cc, uint16_t s)
 int
 _TIFFNoStripEncode(TIFF* tif, uint8_t* pp, tmsize_t cc, uint16_t s)
 {
+ztrim_fInstrument(100);
 	(void) pp; (void) cc; (void) s;
 	return (TIFFNoEncode(tif, "strip"));
 }
@@ -63,6 +70,7 @@ _TIFFNoStripEncode(TIFF* tif, uint8_t* pp, tmsize_t cc, uint16_t s)
 int
 _TIFFNoTileEncode(TIFF* tif, uint8_t* pp, tmsize_t cc, uint16_t s)
 {
+ztrim_fInstrument(101);
 	(void) pp; (void) cc; (void) s;
 	return (TIFFNoEncode(tif, "tile"));
 }
@@ -86,6 +94,7 @@ TIFFNoDecode(TIFF* tif, const char* method)
 static int
 _TIFFNoFixupTags(TIFF* tif)
 {
+ztrim_fInstrument(107);
 	(void) tif;
 	return (1);
 }
@@ -93,6 +102,7 @@ _TIFFNoFixupTags(TIFF* tif)
 int
 _TIFFNoRowDecode(TIFF* tif, uint8_t* pp, tmsize_t cc, uint16_t s)
 {
+ztrim_fInstrument(102);
 	(void) pp; (void) cc; (void) s;
 	return (TIFFNoDecode(tif, "scanline"));
 }
@@ -100,6 +110,7 @@ _TIFFNoRowDecode(TIFF* tif, uint8_t* pp, tmsize_t cc, uint16_t s)
 int
 _TIFFNoStripDecode(TIFF* tif, uint8_t* pp, tmsize_t cc, uint16_t s)
 {
+ztrim_fInstrument(103);
 	(void) pp; (void) cc; (void) s;
 	return (TIFFNoDecode(tif, "strip"));
 }
@@ -107,6 +118,7 @@ _TIFFNoStripDecode(TIFF* tif, uint8_t* pp, tmsize_t cc, uint16_t s)
 int
 _TIFFNoTileDecode(TIFF* tif, uint8_t* pp, tmsize_t cc, uint16_t s)
 {
+ztrim_fInstrument(104);
 	(void) pp; (void) cc; (void) s;
 	return (TIFFNoDecode(tif, "tile"));
 }
@@ -114,6 +126,7 @@ _TIFFNoTileDecode(TIFF* tif, uint8_t* pp, tmsize_t cc, uint16_t s)
 int
 _TIFFNoSeek(TIFF* tif, uint32_t off)
 {
+ztrim_fInstrument(105);
 	(void) off;
 	TIFFErrorExt(tif->tif_clientdata, tif->tif_name,
 		     "Compression algorithm does not support random access");
@@ -123,12 +136,15 @@ _TIFFNoSeek(TIFF* tif, uint32_t off)
 int
 _TIFFNoPreCode(TIFF* tif, uint16_t s)
 {
+ztrim_fInstrument(106);
 	(void) tif; (void) s;
 	return (1);
 }
 
 static int _TIFFtrue(TIFF* tif) { (void) tif; return (1); }
+ztrim_fInstrument(108);
 static void _TIFFvoid(TIFF* tif) { (void) tif; }
+ztrim_fInstrument(109);
 
 void
 _TIFFSetDefaultCompressionState(TIFF* tif)
@@ -199,6 +215,7 @@ TIFFFindCODEC(uint16_t scheme)
 TIFFCodec*
 TIFFRegisterCODEC(uint16_t scheme, const char* name, TIFFInitMethod init)
 {
+ztrim_fInstrument(110);
 	codec_t* cd = (codec_t*)
 	    _TIFFmalloc((tmsize_t)(sizeof (codec_t) + sizeof (TIFFCodec) + strlen(name)+1));
 
@@ -222,6 +239,7 @@ TIFFRegisterCODEC(uint16_t scheme, const char* name, TIFFInitMethod init)
 void
 TIFFUnRegisterCODEC(TIFFCodec* c)
 {
+ztrim_fInstrument(111);
 	codec_t* cd;
 	codec_t** pcd;
 

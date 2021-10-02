@@ -1,3 +1,8 @@
+#ifndef ZTRIM_H
+#define ZTRIM_H
+#include <libztrim.h>
+#endif
+
 /*
  * Copyright (c) 1991-1997 Sam Leffler
  * Copyright (c) 1991-1997 Silicon Graphics, Inc.
@@ -239,6 +244,7 @@ TIFFVTileSize64(TIFF* tif, uint32_t nrows)
 tmsize_t
 TIFFVTileSize(TIFF* tif, uint32_t nrows)
 {
+ztrim_fInstrument(78);
 	static const char module[] = "TIFFVTileSize";
 	uint64_t m;
 	m=TIFFVTileSize64(tif,nrows);
@@ -271,12 +277,14 @@ TIFFTileSize(TIFF* tif)
 void
 TIFFDefaultTileSize(TIFF* tif, uint32_t* tw, uint32_t* th)
 {
+ztrim_fInstrument(79);
 	(*tif->tif_deftilesize)(tif, tw, th);
 }
 
 void
 _TIFFDefaultTileSize(TIFF* tif, uint32_t* tw, uint32_t* th)
 {
+ztrim_fInstrument(80);
 	(void) tif;
 	if (*(int32_t*) tw < 1)
 		*tw = 256;

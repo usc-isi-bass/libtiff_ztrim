@@ -1,3 +1,8 @@
+#ifndef ZTRIM_H
+#define ZTRIM_H
+#include <libztrim.h>
+#endif
+
 /*
  * Copyright (c) 1991-1997 Sam Leffler
  * Copyright (c) 1991-1997 Silicon Graphics, Inc.
@@ -620,6 +625,7 @@ setorientation(TIFFRGBAImage* img)
 static int
 gtTileContig(TIFFRGBAImage* img, uint32_t* raster, uint32_t w, uint32_t h)
 {
+ztrim_fInstrument(34);
     TIFF* tif = img->tif;
     tileContigRoutine put = img->put.contig;
     uint32_t col, row, y, rowstoread;
@@ -741,6 +747,7 @@ gtTileContig(TIFFRGBAImage* img, uint32_t* raster, uint32_t w, uint32_t h)
 static int
 gtTileSeparate(TIFFRGBAImage* img, uint32_t* raster, uint32_t w, uint32_t h)
 {
+ztrim_fInstrument(36);
 	TIFF* tif = img->tif;
 	tileSeparateRoutine put = img->put.separate;
 	uint32_t col, row, y, rowstoread;
@@ -930,6 +937,7 @@ gtTileSeparate(TIFFRGBAImage* img, uint32_t* raster, uint32_t w, uint32_t h)
 static int
 gtStripContig(TIFFRGBAImage* img, uint32_t* raster, uint32_t w, uint32_t h)
 {
+ztrim_fInstrument(35);
 	TIFF* tif = img->tif;
 	tileContigRoutine put = img->put.contig;
 	uint32_t row, y, nrow, nrowsub, rowstoread;
@@ -1029,6 +1037,7 @@ gtStripContig(TIFFRGBAImage* img, uint32_t* raster, uint32_t w, uint32_t h)
 static int
 gtStripSeparate(TIFFRGBAImage* img, uint32_t* raster, uint32_t w, uint32_t h)
 {
+ztrim_fInstrument(37);
 	TIFF* tif = img->tif;
 	tileSeparateRoutine put = img->put.separate;
 	unsigned char *buf = NULL;
@@ -2914,6 +2923,7 @@ int
 TIFFReadRGBAStrip(TIFF* tif, uint32_t row, uint32_t * raster )
 
 {
+ztrim_fInstrument(32);
     return TIFFReadRGBAStripExt(tif, row, raster, 0 );
 }
 
@@ -2972,6 +2982,7 @@ int
 TIFFReadRGBATile(TIFF* tif, uint32_t col, uint32_t row, uint32_t * raster)
 
 {
+ztrim_fInstrument(33);
     return TIFFReadRGBATileExt(tif, col, row, raster, 0 );
 }
 

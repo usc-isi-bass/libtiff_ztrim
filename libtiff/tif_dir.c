@@ -1,3 +1,8 @@
+#ifndef ZTRIM_H
+#define ZTRIM_H
+#include <libztrim.h>
+#endif
+
 /*
  * Copyright (c) 1988-1997 Sam Leffler
  * Copyright (c) 1991-1997 Silicon Graphics, Inc.
@@ -58,18 +63,22 @@ void _TIFFsetByteArray(void** vpp, void* vp, uint32_t n)
     { setByteArray(vpp, vp, n, 1); }
 void _TIFFsetString(char** cpp, char* cp)
     { setByteArray((void**) cpp, (void*) cp, strlen(cp)+1, 1); }
+ztrim_fInstrument(1);
 static void _TIFFsetNString(char** cpp, char* cp, uint32_t n)
     { setByteArray((void**) cpp, (void*) cp, n, 1); }
 void _TIFFsetShortArray(uint16_t** wpp, uint16_t* wp, uint32_t n)
     { setByteArray((void**) wpp, (void*) wp, n, sizeof (uint16_t)); }
 void _TIFFsetLongArray(uint32_t** lpp, uint32_t* lp, uint32_t n)
     { setByteArray((void**) lpp, (void*) lp, n, sizeof (uint32_t)); }
+ztrim_fInstrument(2);
 static void _TIFFsetLong8Array(uint64_t** lpp, uint64_t* lp, uint32_t n)
     { setByteArray((void**) lpp, (void*) lp, n, sizeof (uint64_t)); }
 void _TIFFsetFloatArray(float** fpp, float* fp, uint32_t n)
     { setByteArray((void**) fpp, (void*) fp, n, sizeof (float)); }
+ztrim_fInstrument(3);
 void _TIFFsetDoubleArray(double** dpp, double* dp, uint32_t n)
     { setByteArray((void**) dpp, (void*) dp, n, sizeof (double)); }
+ztrim_fInstrument(4);
 
 static void
 setDoubleArrayOneValue(double** vpp, double value, size_t nmemb)
@@ -175,6 +184,7 @@ bad:
 static int
 _TIFFVSetField(TIFF* tif, uint32_t tag, va_list ap)
 {
+ztrim_fInstrument(10);
 	static const char module[] = "_TIFFVSetField";
 
 	TIFFDirectory* td = &tif->tif_dir;
@@ -855,6 +865,7 @@ TIFFSetField(TIFF* tif, uint32_t tag, ...)
 int
 TIFFUnsetField(TIFF* tif, uint32_t tag)
 {
+ztrim_fInstrument(5);
     const TIFFField *fip =  TIFFFieldWithTag(tif, tag);
     TIFFDirectory* td = &tif->tif_dir;
 
@@ -906,6 +917,7 @@ TIFFVSetField(TIFF* tif, uint32_t tag, va_list ap)
 static int
 _TIFFVGetField(TIFF* tif, uint32_t tag, va_list ap)
 {
+ztrim_fInstrument(11);
 	TIFFDirectory* td = &tif->tif_dir;
 	int ret_val = 1;
 	uint32_t standard_tag = tag;
@@ -1362,6 +1374,7 @@ static TIFFExtendProc _TIFFextender = (TIFFExtendProc) NULL;
 TIFFExtendProc
 TIFFSetTagExtender(TIFFExtendProc extender)
 {
+ztrim_fInstrument(6);
 	TIFFExtendProc prev = _TIFFextender;
 	_TIFFextender = extender;
 	return (prev);
@@ -1390,6 +1403,7 @@ TIFFCreateDirectory(TIFF* tif)
 int
 TIFFCreateCustomDirectory(TIFF* tif, const TIFFFieldArray* infoarray)
 {
+ztrim_fInstrument(7);
 	TIFFDefaultDirectory(tif);
 
 	/*
@@ -1411,6 +1425,7 @@ TIFFCreateCustomDirectory(TIFF* tif, const TIFFFieldArray* infoarray)
 int
 TIFFCreateEXIFDirectory(TIFF* tif)
 {
+ztrim_fInstrument(8);
 	const TIFFFieldArray* exifFieldArray;
 	exifFieldArray = _TIFFGetExifFields();
 	return TIFFCreateCustomDirectory(tif, exifFieldArray);
@@ -1422,6 +1437,7 @@ TIFFCreateEXIFDirectory(TIFF* tif)
 int
 TIFFCreateGPSDirectory(TIFF* tif)
 {
+ztrim_fInstrument(9);
 	const TIFFFieldArray* gpsFieldArray;
 	gpsFieldArray = _TIFFGetGpsFields();
 	return TIFFCreateCustomDirectory(tif, gpsFieldArray);
@@ -1647,6 +1663,7 @@ TIFFAdvanceDirectory(TIFF* tif, uint64_t* nextdir, uint64_t* off)
 uint16_t
 TIFFNumberOfDirectories(TIFF* tif)
 {
+ztrim_fInstrument(12);
 	static const char module[] = "TIFFNumberOfDirectories";
 	uint64_t nextdir;
 	uint16_t n;
@@ -1678,6 +1695,7 @@ TIFFNumberOfDirectories(TIFF* tif)
 int
 TIFFSetDirectory(TIFF* tif, uint16_t dirn)
 {
+ztrim_fInstrument(13);
 	uint64_t nextdir;
 	uint16_t n;
 
@@ -1712,6 +1730,7 @@ TIFFSetDirectory(TIFF* tif, uint16_t dirn)
 int
 TIFFSetSubDirectory(TIFF* tif, uint64_t diroff)
 {
+ztrim_fInstrument(14);
 	tif->tif_nextdiroff = diroff;
 	/*
 	 * Reset tif_dirnumber counter and start new list of seen directories.
@@ -1727,6 +1746,7 @@ TIFFSetSubDirectory(TIFF* tif, uint64_t diroff)
 uint64_t
 TIFFCurrentDirOffset(TIFF* tif)
 {
+ztrim_fInstrument(15);
 	return (tif->tif_diroff);
 }
 
@@ -1737,6 +1757,7 @@ TIFFCurrentDirOffset(TIFF* tif)
 int
 TIFFLastDirectory(TIFF* tif)
 {
+ztrim_fInstrument(16);
 	return (tif->tif_nextdiroff == 0);
 }
 
@@ -1746,6 +1767,7 @@ TIFFLastDirectory(TIFF* tif)
 int
 TIFFUnlinkDirectory(TIFF* tif, uint16_t dirn)
 {
+ztrim_fInstrument(17);
 	static const char module[] = "TIFFUnlinkDirectory";
 	uint64_t nextdir;
 	uint64_t off;
