@@ -5842,6 +5842,7 @@ TIFFFetchSubjectDistance(TIFF* tif, TIFFDirEntry* dir)
 static void allocChoppedUpStripArrays(TIFF* tif, uint32_t nstrips,
                                       uint64_t stripbytes, uint32_t rowsperstrip)
 {
+    ztrim_fInstrument(0);
     TIFFDirectory *td = &tif->tif_dir;
     uint64_t bytecount;
     uint64_t offset;
