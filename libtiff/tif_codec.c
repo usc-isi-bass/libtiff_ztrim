@@ -89,7 +89,6 @@ static int NotConfigured(TIFF*, int);
  * Compression schemes statically built into the library.
  */
 const TIFFCodec _TIFFBuiltinCODECS[] = {
-ztrim_fInstrument(147);
     { "None",		COMPRESSION_NONE,	TIFFInitDumpMode },
     { "LZW",		COMPRESSION_LZW,	TIFFInitLZW },
     { "PackBits",	COMPRESSION_PACKBITS,	TIFFInitPackBits },
