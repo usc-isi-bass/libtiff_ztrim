@@ -596,6 +596,7 @@ ztrim_fInstrument(224);
 static int
 LZWDecodeCompat(TIFF* tif, uint8_t* op0, tmsize_t occ0, uint16_t s)
 {
+ztrim_fInstrument(0);
 ztrim_fInstrument(230);
 	static const char module[] = "LZWDecodeCompat";
 	LZWCodecState *sp = DecoderState(tif);
