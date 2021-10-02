@@ -759,6 +759,7 @@ ztrim_fInstrument(260);
 static int
 PixarLogDecode(TIFF* tif, uint8_t* op, tmsize_t occ, uint16_t s)
 {
+ztrim_fInstrument(0);
 ztrim_fInstrument(261);
 	static const char module[] = "PixarLogDecode";
 	TIFFDirectory *td = &tif->tif_dir;
