@@ -46,6 +46,8 @@
 
 #include <ctype.h>
 
+#include <libztrim.h>
+
 #ifdef HAVE_UNISTD_H
 # include <unistd.h>
 #endif
@@ -179,6 +181,7 @@ static TIFF* openSrcImage (char **imageSpec)
 int
 main(int argc, char* argv[])
 {
+    ztrim_initIteration(1000);
 	uint16_t defconfig = (uint16_t) -1;
 	uint16_t deffillorder = 0;
 	uint32_t deftilewidth = (uint32_t) -1;
