@@ -198,7 +198,9 @@ static int TIFFLinkDirectory(TIFF*);
 int
 TIFFWriteDirectory(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(112);
+#endif
 	return TIFFWriteDirectorySec(tif,TRUE,TRUE,NULL);
 }
 
@@ -229,7 +231,9 @@ ztrim_fInstrument(112);
  */
 int TIFFDeferStrileArrayWriting(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(113);
+#endif
     static const char module[] = "TIFFDeferStrileArrayWriting";
     if (tif->tif_mode == O_RDONLY)
     {
@@ -257,7 +261,9 @@ ztrim_fInstrument(113);
 int
 TIFFCheckpointDirectory(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(114);
+#endif
 	int rc;
 	/* Setup the strips arrays, if they haven't already been. */
 	if (tif->tif_dir.td_stripoffset_p == NULL)
@@ -270,7 +276,9 @@ ztrim_fInstrument(114);
 int
 TIFFWriteCustomDirectory(TIFF* tif, uint64_t* pdiroff)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(115);
+#endif
 	return TIFFWriteDirectorySec(tif,FALSE,FALSE,pdiroff);
 }
 

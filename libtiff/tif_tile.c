@@ -244,7 +244,9 @@ TIFFVTileSize64(TIFF* tif, uint32_t nrows)
 tmsize_t
 TIFFVTileSize(TIFF* tif, uint32_t nrows)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(78);
+#endif
 	static const char module[] = "TIFFVTileSize";
 	uint64_t m;
 	m=TIFFVTileSize64(tif,nrows);
@@ -277,14 +279,18 @@ TIFFTileSize(TIFF* tif)
 void
 TIFFDefaultTileSize(TIFF* tif, uint32_t* tw, uint32_t* th)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(79);
+#endif
 	(*tif->tif_deftilesize)(tif, tw, th);
 }
 
 void
 _TIFFDefaultTileSize(TIFF* tif, uint32_t* tw, uint32_t* th)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(80);
+#endif
 	(void) tif;
 	if (*(int32_t*) tw < 1)
 		*tw = 256;

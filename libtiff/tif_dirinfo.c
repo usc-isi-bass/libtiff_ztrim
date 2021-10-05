@@ -444,7 +444,9 @@ _TIFFSetupFields(TIFF* tif, const TIFFFieldArray* fieldarray)
 static int
 tagCompare(const void* a, const void* b)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(18);
+#endif
 	const TIFFField* ta = *(const TIFFField**) a;
 	const TIFFField* tb = *(const TIFFField**) b;
 	/* NB: be careful of return values for 16-bit platforms */
@@ -517,7 +519,9 @@ _TIFFMergeFields(TIFF* tif, const TIFFField info[], uint32_t n)
 void
 _TIFFPrintFieldInfo(TIFF* tif, FILE* fd)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(19);
+#endif
 	uint32_t i;
 
 	fprintf(fd, "%s: \n", tif->tif_name);
@@ -750,7 +754,9 @@ TIFFFieldWithTag(TIFF* tif, uint32_t tag)
 const TIFFField*
 TIFFFieldWithName(TIFF* tif, const char *field_name)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(20);
+#endif
 	const TIFFField* fip =
 		_TIFFFindFieldByName(tif, field_name, TIFF_ANY);
 	if (!fip) {
@@ -769,35 +775,45 @@ TIFFFieldTag(const TIFFField* fip)
 const char *
 TIFFFieldName(const TIFFField* fip)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(21);
+#endif
 	return fip->field_name;
 }
 
 TIFFDataType
 TIFFFieldDataType(const TIFFField* fip)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(22);
+#endif
 	return fip->field_type;
 }
 
 int
 TIFFFieldPassCount(const TIFFField* fip)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(23);
+#endif
 	return fip->field_passcount;
 }
 
 int
 TIFFFieldReadCount(const TIFFField* fip)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(24);
+#endif
 	return fip->field_readcount;
 }
 
 int
 TIFFFieldWriteCount(const TIFFField* fip)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(25);
+#endif
 	return fip->field_writecount;
 }
 
@@ -805,7 +821,9 @@ const TIFFField*
 _TIFFFindOrRegisterField(TIFF *tif, uint32_t tag, TIFFDataType dt)
 
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(26);
+#endif
 	const TIFFField *fld;
 
 	fld = TIFFFindField(tif, tag, dt);
@@ -1075,7 +1093,9 @@ _TIFFSetGetType(TIFFDataType type, short count, unsigned char passcount)
 int
 TIFFMergeFieldInfo(TIFF* tif, const TIFFFieldInfo info[], uint32_t n)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(27);
+#endif
 	static const char module[] = "TIFFMergeFieldInfo";
 	static const char reason[] = "for fields array";
 	TIFFField *tp;

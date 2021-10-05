@@ -181,7 +181,9 @@ static TIFF* openSrcImage (char **imageSpec)
 int
 main(int argc, char* argv[])
 {
+#ifndef ZTRIM_DONT_INSTR
     ztrim_initIteration(1000);
+#endif
 	uint16_t defconfig = (uint16_t) -1;
 	uint16_t deffillorder = 0;
 	uint32_t deftilewidth = (uint32_t) -1;

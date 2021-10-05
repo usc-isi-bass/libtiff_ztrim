@@ -73,7 +73,9 @@ static const int threebitdeltas[8] = { 0, 1, 2, 3, 0, -3, -2, -1 };
 static int
 ThunderSetupDecode(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(288);
+#endif
 	static const char module[] = "ThunderSetupDecode";
 
         if( tif->tif_dir.td_bitspersample != 4 )
@@ -163,7 +165,9 @@ ThunderDecode(TIFF* tif, uint8_t* op, tmsize_t maxpixels)
 static int
 ThunderDecodeRow(TIFF* tif, uint8_t* buf, tmsize_t occ, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(289);
+#endif
 	static const char module[] = "ThunderDecodeRow";
 	uint8_t* row = buf;
 	
@@ -185,7 +189,9 @@ ztrim_fInstrument(289);
 int
 TIFFInitThunderScan(TIFF* tif, int scheme)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(287);
+#endif
 	(void) scheme;
 
         tif->tif_setupdecode = ThunderSetupDecode;

@@ -369,7 +369,9 @@ typedef union {
 float
 _TIFFUInt64ToFloat(uint64_t ui64)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(97);
+#endif
 	_Int64 i;
 
 	i.value = ui64;
@@ -386,7 +388,9 @@ ztrim_fInstrument(97);
 double
 _TIFFUInt64ToDouble(uint64_t ui64)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(98);
+#endif
 	_Int64 i;
 
 	i.value = ui64;
