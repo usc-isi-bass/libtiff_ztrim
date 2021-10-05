@@ -54,7 +54,9 @@ TIFFNoEncode(TIFF* tif, const char* method)
 int
 _TIFFNoRowEncode(TIFF* tif, uint8_t* pp, tmsize_t cc, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(99);
+#endif
 	(void) pp; (void) cc; (void) s;
 	return (TIFFNoEncode(tif, "scanline"));
 }
@@ -62,7 +64,9 @@ ztrim_fInstrument(99);
 int
 _TIFFNoStripEncode(TIFF* tif, uint8_t* pp, tmsize_t cc, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(100);
+#endif
 	(void) pp; (void) cc; (void) s;
 	return (TIFFNoEncode(tif, "strip"));
 }
@@ -70,7 +74,9 @@ ztrim_fInstrument(100);
 int
 _TIFFNoTileEncode(TIFF* tif, uint8_t* pp, tmsize_t cc, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(101);
+#endif
 	(void) pp; (void) cc; (void) s;
 	return (TIFFNoEncode(tif, "tile"));
 }
@@ -94,7 +100,9 @@ TIFFNoDecode(TIFF* tif, const char* method)
 static int
 _TIFFNoFixupTags(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(107);
+#endif
 	(void) tif;
 	return (1);
 }
@@ -102,7 +110,9 @@ ztrim_fInstrument(107);
 int
 _TIFFNoRowDecode(TIFF* tif, uint8_t* pp, tmsize_t cc, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(102);
+#endif
 	(void) pp; (void) cc; (void) s;
 	return (TIFFNoDecode(tif, "scanline"));
 }
@@ -110,7 +120,9 @@ ztrim_fInstrument(102);
 int
 _TIFFNoStripDecode(TIFF* tif, uint8_t* pp, tmsize_t cc, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(103);
+#endif
 	(void) pp; (void) cc; (void) s;
 	return (TIFFNoDecode(tif, "strip"));
 }
@@ -118,7 +130,9 @@ ztrim_fInstrument(103);
 int
 _TIFFNoTileDecode(TIFF* tif, uint8_t* pp, tmsize_t cc, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(104);
+#endif
 	(void) pp; (void) cc; (void) s;
 	return (TIFFNoDecode(tif, "tile"));
 }
@@ -126,7 +140,9 @@ ztrim_fInstrument(104);
 int
 _TIFFNoSeek(TIFF* tif, uint32_t off)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(105);
+#endif
 	(void) off;
 	TIFFErrorExt(tif->tif_clientdata, tif->tif_name,
 		     "Compression algorithm does not support random access");
@@ -136,16 +152,22 @@ ztrim_fInstrument(105);
 int
 _TIFFNoPreCode(TIFF* tif, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(106);
+#endif
 	(void) tif; (void) s;
 	return (1);
 }
 
 static int _TIFFtrue(TIFF* tif) { 
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(108);
+#endif
     (void) tif; return (1); }
 static void _TIFFvoid(TIFF* tif) { 
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(109);
+#endif
     (void) tif; }
 
 void
@@ -217,7 +239,9 @@ TIFFFindCODEC(uint16_t scheme)
 TIFFCodec*
 TIFFRegisterCODEC(uint16_t scheme, const char* name, TIFFInitMethod init)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(110);
+#endif
 	codec_t* cd = (codec_t*)
 	    _TIFFmalloc((tmsize_t)(sizeof (codec_t) + sizeof (TIFFCodec) + strlen(name)+1));
 
@@ -241,7 +265,9 @@ ztrim_fInstrument(110);
 void
 TIFFUnRegisterCODEC(TIFFCodec* c)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(111);
+#endif
 	codec_t* cd;
 	codec_t** pcd;
 

@@ -51,7 +51,9 @@
 static int
 NeXTDecode(TIFF* tif, uint8_t* buf, tmsize_t occ, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(233);
+#endif
 	static const char module[] = "NeXTDecode";
 	unsigned char *bp, *op;
 	tmsize_t cc;
@@ -169,7 +171,9 @@ bad:
 static int
 NeXTPreDecode(TIFF* tif, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(232);
+#endif
 	static const char module[] = "NeXTPreDecode";
 	TIFFDirectory *td = &tif->tif_dir;
 	(void)s;
@@ -186,7 +190,9 @@ ztrim_fInstrument(232);
 int
 TIFFInitNeXT(TIFF* tif, int scheme)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(231);
+#endif
 	(void) scheme;
 	tif->tif_predecode = NeXTPreDecode;  
 	tif->tif_decoderow = NeXTDecode;  
