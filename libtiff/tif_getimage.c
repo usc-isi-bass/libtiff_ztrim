@@ -625,7 +625,9 @@ setorientation(TIFFRGBAImage* img)
 static int
 gtTileContig(TIFFRGBAImage* img, uint32_t* raster, uint32_t w, uint32_t h)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(34);
+#endif
     TIFF* tif = img->tif;
     tileContigRoutine put = img->put.contig;
     uint32_t col, row, y, rowstoread;
@@ -747,7 +749,9 @@ ztrim_fInstrument(34);
 static int
 gtTileSeparate(TIFFRGBAImage* img, uint32_t* raster, uint32_t w, uint32_t h)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(36);
+#endif
 	TIFF* tif = img->tif;
 	tileSeparateRoutine put = img->put.separate;
 	uint32_t col, row, y, rowstoread;
@@ -937,7 +941,9 @@ ztrim_fInstrument(36);
 static int
 gtStripContig(TIFFRGBAImage* img, uint32_t* raster, uint32_t w, uint32_t h)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(35);
+#endif
 	TIFF* tif = img->tif;
 	tileContigRoutine put = img->put.contig;
 	uint32_t row, y, nrow, nrowsub, rowstoread;
@@ -1037,7 +1043,9 @@ ztrim_fInstrument(35);
 static int
 gtStripSeparate(TIFFRGBAImage* img, uint32_t* raster, uint32_t w, uint32_t h)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(37);
+#endif
 	TIFF* tif = img->tif;
 	tileSeparateRoutine put = img->put.separate;
 	unsigned char *buf = NULL;
@@ -2923,7 +2931,9 @@ int
 TIFFReadRGBAStrip(TIFF* tif, uint32_t row, uint32_t * raster )
 
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(32);
+#endif
     return TIFFReadRGBAStripExt(tif, row, raster, 0 );
 }
 
@@ -2982,7 +2992,9 @@ int
 TIFFReadRGBATile(TIFF* tif, uint32_t col, uint32_t row, uint32_t * raster)
 
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(33);
+#endif
     return TIFFReadRGBATileExt(tif, col, row, raster, 0 );
 }
 

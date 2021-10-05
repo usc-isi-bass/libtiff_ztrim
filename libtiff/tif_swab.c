@@ -143,7 +143,9 @@ TIFFSwabArrayOfLong8(register uint64_t* lp, tmsize_t n)
 void
 TIFFSwabFloat(float* fp)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(76);
+#endif
 	register unsigned char* cp = (unsigned char*) fp;
 	unsigned char t;
 	assert(sizeof(float)==4);
@@ -173,7 +175,9 @@ TIFFSwabArrayOfFloat(register float* fp, tmsize_t n)
 void
 TIFFSwabDouble(double *dp)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(77);
+#endif
 	register unsigned char* cp = (unsigned char*) dp;
 	unsigned char t;
 	assert(sizeof(double)==8);

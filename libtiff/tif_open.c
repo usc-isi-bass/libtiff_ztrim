@@ -38,7 +38,9 @@
 static int
 _tiffDummyMapProc(thandle_t fd, void** pbase, toff_t* psize)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(38);
+#endif
 	(void) fd; (void) pbase; (void) psize;
 	return (0);
 }
@@ -46,7 +48,9 @@ ztrim_fInstrument(38);
 static void
 _tiffDummyUnmapProc(thandle_t fd, void* base, toff_t size)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(39);
+#endif
 	(void) fd; (void) base; (void) size;
 }
 
@@ -529,7 +533,9 @@ TIFFFileName(TIFF* tif)
 const char *
 TIFFSetFileName(TIFF* tif, const char *name)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(40);
+#endif
 	const char* old_name = tif->tif_name;
 	tif->tif_name = (char *)name;
 	return (old_name);
@@ -541,7 +547,9 @@ ztrim_fInstrument(40);
 int
 TIFFFileno(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(41);
+#endif
 	return (tif->tif_fd);
 }
 
@@ -551,7 +559,9 @@ ztrim_fInstrument(41);
 int
 TIFFSetFileno(TIFF* tif, int fd)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(42);
+#endif
         int old_fd = tif->tif_fd;
 	tif->tif_fd = fd;
 	return old_fd;
@@ -563,7 +573,9 @@ ztrim_fInstrument(42);
 thandle_t
 TIFFClientdata(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(43);
+#endif
 	return (tif->tif_clientdata);
 }
 
@@ -573,7 +585,9 @@ ztrim_fInstrument(43);
 thandle_t
 TIFFSetClientdata(TIFF* tif, thandle_t newvalue)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(44);
+#endif
 	thandle_t m = tif->tif_clientdata;
 	tif->tif_clientdata = newvalue;
 	return m;
@@ -585,7 +599,9 @@ ztrim_fInstrument(44);
 int
 TIFFGetMode(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(45);
+#endif
 	return (tif->tif_mode);
 }
 
@@ -595,7 +611,9 @@ ztrim_fInstrument(45);
 int
 TIFFSetMode(TIFF* tif, int mode)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(46);
+#endif
 	int old_mode = tif->tif_mode;
 	tif->tif_mode = mode;
 	return (old_mode);
@@ -617,7 +635,9 @@ TIFFIsTiled(TIFF* tif)
 uint32_t
 TIFFCurrentRow(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(47);
+#endif
 	return (tif->tif_row);
 }
 
@@ -627,7 +647,9 @@ ztrim_fInstrument(47);
 uint16_t
 TIFFCurrentDirectory(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(48);
+#endif
 	return (tif->tif_curdir);
 }
 
@@ -637,7 +659,9 @@ ztrim_fInstrument(48);
 uint32_t
 TIFFCurrentStrip(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(49);
+#endif
 	return (tif->tif_curstrip);
 }
 
@@ -647,7 +671,9 @@ ztrim_fInstrument(49);
 uint32_t
 TIFFCurrentTile(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(50);
+#endif
 	return (tif->tif_curtile);
 }
 
@@ -657,7 +683,9 @@ ztrim_fInstrument(50);
 int
 TIFFIsByteSwapped(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(51);
+#endif
 	return ((tif->tif_flags & TIFF_SWAB) != 0);
 }
 
@@ -667,7 +695,9 @@ ztrim_fInstrument(51);
 int
 TIFFIsUpSampled(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(52);
+#endif
 	return (isUpSampled(tif));
 }
 
@@ -677,7 +707,9 @@ ztrim_fInstrument(52);
 int
 TIFFIsMSB2LSB(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(53);
+#endif
 	return (isFillOrder(tif, FILLORDER_MSB2LSB));
 }
 
@@ -687,7 +719,9 @@ ztrim_fInstrument(53);
 int
 TIFFIsBigEndian(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(54);
+#endif
 	return (tif->tif_header.common.tiff_magic == TIFF_BIGENDIAN);
 }
 
@@ -697,7 +731,9 @@ ztrim_fInstrument(54);
 TIFFReadWriteProc
 TIFFGetReadProc(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(55);
+#endif
 	return (tif->tif_readproc);
 }
 
@@ -707,7 +743,9 @@ ztrim_fInstrument(55);
 TIFFReadWriteProc
 TIFFGetWriteProc(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(56);
+#endif
 	return (tif->tif_writeproc);
 }
 
@@ -717,7 +755,9 @@ ztrim_fInstrument(56);
 TIFFSeekProc
 TIFFGetSeekProc(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(57);
+#endif
 	return (tif->tif_seekproc);
 }
 
@@ -727,7 +767,9 @@ ztrim_fInstrument(57);
 TIFFCloseProc
 TIFFGetCloseProc(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(58);
+#endif
 	return (tif->tif_closeproc);
 }
 
@@ -737,7 +779,9 @@ ztrim_fInstrument(58);
 TIFFSizeProc
 TIFFGetSizeProc(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(59);
+#endif
 	return (tif->tif_sizeproc);
 }
 
@@ -747,7 +791,9 @@ ztrim_fInstrument(59);
 TIFFMapFileProc
 TIFFGetMapFileProc(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(60);
+#endif
 	return (tif->tif_mapproc);
 }
 
@@ -757,7 +803,9 @@ ztrim_fInstrument(60);
 TIFFUnmapFileProc
 TIFFGetUnmapFileProc(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(61);
+#endif
 	return (tif->tif_unmapproc);
 }
 
