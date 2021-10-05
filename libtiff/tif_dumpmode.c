@@ -37,7 +37,9 @@
 static int
 DumpFixupTags(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(150);
+#endif
 	(void) tif;
 	return (1);
 }
@@ -48,7 +50,9 @@ ztrim_fInstrument(150);
 static int
 DumpModeEncode(TIFF* tif, uint8_t* pp, tmsize_t cc, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(152);
+#endif
 	(void) s;
 	while (cc > 0) {
 		tmsize_t n;
@@ -82,7 +86,9 @@ ztrim_fInstrument(152);
 static int
 DumpModeDecode(TIFF* tif, uint8_t* buf, tmsize_t cc, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(151);
+#endif
 	static const char module[] = "DumpModeDecode";
 	(void) s;
 	if (tif->tif_rawcc < cc) {
@@ -110,7 +116,9 @@ ztrim_fInstrument(151);
 static int
 DumpModeSeek(TIFF* tif, uint32_t nrows)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(153);
+#endif
 	tif->tif_rawcp += nrows * tif->tif_scanlinesize;
 	tif->tif_rawcc -= nrows * tif->tif_scanlinesize;
 	return (1);
@@ -122,7 +130,9 @@ ztrim_fInstrument(153);
 int
 TIFFInitDumpMode(TIFF* tif, int scheme)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(149);
+#endif
 	(void) scheme;
 	tif->tif_fixuptags = DumpFixupTags;  
 	tif->tif_decoderow = DumpModeDecode;

@@ -63,7 +63,9 @@ void _TIFFsetByteArray(void** vpp, void* vp, uint32_t n)
     { setByteArray(vpp, vp, n, 1); }
 void _TIFFsetString(char** cpp, char* cp)
     { 
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(1);
+#endif
         setByteArray((void**) cpp, (void*) cp, strlen(cp)+1, 1); }
 static void _TIFFsetNString(char** cpp, char* cp, uint32_t n)
     { setByteArray((void**) cpp, (void*) cp, n, 1); }
@@ -71,17 +73,23 @@ void _TIFFsetShortArray(uint16_t** wpp, uint16_t* wp, uint32_t n)
     { setByteArray((void**) wpp, (void*) wp, n, sizeof (uint16_t)); }
 void _TIFFsetLongArray(uint32_t** lpp, uint32_t* lp, uint32_t n)
     { 
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(2);
+#endif
         setByteArray((void**) lpp, (void*) lp, n, sizeof (uint32_t)); }
 static void _TIFFsetLong8Array(uint64_t** lpp, uint64_t* lp, uint32_t n)
     { setByteArray((void**) lpp, (void*) lp, n, sizeof (uint64_t)); }
 void _TIFFsetFloatArray(float** fpp, float* fp, uint32_t n)
     { 
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(3);
+#endif
         setByteArray((void**) fpp, (void*) fp, n, sizeof (float)); }
 void _TIFFsetDoubleArray(double** dpp, double* dp, uint32_t n)
     { 
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(4);
+#endif
         setByteArray((void**) dpp, (void*) dp, n, sizeof (double)); }
 
 static void
@@ -188,7 +196,9 @@ bad:
 static int
 _TIFFVSetField(TIFF* tif, uint32_t tag, va_list ap)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(10);
+#endif
 	static const char module[] = "_TIFFVSetField";
 
 	TIFFDirectory* td = &tif->tif_dir;
@@ -869,7 +879,9 @@ TIFFSetField(TIFF* tif, uint32_t tag, ...)
 int
 TIFFUnsetField(TIFF* tif, uint32_t tag)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(5);
+#endif
     const TIFFField *fip =  TIFFFieldWithTag(tif, tag);
     TIFFDirectory* td = &tif->tif_dir;
 
@@ -921,7 +933,9 @@ TIFFVSetField(TIFF* tif, uint32_t tag, va_list ap)
 static int
 _TIFFVGetField(TIFF* tif, uint32_t tag, va_list ap)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(11);
+#endif
 	TIFFDirectory* td = &tif->tif_dir;
 	int ret_val = 1;
 	uint32_t standard_tag = tag;
@@ -1378,7 +1392,9 @@ static TIFFExtendProc _TIFFextender = (TIFFExtendProc) NULL;
 TIFFExtendProc
 TIFFSetTagExtender(TIFFExtendProc extender)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(6);
+#endif
 	TIFFExtendProc prev = _TIFFextender;
 	_TIFFextender = extender;
 	return (prev);
@@ -1407,7 +1423,9 @@ TIFFCreateDirectory(TIFF* tif)
 int
 TIFFCreateCustomDirectory(TIFF* tif, const TIFFFieldArray* infoarray)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(7);
+#endif
 	TIFFDefaultDirectory(tif);
 
 	/*
@@ -1429,7 +1447,9 @@ ztrim_fInstrument(7);
 int
 TIFFCreateEXIFDirectory(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(8);
+#endif
 	const TIFFFieldArray* exifFieldArray;
 	exifFieldArray = _TIFFGetExifFields();
 	return TIFFCreateCustomDirectory(tif, exifFieldArray);
@@ -1441,7 +1461,9 @@ ztrim_fInstrument(8);
 int
 TIFFCreateGPSDirectory(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(9);
+#endif
 	const TIFFFieldArray* gpsFieldArray;
 	gpsFieldArray = _TIFFGetGpsFields();
 	return TIFFCreateCustomDirectory(tif, gpsFieldArray);
@@ -1667,7 +1689,9 @@ TIFFAdvanceDirectory(TIFF* tif, uint64_t* nextdir, uint64_t* off)
 uint16_t
 TIFFNumberOfDirectories(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(12);
+#endif
 	static const char module[] = "TIFFNumberOfDirectories";
 	uint64_t nextdir;
 	uint16_t n;
@@ -1699,7 +1723,9 @@ ztrim_fInstrument(12);
 int
 TIFFSetDirectory(TIFF* tif, uint16_t dirn)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(13);
+#endif
 	uint64_t nextdir;
 	uint16_t n;
 
@@ -1734,7 +1760,9 @@ ztrim_fInstrument(13);
 int
 TIFFSetSubDirectory(TIFF* tif, uint64_t diroff)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(14);
+#endif
 	tif->tif_nextdiroff = diroff;
 	/*
 	 * Reset tif_dirnumber counter and start new list of seen directories.
@@ -1750,7 +1778,9 @@ ztrim_fInstrument(14);
 uint64_t
 TIFFCurrentDirOffset(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(15);
+#endif
 	return (tif->tif_diroff);
 }
 
@@ -1761,7 +1791,9 @@ ztrim_fInstrument(15);
 int
 TIFFLastDirectory(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(16);
+#endif
 	return (tif->tif_nextdiroff == 0);
 }
 
@@ -1771,7 +1803,9 @@ ztrim_fInstrument(16);
 int
 TIFFUnlinkDirectory(TIFF* tif, uint16_t dirn)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(17);
+#endif
 	static const char module[] = "TIFFUnlinkDirectory";
 	uint64_t nextdir;
 	uint64_t off;

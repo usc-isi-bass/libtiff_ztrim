@@ -51,7 +51,9 @@ static int TIFFAppendToStrip(TIFF* tif, uint32_t strip, uint8_t* data, tmsize_t 
 int
 TIFFWriteScanline(TIFF* tif, void* buf, uint32_t row, uint16_t sample)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(83);
+#endif
 	static const char module[] = "TIFFWriteScanline";
 	register TIFFDirectory *td;
 	int status, imagegrew = 0;
@@ -217,7 +219,9 @@ static int _TIFFReserveLargeEnoughWriteBuffer(TIFF* tif, uint32_t strip_or_tile)
 tmsize_t
 TIFFWriteEncodedStrip(TIFF* tif, uint32_t strip, void* data, tmsize_t cc)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(84);
+#endif
 	static const char module[] = "TIFFWriteEncodedStrip";
 	TIFFDirectory *td = &tif->tif_dir;
 	uint16_t sample;
@@ -322,7 +326,9 @@ ztrim_fInstrument(84);
 tmsize_t
 TIFFWriteRawStrip(TIFF* tif, uint32_t strip, void* data, tmsize_t cc)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(85);
+#endif
 	static const char module[] = "TIFFWriteRawStrip";
 	TIFFDirectory *td = &tif->tif_dir;
 
@@ -371,7 +377,9 @@ ztrim_fInstrument(85);
 tmsize_t
 TIFFWriteTile(TIFF* tif, void* buf, uint32_t x, uint32_t y, uint32_t z, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(86);
+#endif
 	if (!TIFFCheckTile(tif, x, y, z, s))
 		return ((tmsize_t)(-1));
 	/*
@@ -511,7 +519,9 @@ TIFFWriteEncodedTile(TIFF* tif, uint32_t tile, void* data, tmsize_t cc)
 tmsize_t
 TIFFWriteRawTile(TIFF* tif, uint32_t tile, void* data, tmsize_t cc)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(87);
+#endif
 	static const char module[] = "TIFFWriteRawTile";
 
 	if (!WRITECHECKTILES(tif, module))
