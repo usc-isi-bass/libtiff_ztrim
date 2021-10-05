@@ -195,7 +195,9 @@ static void cl_hash(LZWCodecState*);
 static int
 LZWFixupTags(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(221);
+#endif
 	(void) tif;
 	return (1);
 }
@@ -203,7 +205,9 @@ ztrim_fInstrument(221);
 static int
 LZWSetupDecode(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(222);
+#endif
 	static const char module[] = "LZWSetupDecode";
 	LZWCodecState* sp = DecoderState(tif);
 	int code;
@@ -265,7 +269,9 @@ ztrim_fInstrument(222);
 static int
 LZWPreDecode(TIFF* tif, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(223);
+#endif
 	static const char module[] = "LZWPreDecode";
 	LZWCodecState *sp = DecoderState(tif);
 
@@ -367,7 +373,9 @@ codeLoop(TIFF* tif, const char* module)
 static int
 LZWDecode(TIFF* tif, uint8_t* op0, tmsize_t occ0, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(224);
+#endif
 	static const char module[] = "LZWDecode";
 	LZWCodecState *sp = DecoderState(tif);
 	uint8_t *op = (uint8_t*) op0;
@@ -596,8 +604,12 @@ ztrim_fInstrument(224);
 static int
 LZWDecodeCompat(TIFF* tif, uint8_t* op0, tmsize_t occ0, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(0);
+#endif
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(230);
+#endif
 	static const char module[] = "LZWDecodeCompat";
 	LZWCodecState *sp = DecoderState(tif);
 	uint8_t *op = (uint8_t*) op0;
@@ -809,7 +821,9 @@ ztrim_fInstrument(230);
 static int
 LZWSetupEncode(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(225);
+#endif
 	static const char module[] = "LZWSetupEncode";
 	LZWCodecState* sp = EncoderState(tif);
 
@@ -829,7 +843,9 @@ ztrim_fInstrument(225);
 static int
 LZWPreEncode(TIFF* tif, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(226);
+#endif
 	LZWCodecState *sp = EncoderState(tif);
 
 	(void) s;
@@ -897,7 +913,9 @@ ztrim_fInstrument(226);
 static int
 LZWEncode(TIFF* tif, uint8_t* bp, tmsize_t cc, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(228);
+#endif
 	register LZWCodecState *sp = EncoderState(tif);
 	register long fcode;
 	register hash_t *hp;
@@ -1066,7 +1084,9 @@ ztrim_fInstrument(228);
 static int
 LZWPostEncode(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(227);
+#endif
 	register LZWCodecState *sp = EncoderState(tif);
 	uint8_t* op = tif->tif_rawcp;
 	long nextbits = sp->lzw_nextbits;
@@ -1139,7 +1159,9 @@ cl_hash(LZWCodecState* sp)
 static void
 LZWCleanup(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(229);
+#endif
 	(void)TIFFPredictorCleanup(tif);
 
 	assert(tif->tif_data != 0);
@@ -1159,7 +1181,9 @@ ztrim_fInstrument(229);
 int
 TIFFInitLZW(TIFF* tif, int scheme)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(220);
+#endif
 	static const char module[] = "TIFFInitLZW";
         (void)scheme;
 	assert(scheme == COMPRESSION_LZW);

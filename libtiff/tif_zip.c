@@ -96,7 +96,9 @@ static int ZIPDecode(TIFF* tif, uint8_t* op, tmsize_t occ, uint16_t s);
 static int
 ZIPFixupTags(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(293);
+#endif
 	(void) tif;
 	return (1);
 }
@@ -104,7 +106,9 @@ ztrim_fInstrument(293);
 static int
 ZIPSetupDecode(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(294);
+#endif
 	static const char module[] = "ZIPSetupDecode";
 	ZIPState* sp = DecoderState(tif);
 
@@ -135,7 +139,9 @@ ztrim_fInstrument(294);
 static int
 ZIPPreDecode(TIFF* tif, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(295);
+#endif
 	ZIPState* sp = DecoderState(tif);
 
 	(void) s;
@@ -159,7 +165,9 @@ ztrim_fInstrument(295);
 static int
 ZIPDecode(TIFF* tif, uint8_t* op, tmsize_t occ, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(296);
+#endif
 	static const char module[] = "ZIPDecode";
 	ZIPState* sp = DecoderState(tif);
 
@@ -283,7 +291,9 @@ ztrim_fInstrument(296);
 static int
 ZIPSetupEncode(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(297);
+#endif
 	static const char module[] = "ZIPSetupEncode";
 	ZIPState* sp = EncoderState(tif);
         int cappedQuality;
@@ -313,7 +323,9 @@ ztrim_fInstrument(297);
 static int
 ZIPPreEncode(TIFF* tif, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(298);
+#endif
 	ZIPState *sp = EncoderState(tif);
 
 	(void) s;
@@ -339,7 +351,9 @@ ztrim_fInstrument(298);
 static int
 ZIPEncode(TIFF* tif, uint8_t* bp, tmsize_t cc, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(300);
+#endif
 	static const char module[] = "ZIPEncode";
 	ZIPState *sp = EncoderState(tif);
 
@@ -469,7 +483,9 @@ ztrim_fInstrument(300);
 static int
 ZIPPostEncode(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(299);
+#endif
 	static const char module[] = "ZIPPostEncode";
 	ZIPState *sp = EncoderState(tif);
 	int state;
@@ -506,7 +522,9 @@ ztrim_fInstrument(299);
 static void
 ZIPCleanup(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(301);
+#endif
 	ZIPState* sp = ZState(tif);
 
 	assert(sp != 0);
@@ -540,7 +558,9 @@ ztrim_fInstrument(301);
 static int
 ZIPVSetField(TIFF* tif, uint32_t tag, va_list ap)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(292);
+#endif
 	static const char module[] = "ZIPVSetField";
 	ZIPState* sp = ZState(tif);
 
@@ -605,7 +625,9 @@ ztrim_fInstrument(292);
 static int
 ZIPVGetField(TIFF* tif, uint32_t tag, va_list ap)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(291);
+#endif
 	ZIPState* sp = ZState(tif);
 
 	switch (tag) {
@@ -631,7 +653,9 @@ static const TIFFField zipFields[] = {
 int
 TIFFInitZIP(TIFF* tif, int scheme)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(290);
+#endif
 	static const char module[] = "TIFFInitZIP";
 	ZIPState* sp;
 

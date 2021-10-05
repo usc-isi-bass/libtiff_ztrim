@@ -441,7 +441,9 @@ TIFFSeek(TIFF* tif, uint32_t row, uint16_t sample )
 int
 TIFFReadScanline(TIFF* tif, void* buf, uint32_t row, uint16_t sample)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(62);
+#endif
 	int e;
 
 	if (!TIFFCheckRead(tif, 0))
@@ -563,7 +565,9 @@ _TIFFReadEncodedStripAndAllocBuffer(TIFF* tif, uint32_t strip,
                                     void **buf, tmsize_t bufsizetoalloc,
                                     tmsize_t size_to_read)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(303);
+#endif
     tmsize_t this_stripsize;
     uint16_t plane;
 
@@ -695,7 +699,9 @@ TIFFReadRawStripOrTile2(TIFF* tif, uint32_t strip_or_tile, int is_strip,
 tmsize_t
 TIFFReadRawStrip(TIFF* tif, uint32_t strip, void* buf, tmsize_t size)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(63);
+#endif
 	static const char module[] = "TIFFReadRawStrip";
 	TIFFDirectory *td = &tif->tif_dir;
 	uint64_t bytecount64;
@@ -980,7 +986,9 @@ _TIFFReadTileAndAllocBuffer(TIFF* tif,
                             void **buf, tmsize_t bufsizetoalloc,
                             uint32_t x, uint32_t y, uint32_t z, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(304);
+#endif
     if (!TIFFCheckRead(tif, 1) || !TIFFCheckTile(tif, x, y, z, s))
             return ((tmsize_t)(-1));
     return (_TIFFReadEncodedTileAndAllocBuffer(tif,
@@ -1098,7 +1106,9 @@ TIFFReadRawTile1(TIFF* tif, uint32_t tile, void* buf, tmsize_t size, const char*
 tmsize_t
 TIFFReadRawTile(TIFF* tif, uint32_t tile, void* buf, tmsize_t size)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(64);
+#endif
 	static const char module[] = "TIFFReadRawTile";
 	TIFFDirectory *td = &tif->tif_dir;
 	uint64_t bytecount64;
@@ -1451,7 +1461,9 @@ int      TIFFReadFromUserBuffer(TIFF* tif, uint32_t strile,
                                 void* inbuf, tmsize_t insize,
                                 void* outbuf, tmsize_t outsize)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(65);
+#endif
     static const char module[] = "TIFFReadFromUserBuffer";
     TIFFDirectory *td = &tif->tif_dir;
     int ret = 1;
@@ -1529,14 +1541,18 @@ ztrim_fInstrument(65);
 void
 _TIFFNoPostDecode(TIFF* tif, uint8_t* buf, tmsize_t cc)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(66);
+#endif
     (void) tif; (void) buf; (void) cc;
 }
 
 void
 _TIFFSwab16BitData(TIFF* tif, uint8_t* buf, tmsize_t cc)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(67);
+#endif
     (void) tif;
     assert((cc & 1) == 0);
     TIFFSwabArrayOfShort((uint16_t*) buf, cc / 2);
@@ -1545,7 +1561,9 @@ ztrim_fInstrument(67);
 void
 _TIFFSwab24BitData(TIFF* tif, uint8_t* buf, tmsize_t cc)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(68);
+#endif
     (void) tif;
     assert((cc % 3) == 0);
     TIFFSwabArrayOfTriples((uint8_t*) buf, cc / 3);
@@ -1554,7 +1572,9 @@ ztrim_fInstrument(68);
 void
 _TIFFSwab32BitData(TIFF* tif, uint8_t* buf, tmsize_t cc)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(69);
+#endif
     (void) tif;
     assert((cc & 3) == 0);
     TIFFSwabArrayOfLong((uint32_t*) buf, cc / 4);
@@ -1563,7 +1583,9 @@ ztrim_fInstrument(69);
 void
 _TIFFSwab64BitData(TIFF* tif, uint8_t* buf, tmsize_t cc)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(70);
+#endif
     (void) tif;
     assert((cc & 7) == 0);
     TIFFSwabArrayOfDouble((double*) buf, cc/8);
