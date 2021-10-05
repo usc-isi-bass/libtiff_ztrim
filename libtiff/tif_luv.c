@@ -187,7 +187,9 @@ struct logLuvState {
 static int
 LogL16Decode(TIFF* tif, uint8_t* op, tmsize_t occ, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(197);
+#endif
 	static const char module[] = "LogL16Decode";
 	LogLuvState* sp = DecoderState(tif);
 	int shft;
@@ -258,7 +260,9 @@ ztrim_fInstrument(197);
 static int
 LogLuvDecode24(TIFF* tif, uint8_t* op, tmsize_t occ, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(189);
+#endif
 	static const char module[] = "LogLuvDecode24";
 	LogLuvState* sp = DecoderState(tif);
 	tmsize_t cc;
@@ -310,7 +314,9 @@ ztrim_fInstrument(189);
 static int
 LogLuvDecode32(TIFF* tif, uint8_t* op, tmsize_t occ, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(193);
+#endif
 	static const char module[] = "LogLuvDecode32";
 	LogLuvState* sp;
 	int shft;
@@ -384,7 +390,9 @@ ztrim_fInstrument(193);
 static int
 LogLuvDecodeStrip(TIFF* tif, uint8_t* bp, tmsize_t cc, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(180);
+#endif
 	tmsize_t rowlen = TIFFScanlineSize(tif);
 
         if (rowlen == 0)
@@ -406,7 +414,9 @@ ztrim_fInstrument(180);
 static int
 LogLuvDecodeTile(TIFF* tif, uint8_t* bp, tmsize_t cc, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(181);
+#endif
 	tmsize_t rowlen = TIFFTileRowSize(tif);
 
         if (rowlen == 0)
@@ -426,7 +436,9 @@ ztrim_fInstrument(181);
 static int
 LogL16Encode(TIFF* tif, uint8_t* bp, tmsize_t cc, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(206);
+#endif
 	static const char module[] = "LogL16Encode";
 	LogLuvState* sp = EncoderState(tif);
 	int shft;
@@ -527,7 +539,9 @@ ztrim_fInstrument(206);
 static int
 LogLuvEncode24(TIFF* tif, uint8_t* bp, tmsize_t cc, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(200);
+#endif
 	static const char module[] = "LogLuvEncode24";
 	LogLuvState* sp = EncoderState(tif);
 	tmsize_t i;
@@ -581,7 +595,9 @@ ztrim_fInstrument(200);
 static int
 LogLuvEncode32(TIFF* tif, uint8_t* bp, tmsize_t cc, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(203);
+#endif
 	static const char module[] = "LogLuvEncode32";
 	LogLuvState* sp = EncoderState(tif);
 	int shft;
@@ -684,7 +700,9 @@ ztrim_fInstrument(203);
 static int
 LogLuvEncodeStrip(TIFF* tif, uint8_t* bp, tmsize_t cc, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(183);
+#endif
 	tmsize_t rowlen = TIFFScanlineSize(tif);
 
         if (rowlen == 0)
@@ -705,7 +723,9 @@ ztrim_fInstrument(183);
 static int
 LogLuvEncodeTile(TIFF* tif, uint8_t* bp, tmsize_t cc, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(184);
+#endif
 	tmsize_t rowlen = TIFFTileRowSize(tif);
 
         if (rowlen == 0)
@@ -786,7 +806,9 @@ LogL16fromY(double Y, int em)	/* get 16-bit LogL from Y */
 static void
 L16toY(LogLuvState* sp, uint8_t* op, tmsize_t n)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(198);
+#endif
 	int16_t* l16 = (int16_t*) sp->tbuf;
 	float* yp = (float*) op;
 
@@ -797,7 +819,9 @@ ztrim_fInstrument(198);
 static void
 L16toGry(LogLuvState* sp, uint8_t* op, tmsize_t n)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(199);
+#endif
 	int16_t* l16 = (int16_t*) sp->tbuf;
 	uint8_t* gp = (uint8_t*) op;
 
@@ -810,7 +834,9 @@ ztrim_fInstrument(199);
 static void
 L16fromY(LogLuvState* sp, uint8_t* op, tmsize_t n)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(207);
+#endif
 	int16_t* l16 = (int16_t*) sp->tbuf;
 	float* yp = (float*) op;
 
@@ -1029,7 +1055,9 @@ LogLuv24fromXYZ(float XYZ[3], int em)
 static void
 Luv24toXYZ(LogLuvState* sp, uint8_t* op, tmsize_t n)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(190);
+#endif
 	uint32_t* luv = (uint32_t*) sp->tbuf;
 	float* xyz = (float*) op;
 
@@ -1043,7 +1071,9 @@ ztrim_fInstrument(190);
 static void
 Luv24toLuv48(LogLuvState* sp, uint8_t* op, tmsize_t n)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(191);
+#endif
 	uint32_t* luv = (uint32_t*) sp->tbuf;
 	int16_t* luv3 = (int16_t*) op;
 
@@ -1064,7 +1094,9 @@ ztrim_fInstrument(191);
 static void
 Luv24toRGB(LogLuvState* sp, uint8_t* op, tmsize_t n)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(192);
+#endif
 	uint32_t* luv = (uint32_t*) sp->tbuf;
 	uint8_t* rgb = (uint8_t*) op;
 
@@ -1080,7 +1112,9 @@ ztrim_fInstrument(192);
 static void
 Luv24fromXYZ(LogLuvState* sp, uint8_t* op, tmsize_t n)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(201);
+#endif
 	uint32_t* luv = (uint32_t*) sp->tbuf;
 	float* xyz = (float*) op;
 
@@ -1093,7 +1127,9 @@ ztrim_fInstrument(201);
 static void
 Luv24fromLuv48(LogLuvState* sp, uint8_t* op, tmsize_t n)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(202);
+#endif
 	uint32_t* luv = (uint32_t*) sp->tbuf;
 	int16_t* luv3 = (int16_t*) op;
 
@@ -1175,7 +1211,9 @@ LogLuv32fromXYZ(float XYZ[3], int em)
 static void
 Luv32toXYZ(LogLuvState* sp, uint8_t* op, tmsize_t n)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(194);
+#endif
 	uint32_t* luv = (uint32_t*) sp->tbuf;
 	float* xyz = (float*) op;
 
@@ -1188,7 +1226,9 @@ ztrim_fInstrument(194);
 static void
 Luv32toLuv48(LogLuvState* sp, uint8_t* op, tmsize_t n)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(195);
+#endif
 	uint32_t* luv = (uint32_t*) sp->tbuf;
 	int16_t* luv3 = (int16_t*) op;
 
@@ -1207,7 +1247,9 @@ ztrim_fInstrument(195);
 static void
 Luv32toRGB(LogLuvState* sp, uint8_t* op, tmsize_t n)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(196);
+#endif
 	uint32_t* luv = (uint32_t*) sp->tbuf;
 	uint8_t* rgb = (uint8_t*) op;
 
@@ -1223,7 +1265,9 @@ ztrim_fInstrument(196);
 static void
 Luv32fromXYZ(LogLuvState* sp, uint8_t* op, tmsize_t n)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(204);
+#endif
 	uint32_t* luv = (uint32_t*) sp->tbuf;
 	float* xyz = (float*) op;
 
@@ -1236,7 +1280,9 @@ ztrim_fInstrument(204);
 static void
 Luv32fromLuv48(LogLuvState* sp, uint8_t* op, tmsize_t n)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(205);
+#endif
 	uint32_t* luv = (uint32_t*) sp->tbuf;
 	int16_t* luv3 = (int16_t*) op;
 
@@ -1260,7 +1306,9 @@ ztrim_fInstrument(205);
 static void
 _logLuvNop(LogLuvState* sp, uint8_t* op, tmsize_t n)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(177);
+#endif
 	(void) sp; (void) op; (void) n;
 }
 
@@ -1444,7 +1492,9 @@ LogLuvInitState(TIFF* tif)
 static int
 LogLuvFixupTags(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(178);
+#endif
 	(void) tif;
 	return (1);
 }
@@ -1452,7 +1502,9 @@ ztrim_fInstrument(178);
 static int
 LogLuvSetupDecode(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(179);
+#endif
 	static const char module[] = "LogLuvSetupDecode";
 	LogLuvState* sp = DecoderState(tif);
 	TIFFDirectory* td = &tif->tif_dir;
@@ -1515,7 +1567,9 @@ ztrim_fInstrument(179);
 static int
 LogLuvSetupEncode(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(182);
+#endif
 	static const char module[] = "LogLuvSetupEncode";
 	LogLuvState* sp = EncoderState(tif);
 	TIFFDirectory* td = &tif->tif_dir;
@@ -1586,7 +1640,9 @@ notsupported:
 static void
 LogLuvClose(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(185);
+#endif
         LogLuvState* sp = (LogLuvState*) tif->tif_data;
 	TIFFDirectory *td = &tif->tif_dir;
 
@@ -1618,7 +1674,9 @@ ztrim_fInstrument(185);
 static void
 LogLuvCleanup(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(186);
+#endif
 	LogLuvState* sp = (LogLuvState *)tif->tif_data;
 
 	assert(sp != 0);
@@ -1637,7 +1695,9 @@ ztrim_fInstrument(186);
 static int
 LogLuvVSetField(TIFF* tif, uint32_t tag, va_list ap)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(188);
+#endif
 	static const char module[] = "LogLuvVSetField";
 	LogLuvState* sp = DecoderState(tif);
 	int bps, fmt;
@@ -1701,7 +1761,9 @@ ztrim_fInstrument(188);
 static int
 LogLuvVGetField(TIFF* tif, uint32_t tag, va_list ap)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(187);
+#endif
 	LogLuvState *sp = (LogLuvState *)tif->tif_data;
 
 	switch (tag) {
@@ -1721,7 +1783,9 @@ static const TIFFField LogLuvFields[] = {
 int
 TIFFInitSGILog(TIFF* tif, int scheme)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(176);
+#endif
 	static const char module[] = "TIFFInitSGILog";
 	LogLuvState* sp;
 

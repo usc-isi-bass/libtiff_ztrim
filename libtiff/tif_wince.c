@@ -51,7 +51,9 @@ for all assistance you may require and contribute the results
 TIFF*
 TIFFOpen(const char* name, const char* mode)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(96);
+#endif
 	static const char module[] = "TIFFOpen";
 	thandle_t fd;
 	int m;

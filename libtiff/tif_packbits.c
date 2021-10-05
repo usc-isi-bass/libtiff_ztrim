@@ -39,7 +39,9 @@
 static int
 PackBitsPreEncode(TIFF* tif, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(254);
+#endif
 	(void) s;
 
         tif->tif_data = (uint8_t*)_TIFFmalloc(sizeof(tmsize_t));
@@ -58,7 +60,9 @@ ztrim_fInstrument(254);
 static int
 PackBitsPostEncode(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(255);
+#endif
         if (tif->tif_data)
             _TIFFfree(tif->tif_data);
 	return (1);
@@ -201,7 +205,9 @@ PackBitsEncode(TIFF* tif, uint8_t* buf, tmsize_t cc, uint16_t s)
 static int
 PackBitsEncodeChunk(TIFF* tif, uint8_t* bp, tmsize_t cc, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(256);
+#endif
 	tmsize_t rowsize = *(tmsize_t*)tif->tif_data;
 
 	while (cc > 0) {
@@ -221,7 +227,9 @@ ztrim_fInstrument(256);
 static int
 PackBitsDecode(TIFF* tif, uint8_t* op, tmsize_t occ, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(253);
+#endif
 	static const char module[] = "PackBitsDecode";
 	char *bp;
 	tmsize_t cc;
@@ -295,7 +303,9 @@ ztrim_fInstrument(253);
 int
 TIFFInitPackBits(TIFF* tif, int scheme)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(252);
+#endif
 	(void) scheme;
 	tif->tif_decoderow = PackBitsDecode;
 	tif->tif_decodestrip = PackBitsDecode;

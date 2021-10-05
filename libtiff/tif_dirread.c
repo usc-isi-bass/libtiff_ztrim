@@ -4553,7 +4553,9 @@ TIFFReadCustomDirectory(TIFF* tif, toff_t diroff,
 int
 TIFFReadEXIFDirectory(TIFF* tif, toff_t diroff)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(28);
+#endif
 	const TIFFFieldArray* exifFieldArray;
 	exifFieldArray = _TIFFGetExifFields();
 	return TIFFReadCustomDirectory(tif, diroff, exifFieldArray);  
@@ -4565,7 +4567,9 @@ ztrim_fInstrument(28);
 int
 TIFFReadGPSDirectory(TIFF* tif, toff_t diroff)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(29);
+#endif
 	const TIFFFieldArray* gpsFieldArray;
 	gpsFieldArray = _TIFFGetGpsFields();
 	return TIFFReadCustomDirectory(tif, diroff, gpsFieldArray);  
