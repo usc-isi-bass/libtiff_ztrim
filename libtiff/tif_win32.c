@@ -67,7 +67,9 @@ static inline int thandle_to_int(thandle_t fd)
 static tmsize_t
 _tiffReadProc(thandle_t fd, void* buf, tmsize_t size)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(89);
+#endif
 	/* tmsize_t is 64bit on 64bit systems, but the WinAPI ReadFile takes
 	 * 32bit sizes, so we loop through the data in suitable 32bit sized
 	 * chunks */
@@ -98,7 +100,9 @@ ztrim_fInstrument(89);
 static tmsize_t
 _tiffWriteProc(thandle_t fd, void* buf, tmsize_t size)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(90);
+#endif
 	/* tmsize_t is 64bit on 64bit systems, but the WinAPI WriteFile takes
 	 * 32bit sizes, so we loop through the data in suitable 32bit sized
 	 * chunks */
@@ -129,7 +133,9 @@ ztrim_fInstrument(90);
 static uint64_t
 _tiffSeekProc(thandle_t fd, uint64_t off, int whence)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(91);
+#endif
 	LARGE_INTEGER offli;
 	DWORD dwMoveMethod;
 	offli.QuadPart = off;
@@ -157,14 +163,18 @@ ztrim_fInstrument(91);
 static int
 _tiffCloseProc(thandle_t fd)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(92);
+#endif
 	return (CloseHandle(fd) ? 0 : -1);
 }
 
 static uint64_t
 _tiffSizeProc(thandle_t fd)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(93);
+#endif
 	LARGE_INTEGER m;
 	if (GetFileSizeEx(fd,&m))
 		return(m.QuadPart);
@@ -175,7 +185,9 @@ ztrim_fInstrument(93);
 static int
 _tiffDummyMapProc(thandle_t fd, void** pbase, toff_t* psize)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(38);
+#endif
 	(void) fd;
 	(void) pbase;
 	(void) psize;
@@ -196,7 +208,9 @@ ztrim_fInstrument(38);
 static int
 _tiffMapProc(thandle_t fd, void** pbase, toff_t* psize)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(94);
+#endif
 	uint64_t size;
 	tmsize_t sizem;
 	HANDLE hMapFile;
@@ -222,7 +236,9 @@ ztrim_fInstrument(94);
 static void
 _tiffDummyUnmapProc(thandle_t fd, void* base, toff_t size)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(39);
+#endif
 	(void) fd;
 	(void) base;
 	(void) size;
@@ -231,7 +247,9 @@ ztrim_fInstrument(39);
 static void
 _tiffUnmapProc(thandle_t fd, void* base, toff_t size)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(95);
+#endif
 	(void) fd;
 	(void) size;
 	UnmapViewOfFile(base);
@@ -245,7 +263,9 @@ ztrim_fInstrument(95);
 TIFF*
 TIFFFdOpen(int ifd, const char* name, const char* mode)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(88);
+#endif
 	TIFF* tif;
 	int fSuppressMap;
 	int m;
@@ -276,7 +296,9 @@ ztrim_fInstrument(88);
 TIFF*
 TIFFOpen(const char* name, const char* mode)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(96);
+#endif
 	static const char module[] = "TIFFOpen";
 	thandle_t fd;
 	int m;

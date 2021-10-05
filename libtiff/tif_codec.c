@@ -116,7 +116,9 @@ const TIFFCodec _TIFFBuiltinCODECS[] = {
 static int
 _notConfigured(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(148);
+#endif
 	const TIFFCodec* c = TIFFFindCODEC(tif->tif_dir.td_compression);
         char compression_code[20];
         

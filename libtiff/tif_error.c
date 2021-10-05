@@ -37,7 +37,9 @@ TIFFErrorHandlerExt _TIFFerrorHandlerExt = NULL;
 TIFFErrorHandler
 TIFFSetErrorHandler(TIFFErrorHandler handler)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(302);
+#endif
 	TIFFErrorHandler prev = _TIFFerrorHandler;
 	_TIFFerrorHandler = handler;
 	return (prev);
@@ -46,7 +48,9 @@ ztrim_fInstrument(302);
 TIFFErrorHandlerExt
 TIFFSetErrorHandlerExt(TIFFErrorHandlerExt handler)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(30);
+#endif
 	TIFFErrorHandlerExt prev = _TIFFerrorHandlerExt;
 	_TIFFerrorHandlerExt = handler;
 	return (prev);
@@ -55,7 +59,9 @@ ztrim_fInstrument(30);
 void
 TIFFError(const char* module, const char* fmt, ...)
 {
+#ifndef ZTRIM_DONT_INSTR
 ztrim_fInstrument(31);
+#endif
 	va_list ap;
 	if (_TIFFerrorHandler) {
 		va_start(ap, fmt);	
