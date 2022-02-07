@@ -1,3 +1,8 @@
+#ifndef ZTRIM_H
+#define ZTRIM_H
+#include <libztrim.h>
+#endif
+
 /*
  * Copyright (c) 1988-1997 Sam Leffler
  * Copyright (c) 1991-1997 Silicon Graphics, Inc.
@@ -439,6 +444,9 @@ _TIFFSetupFields(TIFF* tif, const TIFFFieldArray* fieldarray)
 static int
 tagCompare(const void* a, const void* b)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(25);
+#endif
 	const TIFFField* ta = *(const TIFFField**) a;
 	const TIFFField* tb = *(const TIFFField**) b;
 	/* NB: be careful of return values for 16-bit platforms */
@@ -535,6 +543,9 @@ _TIFFPrintFieldInfo(TIFF* tif, FILE* fd)
 int
 TIFFDataWidth(TIFFDataType type)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(26);
+#endif
 	switch(type)
 	{
 		case 0:  /* nothing */
@@ -679,6 +690,9 @@ _TIFFSetGetFieldSize(TIFFSetGetFieldType setgettype)
 const TIFFField*
 TIFFFindField(TIFF* tif, uint32_t tag, TIFFDataType dt)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(24);
+#endif
 	TIFFField key = {0, 0, 0, TIFF_NOTYPE, 0, 0, 0, 0, 0, 0, NULL, NULL};
 	TIFFField* pkey = &key;
 	const TIFFField **ret;
@@ -731,6 +745,9 @@ _TIFFFindFieldByName(TIFF* tif, const char *field_name, TIFFDataType dt)
 const TIFFField*
 TIFFFieldWithTag(TIFF* tif, uint32_t tag)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(27);
+#endif
 	const TIFFField* fip = TIFFFindField(tif, tag, TIFF_ANY);
 	if (!fip) {
 		TIFFErrorExt(tif->tif_clientdata, "TIFFFieldWithTag",
@@ -743,6 +760,9 @@ TIFFFieldWithTag(TIFF* tif, uint32_t tag)
 const TIFFField*
 TIFFFieldWithName(TIFF* tif, const char *field_name)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(28);
+#endif
 	const TIFFField* fip =
 		_TIFFFindFieldByName(tif, field_name, TIFF_ANY);
 	if (!fip) {
@@ -755,36 +775,54 @@ TIFFFieldWithName(TIFF* tif, const char *field_name)
 uint32_t
 TIFFFieldTag(const TIFFField* fip)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(29);
+#endif
 	return fip->field_tag;
 }
 
 const char *
 TIFFFieldName(const TIFFField* fip)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(30);
+#endif
 	return fip->field_name;
 }
 
 TIFFDataType
 TIFFFieldDataType(const TIFFField* fip)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(31);
+#endif
 	return fip->field_type;
 }
 
 int
 TIFFFieldPassCount(const TIFFField* fip)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(32);
+#endif
 	return fip->field_passcount;
 }
 
 int
 TIFFFieldReadCount(const TIFFField* fip)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(33);
+#endif
 	return fip->field_readcount;
 }
 
 int
 TIFFFieldWriteCount(const TIFFField* fip)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(34);
+#endif
 	return fip->field_writecount;
 }
 
@@ -1061,6 +1099,9 @@ _TIFFSetGetType(TIFFDataType type, short count, unsigned char passcount)
 int
 TIFFMergeFieldInfo(TIFF* tif, const TIFFFieldInfo info[], uint32_t n)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(35);
+#endif
 	static const char module[] = "TIFFMergeFieldInfo";
 	static const char reason[] = "for fields array";
 	TIFFField *tp;

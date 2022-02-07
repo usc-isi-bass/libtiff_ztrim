@@ -1,3 +1,8 @@
+#ifndef ZTRIM_H
+#define ZTRIM_H
+#include <libztrim.h>
+#endif
+
 /*
  * Copyright (c) 1988-1997 Sam Leffler
  * Copyright (c) 1991-1997 Silicon Graphics, Inc.
@@ -287,6 +292,9 @@ static enum TIFFReadDirEntryErr TIFFReadDirEntryByte(TIFF* tif, TIFFDirEntry* di
 
 static enum TIFFReadDirEntryErr TIFFReadDirEntryShort(TIFF* tif, TIFFDirEntry* direntry, uint16_t* value)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(40);
+#endif
 	enum TIFFReadDirEntryErr err;
 	if (direntry->tdir_count!=1)
 		return(TIFFReadDirEntryErrCount);
@@ -774,6 +782,9 @@ static enum TIFFReadDirEntryErr TIFFReadDirEntryIfd8(TIFF* tif, TIFFDirEntry* di
 static enum TIFFReadDirEntryErr TIFFReadDirEntryDataAndRealloc(
         TIFF* tif, uint64_t offset, tmsize_t size, void** pdest)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(59);
+#endif
 #if SIZEOF_SIZE_T == 8
         tmsize_t threshold = INITIAL_THRESHOLD;
 #endif
@@ -830,6 +841,9 @@ static enum TIFFReadDirEntryErr TIFFReadDirEntryArrayWithLimit(
         TIFF* tif, TIFFDirEntry* direntry, uint32_t* count, uint32_t desttypesize,
         void** value, uint64_t maxcount)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(58);
+#endif
 	int typesize;
 	uint32_t datasize;
 	void* data;
@@ -939,6 +953,9 @@ static enum TIFFReadDirEntryErr TIFFReadDirEntryArray(TIFF* tif, TIFFDirEntry* d
 
 static enum TIFFReadDirEntryErr TIFFReadDirEntryByteArray(TIFF* tif, TIFFDirEntry* direntry, uint8_t** value)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(60);
+#endif
 	enum TIFFReadDirEntryErr err;
 	uint32_t count;
 	void* origdata;
@@ -1299,6 +1316,9 @@ static enum TIFFReadDirEntryErr TIFFReadDirEntrySbyteArray(TIFF* tif, TIFFDirEnt
 
 static enum TIFFReadDirEntryErr TIFFReadDirEntryShortArray(TIFF* tif, TIFFDirEntry* direntry, uint16_t** value)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(45);
+#endif
 	enum TIFFReadDirEntryErr err;
 	uint32_t count;
 	void* origdata;
@@ -1638,6 +1658,9 @@ static enum TIFFReadDirEntryErr TIFFReadDirEntrySshortArray(TIFF* tif, TIFFDirEn
 
 static enum TIFFReadDirEntryErr TIFFReadDirEntryLongArray(TIFF* tif, TIFFDirEntry* direntry, uint32_t** value)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(61);
+#endif
 	enum TIFFReadDirEntryErr err;
 	uint32_t count;
 	void* origdata;
@@ -1969,6 +1992,9 @@ static enum TIFFReadDirEntryErr TIFFReadDirEntrySlongArray(TIFF* tif, TIFFDirEnt
 static enum TIFFReadDirEntryErr TIFFReadDirEntryLong8ArrayWithLimit(
         TIFF* tif, TIFFDirEntry* direntry, uint64_t** value, uint64_t maxcount)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(67);
+#endif
 	enum TIFFReadDirEntryErr err;
 	uint32_t count;
 	void* origdata;
@@ -2290,6 +2316,9 @@ static enum TIFFReadDirEntryErr TIFFReadDirEntrySlong8Array(TIFF* tif, TIFFDirEn
 
 static enum TIFFReadDirEntryErr TIFFReadDirEntryFloatArray(TIFF* tif, TIFFDirEntry* direntry, float** value)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(62);
+#endif
 	enum TIFFReadDirEntryErr err;
 	uint32_t count;
 	void* origdata;
@@ -2535,6 +2564,9 @@ static enum TIFFReadDirEntryErr TIFFReadDirEntryFloatArray(TIFF* tif, TIFFDirEnt
 static enum TIFFReadDirEntryErr
 TIFFReadDirEntryDoubleArray(TIFF* tif, TIFFDirEntry* direntry, double** value)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(44);
+#endif
 	enum TIFFReadDirEntryErr err;
 	uint32_t count;
 	void* origdata;
@@ -2772,6 +2804,9 @@ TIFFReadDirEntryDoubleArray(TIFF* tif, TIFFDirEntry* direntry, double** value)
 
 static enum TIFFReadDirEntryErr TIFFReadDirEntryIfd8Array(TIFF* tif, TIFFDirEntry* direntry, uint64_t** value)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(63);
+#endif
 	enum TIFFReadDirEntryErr err;
 	uint32_t count;
 	void* origdata;
@@ -2833,6 +2868,9 @@ static enum TIFFReadDirEntryErr TIFFReadDirEntryIfd8Array(TIFF* tif, TIFFDirEntr
 
 static enum TIFFReadDirEntryErr TIFFReadDirEntryPersampleShort(TIFF* tif, TIFFDirEntry* direntry, uint16_t* value)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(41);
+#endif
 	enum TIFFReadDirEntryErr err;
 	uint16_t* m;
 	uint16_t* na;
@@ -2932,6 +2970,9 @@ static void TIFFReadDirEntryCheckedSlong(TIFF* tif, TIFFDirEntry* direntry, int3
 
 static enum TIFFReadDirEntryErr TIFFReadDirEntryCheckedLong8(TIFF* tif, TIFFDirEntry* direntry, uint64_t* value)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(55);
+#endif
 	if (!(tif->tif_flags&TIFF_BIGTIFF))
 	{
 		enum TIFFReadDirEntryErr err;
@@ -2951,6 +2992,9 @@ static enum TIFFReadDirEntryErr TIFFReadDirEntryCheckedLong8(TIFF* tif, TIFFDirE
 
 static enum TIFFReadDirEntryErr TIFFReadDirEntryCheckedSlong8(TIFF* tif, TIFFDirEntry* direntry, int64_t* value)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(56);
+#endif
 	if (!(tif->tif_flags&TIFF_BIGTIFF))
 	{
 		enum TIFFReadDirEntryErr err;
@@ -2970,6 +3014,9 @@ static enum TIFFReadDirEntryErr TIFFReadDirEntryCheckedSlong8(TIFF* tif, TIFFDir
 
 static enum TIFFReadDirEntryErr TIFFReadDirEntryCheckedRational(TIFF* tif, TIFFDirEntry* direntry, double* value)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(64);
+#endif
 	UInt64Aligned_t m;
 
 	assert(sizeof(double)==8);
@@ -3001,6 +3048,9 @@ static enum TIFFReadDirEntryErr TIFFReadDirEntryCheckedRational(TIFF* tif, TIFFD
 
 static enum TIFFReadDirEntryErr TIFFReadDirEntryCheckedSrational(TIFF* tif, TIFFDirEntry* direntry, double* value)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(65);
+#endif
 	UInt64Aligned_t m;
 	assert(sizeof(double)==8);
 	assert(sizeof(uint64_t) == 8);
@@ -3048,6 +3098,9 @@ static void TIFFReadDirEntryCheckedFloat(TIFF* tif, TIFFDirEntry* direntry, floa
 
 static enum TIFFReadDirEntryErr TIFFReadDirEntryCheckedDouble(TIFF* tif, TIFFDirEntry* direntry, double* value)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(66);
+#endif
 	assert(sizeof(double)==8);
 	assert(sizeof(uint64_t) == 8);
 	assert(sizeof(UInt64Aligned_t)==8);
@@ -3391,6 +3444,9 @@ TIFFReadDirEntryCheckRangeSlong8Long8(uint64_t value)
 static enum TIFFReadDirEntryErr
 TIFFReadDirEntryData(TIFF* tif, uint64_t offset, tmsize_t size, void* dest)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(57);
+#endif
 	assert(size>0);
 	if (!isMapped(tif)) {
 		if (!SeekOK(tif,offset))
@@ -3415,6 +3471,9 @@ TIFFReadDirEntryData(TIFF* tif, uint64_t offset, tmsize_t size, void* dest)
 
 static void TIFFReadDirEntryOutputErr(TIFF* tif, enum TIFFReadDirEntryErr err, const char* module, const char* tagname, int recover)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(42);
+#endif
 	if (!recover) {
 		switch (err) {
 			case TIFFReadDirEntryErrCount:
@@ -3579,6 +3638,9 @@ static int ByteCountLooksBad(TIFF* tif)
 int
 TIFFReadDirectory(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(36);
+#endif
 	static const char module[] = "TIFFReadDirectory";
 	TIFFDirEntry* dir;
 	uint16_t dircount;
@@ -4242,6 +4304,9 @@ TIFFReadDirectory(TIFF* tif)
 			   && TIFFGetStrileByteCount(tif, 0) != TIFFGetStrileByteCount(tif, 1)
 			   && TIFFGetStrileByteCount(tif, 0) != 0
 			   && TIFFGetStrileByteCount(tif, 1) != 0 ) {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(48);
+#endif
 			/*
 			 * XXX: Some vendors fill StripByteCount array with
 			 * absolutely wrong values (it can be equal to
@@ -4370,6 +4435,9 @@ bad:
 static void
 TIFFReadDirectoryCheckOrder(TIFF* tif, TIFFDirEntry* dir, uint16_t dircount)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(38);
+#endif
 	static const char module[] = "TIFFReadDirectoryCheckOrder";
 	uint16_t m;
 	uint16_t n;
@@ -4404,6 +4472,9 @@ TIFFReadDirectoryFindEntry(TIFF* tif, TIFFDirEntry* dir, uint16_t dircount, uint
 static void
 TIFFReadDirectoryFindFieldInfo(TIFF* tif, uint16_t tagid, uint32_t* fii)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(43);
+#endif
 	int32_t ma,mb,mc;
 	ma=-1;
 	mc=(int32_t)tif->tif_nfields;
@@ -4441,6 +4512,9 @@ int
 TIFFReadCustomDirectory(TIFF* tif, toff_t diroff,
 			const TIFFFieldArray* infoarray)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(49);
+#endif
 	static const char module[] = "TIFFReadCustomDirectory";
 	TIFFDirEntry* dir;
 	uint16_t dircount;
@@ -4548,6 +4622,9 @@ TIFFReadCustomDirectory(TIFF* tif, toff_t diroff,
 int
 TIFFReadEXIFDirectory(TIFF* tif, toff_t diroff)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(50);
+#endif
 	const TIFFFieldArray* exifFieldArray;
 	exifFieldArray = _TIFFGetExifFields();
 	return TIFFReadCustomDirectory(tif, diroff, exifFieldArray);  
@@ -4559,6 +4636,9 @@ TIFFReadEXIFDirectory(TIFF* tif, toff_t diroff)
 int
 TIFFReadGPSDirectory(TIFF* tif, toff_t diroff)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(51);
+#endif
 	const TIFFFieldArray* gpsFieldArray;
 	gpsFieldArray = _TIFFGetGpsFields();
 	return TIFFReadCustomDirectory(tif, diroff, gpsFieldArray);  
@@ -4567,6 +4647,9 @@ TIFFReadGPSDirectory(TIFF* tif, toff_t diroff)
 static int
 EstimateStripByteCounts(TIFF* tif, TIFFDirEntry* dir, uint16_t dircount)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(47);
+#endif
 	static const char module[] = "EstimateStripByteCounts";
 
 	TIFFDirEntry *dp;
@@ -4765,6 +4848,9 @@ static uint16_t
 TIFFFetchDirectory(TIFF* tif, uint64_t diroff, TIFFDirEntry** pdir,
                    uint64_t *nextdiroff)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(37);
+#endif
 	static const char module[] = "TIFFFetchDirectory";
 
 	void* origdir;
@@ -5022,6 +5108,9 @@ TIFFFetchDirectory(TIFF* tif, uint64_t diroff, TIFFDirEntry** pdir,
 static int
 TIFFFetchNormalTag(TIFF* tif, TIFFDirEntry* dp, int recover)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(39);
+#endif
 	static const char module[] = "TIFFFetchNormalTag";
 	enum TIFFReadDirEntryErr err;
 	uint32_t fii;
@@ -5731,6 +5820,9 @@ TIFFFetchNormalTag(TIFF* tif, TIFFDirEntry* dp, int recover)
 static int
 TIFFFetchStripThing(TIFF* tif, TIFFDirEntry* dir, uint32_t nstrips, uint64_t** lpp)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(46);
+#endif
 	static const char module[] = "TIFFFetchStripThing";
 	enum TIFFReadDirEntryErr err;
 	uint64_t* data;
@@ -5835,6 +5927,9 @@ TIFFFetchSubjectDistance(TIFF* tif, TIFFDirEntry* dir)
 static void allocChoppedUpStripArrays(TIFF* tif, uint32_t nstrips,
                                       uint64_t stripbytes, uint32_t rowsperstrip)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(68);
+#endif
     TIFFDirectory *td = &tif->tif_dir;
     uint64_t bytecount;
     uint64_t offset;
@@ -6356,6 +6451,9 @@ static int _TIFFFetchStrileValue(TIFF* tif,
     {
         if( !_TIFFPartialReadStripArray( tif, dirent, strile, *parray ) )
         {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(52);
+#endif
             (*parray)[strile] = 0;
             return 0;
         }
@@ -6416,6 +6514,9 @@ uint64_t TIFFGetStrileOffset(TIFF *tif, uint32_t strile)
 /* Return the value of the TileOffsets/StripOffsets array for the specified tile/strile */
 uint64_t TIFFGetStrileOffsetWithErr(TIFF *tif, uint32_t strile, int *pbErr)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(53);
+#endif
     TIFFDirectory *td = &tif->tif_dir;
     return _TIFFGetStrileOffsetOrByteCountValue(tif, strile,
                                &(td->td_stripoffset_entry),
@@ -6431,6 +6532,9 @@ uint64_t TIFFGetStrileByteCount(TIFF *tif, uint32_t strile)
 /* Return the value of the TileByteCounts/StripByteCounts array for the specified tile/strile */
 uint64_t TIFFGetStrileByteCountWithErr(TIFF *tif, uint32_t strile, int *pbErr)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(54);
+#endif
     TIFFDirectory *td = &tif->tif_dir;
     return _TIFFGetStrileOffsetOrByteCountValue(tif, strile,
                                &(td->td_stripbytecount_entry),

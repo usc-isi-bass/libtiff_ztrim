@@ -1,3 +1,8 @@
+#ifndef ZTRIM_H
+#define ZTRIM_H
+#include <libztrim.h>
+#endif
+
 /*
  * Copyright (c) 1988-1997 Sam Leffler
  * Copyright (c) 1991-1997 Silicon Graphics, Inc.
@@ -32,6 +37,9 @@
 static int
 TIFFNoEncode(TIFF* tif, const char* method)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(202);
+#endif
 	const TIFFCodec* c = TIFFFindCODEC(tif->tif_dir.td_compression);
 
 	if (c) {
@@ -70,6 +78,9 @@ _TIFFNoTileEncode(TIFF* tif, uint8_t* pp, tmsize_t cc, uint16_t s)
 static int
 TIFFNoDecode(TIFF* tif, const char* method)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(203);
+#endif
 	const TIFFCodec* c = TIFFFindCODEC(tif->tif_dir.td_compression);
 
 	if (c)
@@ -158,6 +169,9 @@ _TIFFSetDefaultCompressionState(TIFF* tif)
 int
 TIFFSetCompressionScheme(TIFF* tif, int scheme)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(204);
+#endif
 	const TIFFCodec *c = TIFFFindCODEC((uint16_t) scheme);
 
 	_TIFFSetDefaultCompressionState(tif);
@@ -184,6 +198,9 @@ static codec_t* registeredCODECS = NULL;
 const TIFFCodec*
 TIFFFindCODEC(uint16_t scheme)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(205);
+#endif
 	const TIFFCodec* c;
 	codec_t* cd;
 
@@ -199,6 +216,9 @@ TIFFFindCODEC(uint16_t scheme)
 TIFFCodec*
 TIFFRegisterCODEC(uint16_t scheme, const char* name, TIFFInitMethod init)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(206);
+#endif
 	codec_t* cd = (codec_t*)
 	    _TIFFmalloc((tmsize_t)(sizeof (codec_t) + sizeof (TIFFCodec) + strlen(name)+1));
 
@@ -222,6 +242,9 @@ TIFFRegisterCODEC(uint16_t scheme, const char* name, TIFFInitMethod init)
 void
 TIFFUnRegisterCODEC(TIFFCodec* c)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(207);
+#endif
 	codec_t* cd;
 	codec_t** pcd;
 

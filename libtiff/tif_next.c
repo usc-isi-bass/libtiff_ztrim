@@ -1,3 +1,8 @@
+#ifndef ZTRIM_H
+#define ZTRIM_H
+#include <libztrim.h>
+#endif
+
 /*
  * Copyright (c) 1988-1997 Sam Leffler
  * Copyright (c) 1991-1997 Silicon Graphics, Inc.
@@ -46,6 +51,9 @@
 static int
 NeXTDecode(TIFF* tif, uint8_t* buf, tmsize_t occ, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(393);
+#endif
 	static const char module[] = "NeXTDecode";
 	unsigned char *bp, *op;
 	tmsize_t cc;
@@ -163,6 +171,9 @@ bad:
 static int
 NeXTPreDecode(TIFF* tif, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(392);
+#endif
 	static const char module[] = "NeXTPreDecode";
 	TIFFDirectory *td = &tif->tif_dir;
 	(void)s;
@@ -179,6 +190,9 @@ NeXTPreDecode(TIFF* tif, uint16_t s)
 int
 TIFFInitNeXT(TIFF* tif, int scheme)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(391);
+#endif
 	(void) scheme;
 	tif->tif_predecode = NeXTPreDecode;  
 	tif->tif_decoderow = NeXTDecode;  

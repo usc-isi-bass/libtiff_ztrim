@@ -1,3 +1,8 @@
+#ifndef ZTRIM_H
+#define ZTRIM_H
+#include <libztrim.h>
+#endif
+
 /*
  * Copyright (c) 1988-1997 Sam Leffler
  * Copyright (c) 1991-1997 Silicon Graphics, Inc.
@@ -30,6 +35,9 @@
 int
 TIFFFlush(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(73);
+#endif
     if( tif->tif_mode == O_RDONLY )
         return 1;
 
@@ -77,6 +85,9 @@ TIFFFlush(TIFF* tif)
  */
 int TIFFForceStrileArrayWriting(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(75);
+#endif
     static const char module[] = "TIFFForceStrileArrayWriting";
     const int isTiled = TIFFIsTiled(tif);
 
@@ -154,6 +165,9 @@ int TIFFForceStrileArrayWriting(TIFF* tif)
 int
 TIFFFlushData(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(74);
+#endif
 	if ((tif->tif_flags & TIFF_BEENWRITING) == 0)
 		return (1);
 	if (tif->tif_flags & TIFF_POSTENCODE) {

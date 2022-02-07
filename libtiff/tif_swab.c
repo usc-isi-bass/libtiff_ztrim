@@ -1,3 +1,8 @@
+#ifndef ZTRIM_H
+#define ZTRIM_H
+#include <libztrim.h>
+#endif
+
 /*
  * Copyright (c) 1988-1997 Sam Leffler
  * Copyright (c) 1991-1997 Silicon Graphics, Inc.
@@ -33,6 +38,9 @@
 void
 TIFFSwabShort(uint16_t* wp)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(151);
+#endif
 	register unsigned char* cp = (unsigned char*) wp;
 	unsigned char t;
 	assert(sizeof(uint16_t) == 2);
@@ -44,6 +52,9 @@ TIFFSwabShort(uint16_t* wp)
 void
 TIFFSwabLong(uint32_t* lp)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(152);
+#endif
 	register unsigned char* cp = (unsigned char*) lp;
 	unsigned char t;
 	assert(sizeof(uint32_t) == 4);
@@ -56,6 +67,9 @@ TIFFSwabLong(uint32_t* lp)
 void
 TIFFSwabLong8(uint64_t* lp)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(153);
+#endif
 	register unsigned char* cp = (unsigned char*) lp;
 	unsigned char t;
 	assert(sizeof(uint64_t) == 8);
@@ -70,6 +84,9 @@ TIFFSwabLong8(uint64_t* lp)
 void
 TIFFSwabArrayOfShort(register uint16_t* wp, tmsize_t n)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(154);
+#endif
 	register unsigned char* cp;
 	register unsigned char t;
 	assert(sizeof(uint16_t) == 2);
@@ -86,6 +103,9 @@ TIFFSwabArrayOfShort(register uint16_t* wp, tmsize_t n)
 void
 TIFFSwabArrayOfTriples(register uint8_t* tp, tmsize_t n)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(155);
+#endif
 	unsigned char* cp;
 	unsigned char t;
 
@@ -102,6 +122,9 @@ TIFFSwabArrayOfTriples(register uint8_t* tp, tmsize_t n)
 void
 TIFFSwabArrayOfLong(register uint32_t* lp, tmsize_t n)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(156);
+#endif
 	register unsigned char *cp;
 	register unsigned char t;
 	assert(sizeof(uint32_t) == 4);
@@ -119,6 +142,9 @@ TIFFSwabArrayOfLong(register uint32_t* lp, tmsize_t n)
 void
 TIFFSwabArrayOfLong8(register uint64_t* lp, tmsize_t n)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(157);
+#endif
 	register unsigned char *cp;
 	register unsigned char t;
 	assert(sizeof(uint64_t) == 8);
@@ -138,6 +164,9 @@ TIFFSwabArrayOfLong8(register uint64_t* lp, tmsize_t n)
 void
 TIFFSwabFloat(float* fp)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(158);
+#endif
 	register unsigned char* cp = (unsigned char*) fp;
 	unsigned char t;
 	assert(sizeof(float)==4);
@@ -150,6 +179,9 @@ TIFFSwabFloat(float* fp)
 void
 TIFFSwabArrayOfFloat(register float* fp, tmsize_t n)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(159);
+#endif
 	register unsigned char *cp;
 	register unsigned char t;
 	assert(sizeof(float)==4);
@@ -167,6 +199,9 @@ TIFFSwabArrayOfFloat(register float* fp, tmsize_t n)
 void
 TIFFSwabDouble(double *dp)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(160);
+#endif
 	register unsigned char* cp = (unsigned char*) dp;
 	unsigned char t;
 	assert(sizeof(double)==8);
@@ -181,6 +216,9 @@ TIFFSwabDouble(double *dp)
 void
 TIFFSwabArrayOfDouble(double* dp, tmsize_t n)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(161);
+#endif
 	register unsigned char *cp;
 	register unsigned char t;
 	assert(sizeof(double)==8);
@@ -277,12 +315,18 @@ static const unsigned char TIFFNoBitRevTable[256] = {
 const unsigned char*
 TIFFGetBitRevTable(int reversed)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(162);
+#endif
 	return (reversed ? TIFFBitRevTable : TIFFNoBitRevTable);
 }
 
 void
 TIFFReverseBits(uint8_t* cp, tmsize_t n)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(163);
+#endif
 	for (; n > 8; n -= 8) {
 		cp[0] = TIFFBitRevTable[cp[0]];
 		cp[1] = TIFFBitRevTable[cp[1]];

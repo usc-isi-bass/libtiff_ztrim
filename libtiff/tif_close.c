@@ -1,3 +1,8 @@
+#ifndef ZTRIM_H
+#define ZTRIM_H
+#include <libztrim.h>
+#endif
+
 /*
  * Copyright (c) 1988-1997 Sam Leffler
  * Copyright (c) 1991-1997 Silicon Graphics, Inc.
@@ -44,6 +49,9 @@
 void
 TIFFCleanup(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(1);
+#endif
 	/*
          * Flush buffered data and directory (if dirty).
          */
@@ -120,6 +128,9 @@ TIFFCleanup(TIFF* tif)
 void
 TIFFClose(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(2);
+#endif
 	TIFFCloseProc closeproc = tif->tif_closeproc;
 	thandle_t fd = tif->tif_clientdata;
 

@@ -1,3 +1,8 @@
+#ifndef ZTRIM_H
+#define ZTRIM_H
+#include <libztrim.h>
+#endif
+
 /*
  * Copyright (c) 1988-1997 Sam Leffler
  * Copyright (c) 1991-1997 Silicon Graphics, Inc.
@@ -55,6 +60,9 @@ static int TIFFReadAndRealloc(TIFF* tif, tmsize_t size,
                               int is_strip, uint32_t strip_or_tile,
                               const char* module )
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(137);
+#endif
 #if SIZEOF_SIZE_T == 8
         tmsize_t threshold = INITIAL_THRESHOLD;
 #endif
@@ -436,6 +444,9 @@ TIFFSeek(TIFF* tif, uint32_t row, uint16_t sample )
 int
 TIFFReadScanline(TIFF* tif, void* buf, uint32_t row, uint16_t sample)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(120);
+#endif
 	int e;
 
 	if (!TIFFCheckRead(tif, 0))
@@ -464,6 +475,9 @@ TIFFReadScanline(TIFF* tif, void* buf, uint32_t row, uint16_t sample)
  */
 static tmsize_t TIFFReadEncodedStripGetStripSize(TIFF* tif, uint32_t strip, uint16_t* pplane)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(123);
+#endif
 	static const char module[] = "TIFFReadEncodedStrip";
 	TIFFDirectory *td = &tif->tif_dir;
 	uint32_t rowsperstrip;
@@ -510,6 +524,9 @@ static tmsize_t TIFFReadEncodedStripGetStripSize(TIFF* tif, uint32_t strip, uint
 tmsize_t
 TIFFReadEncodedStrip(TIFF* tif, uint32_t strip, void* buf, tmsize_t size)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(122);
+#endif
 	static const char module[] = "TIFFReadEncodedStrip";
 	TIFFDirectory *td = &tif->tif_dir;
 	tmsize_t stripsize;
@@ -593,6 +610,9 @@ static tmsize_t
 TIFFReadRawStrip1(TIFF* tif, uint32_t strip, void* buf, tmsize_t size,
                   const char* module)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(124);
+#endif
 	assert((tif->tif_flags&TIFF_NOREADRAW)==0);
 	if (!isMapped(tif)) {
 		tmsize_t cc;
@@ -651,6 +671,9 @@ static tmsize_t
 TIFFReadRawStripOrTile2(TIFF* tif, uint32_t strip_or_tile, int is_strip,
                         tmsize_t size, const char* module)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(128);
+#endif
         assert( !isMapped(tif) );
         assert((tif->tif_flags&TIFF_NOREADRAW)==0);
 
@@ -688,6 +711,9 @@ TIFFReadRawStripOrTile2(TIFF* tif, uint32_t strip_or_tile, int is_strip,
 tmsize_t
 TIFFReadRawStrip(TIFF* tif, uint32_t strip, void* buf, tmsize_t size)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(126);
+#endif
 	static const char module[] = "TIFFReadRawStrip";
 	TIFFDirectory *td = &tif->tif_dir;
 	uint64_t bytecount64;
@@ -732,6 +758,9 @@ static uint64_t NoSanitizeSubUInt64(uint64_t a, uint64_t b)
 int
 TIFFFillStrip(TIFF* tif, uint32_t strip)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(125);
+#endif
 	static const char module[] = "TIFFFillStrip";
 	TIFFDirectory *td = &tif->tif_dir;
 
@@ -906,6 +935,9 @@ TIFFFillStrip(TIFF* tif, uint32_t strip)
 tmsize_t
 TIFFReadTile(TIFF* tif, void* buf, uint32_t x, uint32_t y, uint32_t z, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(130);
+#endif
 	if (!TIFFCheckRead(tif, 1) || !TIFFCheckTile(tif, x, y, z, s))
 		return ((tmsize_t)(-1));
 	return (TIFFReadEncodedTile(tif,
@@ -919,6 +951,9 @@ TIFFReadTile(TIFF* tif, void* buf, uint32_t x, uint32_t y, uint32_t z, uint16_t 
 tmsize_t
 TIFFReadEncodedTile(TIFF* tif, uint32_t tile, void* buf, tmsize_t size)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(131);
+#endif
 	static const char module[] = "TIFFReadEncodedTile";
 	TIFFDirectory *td = &tif->tif_dir;
 	tmsize_t tilesize = tif->tif_tilesize;
@@ -1035,6 +1070,9 @@ _TIFFReadEncodedTileAndAllocBuffer(TIFF* tif, uint32_t tile,
 static tmsize_t
 TIFFReadRawTile1(TIFF* tif, uint32_t tile, void* buf, tmsize_t size, const char* module)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(132);
+#endif
 	assert((tif->tif_flags&TIFF_NOREADRAW)==0);
 	if (!isMapped(tif)) {
 		tmsize_t cc;
@@ -1089,6 +1127,9 @@ TIFFReadRawTile1(TIFF* tif, uint32_t tile, void* buf, tmsize_t size, const char*
 tmsize_t
 TIFFReadRawTile(TIFF* tif, uint32_t tile, void* buf, tmsize_t size)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(134);
+#endif
 	static const char module[] = "TIFFReadRawTile";
 	TIFFDirectory *td = &tif->tif_dir;
 	uint64_t bytecount64;
@@ -1126,6 +1167,9 @@ TIFFReadRawTile(TIFF* tif, uint32_t tile, void* buf, tmsize_t size)
 int
 TIFFFillTile(TIFF* tif, uint32_t tile)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(133);
+#endif
 	static const char module[] = "TIFFFillTile";
 	TIFFDirectory *td = &tif->tif_dir;
 
@@ -1285,6 +1329,9 @@ TIFFFillTile(TIFF* tif, uint32_t tile)
 int
 TIFFReadBufferSetup(TIFF* tif, void* bp, tmsize_t size)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(127);
+#endif
 	static const char module[] = "TIFFReadBufferSetup";
 
 	assert((tif->tif_flags&TIFF_NOREADRAW)==0);
@@ -1329,6 +1376,9 @@ TIFFReadBufferSetup(TIFF* tif, void* bp, tmsize_t size)
 static int
 TIFFStartStrip(TIFF* tif, uint32_t strip)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(129);
+#endif
 	TIFFDirectory *td = &tif->tif_dir;
 
 	if ((tif->tif_flags & TIFF_CODERSETUP) == 0) {
@@ -1372,6 +1422,9 @@ TIFFStartStrip(TIFF* tif, uint32_t strip)
 static int
 TIFFStartTile(TIFF* tif, uint32_t tile)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(135);
+#endif
         static const char module[] = "TIFFStartTile";
 	TIFFDirectory *td = &tif->tif_dir;
         uint32_t howmany32;
@@ -1415,6 +1468,9 @@ TIFFStartTile(TIFF* tif, uint32_t tile)
 static int
 TIFFCheckRead(TIFF* tif, int tiles)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(121);
+#endif
 	if (tif->tif_mode == O_WRONLY) {
 		TIFFErrorExt(tif->tif_clientdata, tif->tif_name, "File not open for reading");
 		return (0);
@@ -1441,6 +1497,9 @@ int      TIFFReadFromUserBuffer(TIFF* tif, uint32_t strile,
                                 void* inbuf, tmsize_t insize,
                                 void* outbuf, tmsize_t outsize)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(136);
+#endif
     static const char module[] = "TIFFReadFromUserBuffer";
     TIFFDirectory *td = &tif->tif_dir;
     int ret = 1;

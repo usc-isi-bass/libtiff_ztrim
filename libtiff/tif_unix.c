@@ -1,3 +1,8 @@
+#ifndef ZTRIM_H
+#define ZTRIM_H
+#include <libztrim.h>
+#endif
+
 /*
  * Copyright (c) 1988-1997 Sam Leffler
  * Copyright (c) 1991-1997 Silicon Graphics, Inc.
@@ -202,6 +207,9 @@ _tiffUnmapProc(thandle_t fd, void* base, toff_t size)
 TIFF*
 TIFFFdOpen(int fd, const char* name, const char* mode)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(191);
+#endif
 	TIFF* tif;
 
 	fd_as_handle_union_t fdh;
@@ -222,6 +230,9 @@ TIFFFdOpen(int fd, const char* name, const char* mode)
 TIFF*
 TIFFOpen(const char* name, const char* mode)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(192);
+#endif
 	static const char module[] = "TIFFOpen";
 	int m, fd;
 	TIFF* tif;
@@ -355,6 +366,9 @@ _TIFFmemcmp(const void* p1, const void* p2, tmsize_t c)
 static void
 unixWarningHandler(const char* module, const char* fmt, va_list ap)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(193);
+#endif
 	if (module != NULL)
 		fprintf(stderr, "%s: ", module);
 	fprintf(stderr, "Warning, ");
@@ -366,6 +380,9 @@ TIFFErrorHandler _TIFFwarningHandler = unixWarningHandler;
 static void
 unixErrorHandler(const char* module, const char* fmt, va_list ap)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(194);
+#endif
 	if (module != NULL)
 		fprintf(stderr, "%s: ", module);
 	vfprintf(stderr, fmt, ap);

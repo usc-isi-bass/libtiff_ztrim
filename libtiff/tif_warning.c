@@ -1,3 +1,8 @@
+#ifndef ZTRIM_H
+#define ZTRIM_H
+#include <libztrim.h>
+#endif
+
 /*
  * Copyright (c) 1988-1997 Sam Leffler
  * Copyright (c) 1991-1997 Silicon Graphics, Inc.
@@ -32,6 +37,9 @@ TIFFErrorHandlerExt _TIFFwarningHandlerExt = NULL;
 TIFFErrorHandler
 TIFFSetWarningHandler(TIFFErrorHandler handler)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(174);
+#endif
 	TIFFErrorHandler prev = _TIFFwarningHandler;
 	_TIFFwarningHandler = handler;
 	return (prev);
@@ -40,6 +48,9 @@ TIFFSetWarningHandler(TIFFErrorHandler handler)
 TIFFErrorHandlerExt
 TIFFSetWarningHandlerExt(TIFFErrorHandlerExt handler)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(175);
+#endif
 	TIFFErrorHandlerExt prev = _TIFFwarningHandlerExt;
 	_TIFFwarningHandlerExt = handler;
 	return (prev);
@@ -48,6 +59,9 @@ TIFFSetWarningHandlerExt(TIFFErrorHandlerExt handler)
 void
 TIFFWarning(const char* module, const char* fmt, ...)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(176);
+#endif
 	va_list ap;
 	if (_TIFFwarningHandler) {
 		va_start(ap, fmt);
@@ -64,6 +78,9 @@ TIFFWarning(const char* module, const char* fmt, ...)
 void
 TIFFWarningExt(thandle_t fd, const char* module, const char* fmt, ...)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(177);
+#endif
 	va_list ap;
 	if (_TIFFwarningHandler) {
 		va_start(ap, fmt);	

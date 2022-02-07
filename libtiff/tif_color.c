@@ -1,3 +1,8 @@
+#ifndef ZTRIM_H
+#define ZTRIM_H
+#include <libztrim.h>
+#endif
+
 /*
  * Copyright (c) 1988-1997 Sam Leffler
  * Copyright (c) 1991-1997 Silicon Graphics, Inc.
@@ -44,6 +49,9 @@ void
 TIFFCIELabToXYZ(TIFFCIELabToRGB *cielab, uint32_t l, int32_t a, int32_t b,
                 float *X, float *Y, float *Z)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(197);
+#endif
 	float L = (float)l * 100.0F / 255.0F;
 	float cby, tmp;
 
@@ -76,6 +84,9 @@ void
 TIFFXYZToRGB(TIFFCIELabToRGB *cielab, float X, float Y, float Z,
              uint32_t *r, uint32_t *g, uint32_t *b)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(198);
+#endif
 	int i;
 	float Yr, Yg, Yb;
 	float *matrix = &cielab->display.d_mat[0][0];
@@ -123,6 +134,9 @@ int
 TIFFCIELabToRGBInit(TIFFCIELabToRGB* cielab,
 		    const TIFFDisplay *display, float *refWhite)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(199);
+#endif
 	int i;
 	double dfGamma;
 
@@ -181,6 +195,9 @@ void
 TIFFYCbCrtoRGB(TIFFYCbCrToRGB *ycbcr, uint32_t Y, int32_t Cb, int32_t Cr,
                uint32_t *r, uint32_t *g, uint32_t *b)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(200);
+#endif
 	int32_t i;
 
 	/* XXX: Only 8-bit YCbCr input supported for now */
@@ -233,6 +250,9 @@ static float CLAMPw(float v, float vmin, float vmax)
 int
 TIFFYCbCrToRGBInit(TIFFYCbCrToRGB* ycbcr, float *luma, float *refBlackWhite)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(201);
+#endif
     TIFFRGBValue* clamptab;
     int i;
     

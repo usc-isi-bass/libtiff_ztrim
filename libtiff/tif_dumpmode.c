@@ -1,3 +1,8 @@
+#ifndef ZTRIM_H
+#define ZTRIM_H
+#include <libztrim.h>
+#endif
+
 /*
  * Copyright (c) 1988-1997 Sam Leffler
  * Copyright (c) 1991-1997 Silicon Graphics, Inc.
@@ -32,6 +37,9 @@
 static int
 DumpFixupTags(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(296);
+#endif
 	(void) tif;
 	return (1);
 }
@@ -42,6 +50,9 @@ DumpFixupTags(TIFF* tif)
 static int
 DumpModeEncode(TIFF* tif, uint8_t* pp, tmsize_t cc, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(298);
+#endif
 	(void) s;
 	while (cc > 0) {
 		tmsize_t n;
@@ -75,6 +86,9 @@ DumpModeEncode(TIFF* tif, uint8_t* pp, tmsize_t cc, uint16_t s)
 static int
 DumpModeDecode(TIFF* tif, uint8_t* buf, tmsize_t cc, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(297);
+#endif
 	static const char module[] = "DumpModeDecode";
 	(void) s;
 	if (tif->tif_rawcc < cc) {
@@ -102,6 +116,9 @@ DumpModeDecode(TIFF* tif, uint8_t* buf, tmsize_t cc, uint16_t s)
 static int
 DumpModeSeek(TIFF* tif, uint32_t nrows)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(299);
+#endif
 	tif->tif_rawcp += nrows * tif->tif_scanlinesize;
 	tif->tif_rawcc -= nrows * tif->tif_scanlinesize;
 	return (1);
@@ -113,6 +130,9 @@ DumpModeSeek(TIFF* tif, uint32_t nrows)
 int
 TIFFInitDumpMode(TIFF* tif, int scheme)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(295);
+#endif
 	(void) scheme;
 	tif->tif_fixuptags = DumpFixupTags;  
 	tif->tif_decoderow = DumpModeDecode;

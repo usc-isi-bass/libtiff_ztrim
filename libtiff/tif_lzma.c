@@ -1,3 +1,8 @@
+#ifndef ZTRIM_H
+#define ZTRIM_H
+#include <libztrim.h>
+#endif
+
 /*
  * Copyright (c) 2010, Andrey Kiselev <dron@ak4719.spb.edu>
  *
@@ -67,6 +72,9 @@ static int LZMADecode(TIFF* tif, uint8_t* op, tmsize_t occ, uint16_t s);
 static const char *
 LZMAStrerror(lzma_ret ret)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(378);
+#endif
 	switch (ret) {
 		case LZMA_OK:
 		    return "operation completed successfully";
@@ -100,6 +108,9 @@ LZMAStrerror(lzma_ret ret)
 static int
 LZMAFixupTags(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(369);
+#endif
 	(void) tif;
 	return 1;
 }
@@ -107,6 +118,9 @@ LZMAFixupTags(TIFF* tif)
 static int
 LZMASetupDecode(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(370);
+#endif
 	LZMAState* sp = DecoderState(tif);
 
 	assert(sp != NULL);
@@ -127,6 +141,9 @@ LZMASetupDecode(TIFF* tif)
 static int
 LZMAPreDecode(TIFF* tif, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(371);
+#endif
 	static const char module[] = "LZMAPreDecode";
 	LZMAState* sp = DecoderState(tif);
 	lzma_ret ret;
@@ -162,6 +179,9 @@ LZMAPreDecode(TIFF* tif, uint16_t s)
 static int
 LZMADecode(TIFF* tif, uint8_t* op, tmsize_t occ, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(372);
+#endif
 	static const char module[] = "LZMADecode";
 	LZMAState* sp = DecoderState(tif);
 
@@ -227,6 +247,9 @@ LZMADecode(TIFF* tif, uint8_t* op, tmsize_t occ, uint16_t s)
 static int
 LZMASetupEncode(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(373);
+#endif
 	LZMAState* sp = EncoderState(tif);
 
 	assert(sp != NULL);
@@ -245,6 +268,9 @@ LZMASetupEncode(TIFF* tif)
 static int
 LZMAPreEncode(TIFF* tif, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(374);
+#endif
 	static const char module[] = "LZMAPreEncode";
 	LZMAState *sp = EncoderState(tif);
 	lzma_ret ret;
@@ -276,6 +302,9 @@ LZMAPreEncode(TIFF* tif, uint16_t s)
 static int
 LZMAEncode(TIFF* tif, uint8_t* bp, tmsize_t cc, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(376);
+#endif
 	static const char module[] = "LZMAEncode";
 	LZMAState *sp = EncoderState(tif);
 
@@ -316,6 +345,9 @@ LZMAEncode(TIFF* tif, uint8_t* bp, tmsize_t cc, uint16_t s)
 static int
 LZMAPostEncode(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(375);
+#endif
 	static const char module[] = "LZMAPostEncode";
 	LZMAState *sp = EncoderState(tif);
 	lzma_ret ret;
@@ -347,6 +379,9 @@ LZMAPostEncode(TIFF* tif)
 static void
 LZMACleanup(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(377);
+#endif
 	LZMAState* sp = LState(tif);
 
 	assert(sp != 0);
@@ -369,6 +404,9 @@ LZMACleanup(TIFF* tif)
 static int
 LZMAVSetField(TIFF* tif, uint32_t tag, va_list ap)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(368);
+#endif
 	static const char module[] = "LZMAVSetField";
 	LZMAState* sp = LState(tif);
 
@@ -396,6 +434,9 @@ LZMAVSetField(TIFF* tif, uint32_t tag, va_list ap)
 static int
 LZMAVGetField(TIFF* tif, uint32_t tag, va_list ap)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(367);
+#endif
 	LZMAState* sp = LState(tif);
 
 	switch (tag) {
@@ -416,6 +457,9 @@ static const TIFFField lzmaFields[] = {
 int
 TIFFInitLZMA(TIFF* tif, int scheme)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(366);
+#endif
 	static const char module[] = "TIFFInitLZMA";
 	LZMAState* sp;
 	lzma_stream tmp_stream = LZMA_STREAM_INIT;

@@ -1,3 +1,8 @@
+#ifndef ZTRIM_H
+#define ZTRIM_H
+#include <libztrim.h>
+#endif
+
 /*
  * Copyright (c) 1991-1997 Sam Leffler
  * Copyright (c) 1991-1997 Silicon Graphics, Inc.
@@ -74,6 +79,9 @@ static const TIFFDisplay display_sRGB = {
 int
 TIFFRGBAImageOK(TIFF* tif, char emsg[1024])
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(76);
+#endif
 	TIFFDirectory* td = &tif->tif_dir;
 	uint16_t photometric;
 	int colorchannels;
@@ -214,6 +222,9 @@ TIFFRGBAImageOK(TIFF* tif, char emsg[1024])
 void
 TIFFRGBAImageEnd(TIFFRGBAImage* img)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(77);
+#endif
 	if (img->Map) {
 		_TIFFfree(img->Map);
 		img->Map = NULL;
@@ -265,6 +276,9 @@ isCCITTCompression(TIFF* tif)
 int
 TIFFRGBAImageBegin(TIFFRGBAImage* img, TIFF* tif, int stop, char emsg[1024])
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(78);
+#endif
 	uint16_t* sampleinfo;
 	uint16_t extrasamples;
 	uint16_t planarconfig;
@@ -500,6 +514,9 @@ TIFFRGBAImageBegin(TIFFRGBAImage* img, TIFF* tif, int stop, char emsg[1024])
 int
 TIFFRGBAImageGet(TIFFRGBAImage* img, uint32_t* raster, uint32_t w, uint32_t h)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(79);
+#endif
     if (img->get == NULL) {
 		TIFFErrorExt(img->tif->tif_clientdata, TIFFFileName(img->tif), "No \"get\" routine setup");
 		return (0);
@@ -521,6 +538,9 @@ TIFFReadRGBAImageOriented(TIFF* tif,
                           uint32_t rwidth, uint32_t rheight, uint32_t* raster,
                           int orientation, int stop)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(80);
+#endif
     char emsg[1024] = "";
     TIFFRGBAImage img;
     int ok;
@@ -546,6 +566,9 @@ int
 TIFFReadRGBAImage(TIFF* tif,
                   uint32_t rwidth, uint32_t rheight, uint32_t* raster, int stop)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(81);
+#endif
 	return TIFFReadRGBAImageOriented(tif, rwidth, rheight, raster,
 					 ORIENTATION_BOTLEFT, stop);
 }
@@ -553,6 +576,9 @@ TIFFReadRGBAImage(TIFF* tif,
 static int 
 setorientation(TIFFRGBAImage* img)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(92);
+#endif
 	switch (img->orientation) {
 		case ORIENTATION_TOPLEFT:
 		case ORIENTATION_LEFTTOP:
@@ -620,6 +646,9 @@ setorientation(TIFFRGBAImage* img)
 static int
 gtTileContig(TIFFRGBAImage* img, uint32_t* raster, uint32_t w, uint32_t h)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(86);
+#endif
     TIFF* tif = img->tif;
     tileContigRoutine put = img->put.contig;
     uint32_t col, row, y, rowstoread;
@@ -741,6 +770,9 @@ gtTileContig(TIFFRGBAImage* img, uint32_t* raster, uint32_t w, uint32_t h)
 static int
 gtTileSeparate(TIFFRGBAImage* img, uint32_t* raster, uint32_t w, uint32_t h)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(93);
+#endif
 	TIFF* tif = img->tif;
 	tileSeparateRoutine put = img->put.separate;
 	uint32_t col, row, y, rowstoread;
@@ -930,6 +962,9 @@ gtTileSeparate(TIFFRGBAImage* img, uint32_t* raster, uint32_t w, uint32_t h)
 static int
 gtStripContig(TIFFRGBAImage* img, uint32_t* raster, uint32_t w, uint32_t h)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(87);
+#endif
 	TIFF* tif = img->tif;
 	tileContigRoutine put = img->put.contig;
 	uint32_t row, y, nrow, nrowsub, rowstoread;
@@ -1029,6 +1064,9 @@ gtStripContig(TIFFRGBAImage* img, uint32_t* raster, uint32_t w, uint32_t h)
 static int
 gtStripSeparate(TIFFRGBAImage* img, uint32_t* raster, uint32_t w, uint32_t h)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(94);
+#endif
 	TIFF* tif = img->tif;
 	tileSeparateRoutine put = img->put.separate;
 	unsigned char *buf = NULL;
@@ -2308,6 +2346,9 @@ static int isInRefBlackWhiteRange(float f)
 static int
 initYCbCrConversion(TIFFRGBAImage* img)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(91);
+#endif
 	static const char module[] = "initYCbCrConversion";
 
 	float *luma, *refBlackWhite;
@@ -2601,6 +2642,9 @@ makecmap(TIFFRGBAImage* img)
 static int
 buildMap(TIFFRGBAImage* img)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(90);
+#endif
     switch (img->photometric) {
     case PHOTOMETRIC_RGB:
     case PHOTOMETRIC_YCBCR:
@@ -2863,6 +2907,9 @@ PickSeparateCase(TIFFRGBAImage* img)
 static int
 BuildMapUaToAa(TIFFRGBAImage* img)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(88);
+#endif
 	static const char module[]="BuildMapUaToAa";
 	uint8_t* m;
 	uint16_t na,nv;
@@ -2885,6 +2932,9 @@ BuildMapUaToAa(TIFFRGBAImage* img)
 static int
 BuildMapBitdepth16To8(TIFFRGBAImage* img)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(89);
+#endif
 	static const char module[]="BuildMapBitdepth16To8";
 	uint8_t* m;
 	uint32_t n;
@@ -2914,6 +2964,9 @@ int
 TIFFReadRGBAStrip(TIFF* tif, uint32_t row, uint32_t * raster )
 
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(82);
+#endif
     return TIFFReadRGBAStripExt(tif, row, raster, 0 );
 }
 
@@ -2921,6 +2974,9 @@ int
 TIFFReadRGBAStripExt(TIFF* tif, uint32_t row, uint32_t * raster, int stop_on_error)
 
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(83);
+#endif
     char 	emsg[1024] = "";
     TIFFRGBAImage img;
     int 	ok;
@@ -2972,6 +3028,9 @@ int
 TIFFReadRGBATile(TIFF* tif, uint32_t col, uint32_t row, uint32_t * raster)
 
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(84);
+#endif
     return TIFFReadRGBATileExt(tif, col, row, raster, 0 );
 }
 
@@ -2979,6 +3038,9 @@ TIFFReadRGBATile(TIFF* tif, uint32_t col, uint32_t row, uint32_t * raster)
 int
 TIFFReadRGBATileExt(TIFF* tif, uint32_t col, uint32_t row, uint32_t * raster, int stop_on_error )
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(85);
+#endif
     char 	emsg[1024] = "";
     TIFFRGBAImage img;
     int 	ok;

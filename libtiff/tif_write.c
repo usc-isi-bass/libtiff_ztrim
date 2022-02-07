@@ -1,3 +1,8 @@
+#ifndef ZTRIM_H
+#define ZTRIM_H
+#include <libztrim.h>
+#endif
+
 /*
  * Copyright (c) 1988-1997 Sam Leffler
  * Copyright (c) 1991-1997 Silicon Graphics, Inc.
@@ -46,6 +51,9 @@ static int TIFFAppendToStrip(TIFF* tif, uint32_t strip, uint8_t* data, tmsize_t 
 int
 TIFFWriteScanline(TIFF* tif, void* buf, uint32_t row, uint16_t sample)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(178);
+#endif
 	static const char module[] = "TIFFWriteScanline";
 	register TIFFDirectory *td;
 	int status, imagegrew = 0;
@@ -211,6 +219,9 @@ static int _TIFFReserveLargeEnoughWriteBuffer(TIFF* tif, uint32_t strip_or_tile)
 tmsize_t
 TIFFWriteEncodedStrip(TIFF* tif, uint32_t strip, void* data, tmsize_t cc)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(182);
+#endif
 	static const char module[] = "TIFFWriteEncodedStrip";
 	TIFFDirectory *td = &tif->tif_dir;
 	uint16_t sample;
@@ -315,6 +326,9 @@ TIFFWriteEncodedStrip(TIFF* tif, uint32_t strip, void* data, tmsize_t cc)
 tmsize_t
 TIFFWriteRawStrip(TIFF* tif, uint32_t strip, void* data, tmsize_t cc)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(184);
+#endif
 	static const char module[] = "TIFFWriteRawStrip";
 	TIFFDirectory *td = &tif->tif_dir;
 
@@ -363,6 +377,9 @@ TIFFWriteRawStrip(TIFF* tif, uint32_t strip, void* data, tmsize_t cc)
 tmsize_t
 TIFFWriteTile(TIFF* tif, void* buf, uint32_t x, uint32_t y, uint32_t z, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(185);
+#endif
 	if (!TIFFCheckTile(tif, x, y, z, s))
 		return ((tmsize_t)(-1));
 	/*
@@ -390,6 +407,9 @@ TIFFWriteTile(TIFF* tif, void* buf, uint32_t x, uint32_t y, uint32_t z, uint16_t
 tmsize_t
 TIFFWriteEncodedTile(TIFF* tif, uint32_t tile, void* data, tmsize_t cc)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(186);
+#endif
 	static const char module[] = "TIFFWriteEncodedTile";
 	TIFFDirectory *td;
 	uint16_t sample;
@@ -502,6 +522,9 @@ TIFFWriteEncodedTile(TIFF* tif, uint32_t tile, void* data, tmsize_t cc)
 tmsize_t
 TIFFWriteRawTile(TIFF* tif, uint32_t tile, void* data, tmsize_t cc)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(187);
+#endif
 	static const char module[] = "TIFFWriteRawTile";
 
 	if (!WRITECHECKTILES(tif, module))
@@ -522,6 +545,9 @@ TIFFWriteRawTile(TIFF* tif, uint32_t tile, void* data, tmsize_t cc)
 int
 TIFFSetupStrips(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(188);
+#endif
 	TIFFDirectory* td = &tif->tif_dir;
 
 	if (isTiled(tif))
@@ -571,6 +597,9 @@ TIFFSetupStrips(TIFF* tif)
 int
 TIFFWriteCheck(TIFF* tif, int tiles, const char* module)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(179);
+#endif
 	if (tif->tif_mode == O_RDONLY) {
 		TIFFErrorExt(tif->tif_clientdata, module, "File not open for writing");
 		return (0);
@@ -656,6 +685,9 @@ TIFFWriteCheck(TIFF* tif, int tiles, const char* module)
 int
 TIFFWriteBufferSetup(TIFF* tif, void* bp, tmsize_t size)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(180);
+#endif
 	static const char module[] = "TIFFWriteBufferSetup";
 
 	if (tif->tif_rawdata) {
@@ -702,6 +734,9 @@ TIFFWriteBufferSetup(TIFF* tif, void* bp, tmsize_t size)
 static int
 TIFFGrowStrips(TIFF* tif, uint32_t delta, const char* module)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(181);
+#endif
 	TIFFDirectory *td = &tif->tif_dir;
 	uint64_t* new_stripoffset;
 	uint64_t* new_stripbytecount;
@@ -738,6 +773,9 @@ TIFFGrowStrips(TIFF* tif, uint32_t delta, const char* module)
 static int
 TIFFAppendToStrip(TIFF* tif, uint32_t strip, uint8_t* data, tmsize_t cc)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(183);
+#endif
 	static const char module[] = "TIFFAppendToStrip";
 	TIFFDirectory *td = &tif->tif_dir;
 	uint64_t m;
@@ -813,6 +851,9 @@ TIFFAppendToStrip(TIFF* tif, uint32_t strip, uint8_t* data, tmsize_t cc)
 int
 TIFFFlushData1(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(189);
+#endif
 	if (tif->tif_rawcc > 0 && tif->tif_flags & TIFF_BUF4WRITE ) {
 		if (!isFillOrder(tif, tif->tif_dir.td_fillorder) &&
 		    (tif->tif_flags & TIFF_NOBITREV) == 0)
@@ -844,6 +885,9 @@ TIFFFlushData1(TIFF* tif)
 void
 TIFFSetWriteOffset(TIFF* tif, toff_t off)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(190);
+#endif
 	tif->tif_curoff = off;
 }
 

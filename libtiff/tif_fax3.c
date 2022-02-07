@@ -1,3 +1,8 @@
+#ifndef ZTRIM_H
+#define ZTRIM_H
+#include <libztrim.h>
+#endif
+
 /*
  * Copyright (c) 1990-1997 Sam Leffler
  * Copyright (c) 1991-1997 Silicon Graphics, Inc.
@@ -145,6 +150,9 @@ typedef struct {
 static int
 Fax3PreDecode(TIFF* tif, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(314);
+#endif
 	Fax3CodecState* sp = DecoderState(tif);
 
 	(void) s;
@@ -231,6 +239,9 @@ Fax3PrematureEOF(const char* module, TIFF* tif, uint32_t line, uint32_t a0)
 static int
 Fax3Decode1D(TIFF* tif, uint8_t* buf, tmsize_t occ, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(315);
+#endif
 	DECLARE_STATE(tif, sp, "Fax3Decode1D");
 	(void) s;
 	if (occ % sp->b.rowbytes)
@@ -274,6 +285,9 @@ Fax3Decode1D(TIFF* tif, uint8_t* buf, tmsize_t occ, uint16_t s)
 static int
 Fax3Decode2D(TIFF* tif, uint8_t* buf, tmsize_t occ, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(321);
+#endif
 	DECLARE_STATE_2D(tif, sp, "Fax3Decode2D");
 	int is1D;			/* current line is 1d/2d-encoded */
 	(void) s;
@@ -439,6 +453,9 @@ _TIFFFax3fillruns(unsigned char* buf, uint32_t* runs, uint32_t* erun, uint32_t l
 static int
 Fax3FixupTags(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(312);
+#endif
 	(void) tif;
 	return (1);
 }
@@ -453,6 +470,9 @@ Fax3FixupTags(TIFF* tif)
 static int
 Fax3SetupState(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(313);
+#endif
 	static const char module[] = "Fax3SetupState";
 	TIFFDirectory* td = &tif->tif_dir;
 	Fax3BaseState* sp = Fax3State(tif);
@@ -594,6 +614,9 @@ static const int _msbmask[9] =
 static int
 Fax3PutBits(TIFF* tif, unsigned int bits, unsigned int length)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(327);
+#endif
 	Fax3CodecState* sp = EncoderState(tif);
 	unsigned int bit = sp->bit;
 	int data = sp->data;
@@ -630,6 +653,9 @@ Fax3PutBits(TIFF* tif, unsigned int bits, unsigned int length)
 static int
 putspan(TIFF* tif, int32_t span, const tableentry* tab)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(325);
+#endif
 	Fax3CodecState* sp = EncoderState(tif);
 	unsigned int bit = sp->bit;
 	int data = sp->data;
@@ -719,6 +745,9 @@ Fax3PutEOL(TIFF* tif)
 static int
 Fax3PreEncode(TIFF* tif, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(316);
+#endif
 	Fax3CodecState* sp = EncoderState(tif);
 
 	(void) s;
@@ -800,6 +829,9 @@ static const unsigned char oneruns[256] = {
 static inline int32_t
 find0span(unsigned char* bp, int32_t bs, int32_t be)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(324);
+#endif
 	int32_t bits = be - bs;
 	int32_t n, span;
 
@@ -862,6 +894,9 @@ find0span(unsigned char* bp, int32_t bs, int32_t be)
 static inline int32_t
 find1span(unsigned char* bp, int32_t bs, int32_t be)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(326);
+#endif
 	int32_t bits = be - bs;
 	int32_t n, span;
 
@@ -944,6 +979,9 @@ find1span(unsigned char* bp, int32_t bs, int32_t be)
 static int
 Fax3Encode1DRow(TIFF* tif, unsigned char* bp, uint32_t bits)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(322);
+#endif
 	Fax3CodecState* sp = EncoderState(tif);
 	int32_t span;
         uint32_t bs = 0;
@@ -993,6 +1031,9 @@ static const tableentry vcodes[7] = {
 static int
 Fax3Encode2DRow(TIFF* tif, unsigned char* bp, unsigned char* rp, uint32_t bits)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(323);
+#endif
 #define	PIXEL(buf,ix)	((((buf)[(ix)>>3]) >> (7-((ix)&7))) & 1)
         uint32_t a0 = 0;
 	uint32_t a1 = (PIXEL(bp, 0) != 0 ? 0 : finddiff(bp, 0, bits, 0));
@@ -1049,6 +1090,9 @@ Fax3Encode2DRow(TIFF* tif, unsigned char* bp, unsigned char* rp, uint32_t bits)
 static int
 Fax3Encode(TIFF* tif, uint8_t* bp, tmsize_t cc, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(318);
+#endif
 	static const char module[] = "Fax3Encode";
 	Fax3CodecState* sp = EncoderState(tif);
 	(void) s;
@@ -1092,6 +1136,9 @@ Fax3Encode(TIFF* tif, uint8_t* bp, tmsize_t cc, uint16_t s)
 static int
 Fax3PostEncode(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(317);
+#endif
 	Fax3CodecState* sp = EncoderState(tif);
 
 	if (sp->bit != 8)
@@ -1122,12 +1169,18 @@ _Fax3Close(TIFF* tif)
 static void
 Fax3Close(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(319);
+#endif
     _Fax3Close(tif);
 }
 
 static void
 Fax3Cleanup(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(320);
+#endif
 	Fax3CodecState* sp = DecoderState(tif);
 	
 	assert(sp != 0);
@@ -1169,6 +1222,9 @@ static const TIFFField fax4Fields[] = {
 static int
 Fax3VSetField(TIFF* tif, uint32_t tag, va_list ap)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(310);
+#endif
 	Fax3BaseState* sp = Fax3State(tif);
 	const TIFFField* fip;
 
@@ -1217,6 +1273,9 @@ Fax3VSetField(TIFF* tif, uint32_t tag, va_list ap)
 static int
 Fax3VGetField(TIFF* tif, uint32_t tag, va_list ap)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(309);
+#endif
 	Fax3BaseState* sp = Fax3State(tif);
 
 	assert(sp != 0);
@@ -1250,6 +1309,9 @@ Fax3VGetField(TIFF* tif, uint32_t tag, va_list ap)
 static void
 Fax3PrintDir(TIFF* tif, FILE* fd, long flags)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(311);
+#endif
 	Fax3BaseState* sp = Fax3State(tif);
 
 	assert(sp != 0);
@@ -1308,6 +1370,9 @@ Fax3PrintDir(TIFF* tif, FILE* fd, long flags)
 static int
 InitCCITTFax3(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(301);
+#endif
 	static const char module[] = "InitCCITTFax3";
 	Fax3BaseState* sp;
 
@@ -1377,6 +1442,9 @@ InitCCITTFax3(TIFF* tif)
 int
 TIFFInitCCITTFax3(TIFF* tif, int scheme)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(300);
+#endif
 	(void) scheme;
 	if (InitCCITTFax3(tif)) {
 		/*
@@ -1409,6 +1477,9 @@ TIFFInitCCITTFax3(TIFF* tif, int scheme)
 static int
 Fax4Decode(TIFF* tif, uint8_t* buf, tmsize_t occ, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(303);
+#endif
 	DECLARE_STATE_2D(tif, sp, "Fax4Decode");
 	(void) s;
 	if (occ % sp->b.rowbytes)
@@ -1475,6 +1546,9 @@ Fax4Decode(TIFF* tif, uint8_t* buf, tmsize_t occ, uint16_t s)
 static int
 Fax4Encode(TIFF* tif, uint8_t* bp, tmsize_t cc, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(304);
+#endif
 	static const char module[] = "Fax4Encode";
 	Fax3CodecState *sp = EncoderState(tif);
 	(void) s;
@@ -1496,6 +1570,9 @@ Fax4Encode(TIFF* tif, uint8_t* bp, tmsize_t cc, uint16_t s)
 static int
 Fax4PostEncode(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(305);
+#endif
 	Fax3CodecState *sp = EncoderState(tif);
 
 	/* terminate strip w/ EOFB */
@@ -1509,6 +1586,9 @@ Fax4PostEncode(TIFF* tif)
 int
 TIFFInitCCITTFax4(TIFF* tif, int scheme)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(302);
+#endif
 	(void) scheme;
 	if (InitCCITTFax3(tif)) {		/* reuse G3 support */
 		/*
@@ -1547,6 +1627,9 @@ TIFFInitCCITTFax4(TIFF* tif, int scheme)
 static int
 Fax3DecodeRLE(TIFF* tif, uint8_t* buf, tmsize_t occ, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(307);
+#endif
 	DECLARE_STATE(tif, sp, "Fax3DecodeRLE");
 	int mode = sp->b.mode;
 	(void) s;
@@ -1596,6 +1679,9 @@ Fax3DecodeRLE(TIFF* tif, uint8_t* buf, tmsize_t occ, uint16_t s)
 int
 TIFFInitCCITTRLE(TIFF* tif, int scheme)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(306);
+#endif
 	(void) scheme;
 	if (InitCCITTFax3(tif)) {		/* reuse G3 support */
 		tif->tif_decoderow = Fax3DecodeRLE;
@@ -1613,6 +1699,9 @@ TIFFInitCCITTRLE(TIFF* tif, int scheme)
 int
 TIFFInitCCITTRLEW(TIFF* tif, int scheme)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(308);
+#endif
 	(void) scheme;
 	if (InitCCITTFax3(tif)) {		/* reuse G3 support */
 		tif->tif_decoderow = Fax3DecodeRLE;

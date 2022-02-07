@@ -1,3 +1,8 @@
+#ifndef ZTRIM_H
+#define ZTRIM_H
+#include <libztrim.h>
+#endif
+
 /*
  * Copyright (c) 1988-1997 Sam Leffler
  * Copyright (c) 1991-1997 Silicon Graphics, Inc.
@@ -193,6 +198,9 @@ static int TIFFLinkDirectory(TIFF*);
 int
 TIFFWriteDirectory(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(208);
+#endif
 	return TIFFWriteDirectorySec(tif,TRUE,TRUE,NULL);
 }
 
@@ -223,6 +231,9 @@ TIFFWriteDirectory(TIFF* tif)
  */
 int TIFFDeferStrileArrayWriting(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(210);
+#endif
     static const char module[] = "TIFFDeferStrileArrayWriting";
     if (tif->tif_mode == O_RDONLY)
     {
@@ -250,6 +261,9 @@ int TIFFDeferStrileArrayWriting(TIFF* tif)
 int
 TIFFCheckpointDirectory(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(211);
+#endif
 	int rc;
 	/* Setup the strips arrays, if they haven't already been. */
 	if (tif->tif_dir.td_stripoffset_p == NULL)
@@ -262,6 +276,9 @@ TIFFCheckpointDirectory(TIFF* tif)
 int
 TIFFWriteCustomDirectory(TIFF* tif, uint64_t* pdiroff)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(212);
+#endif
 	return TIFFWriteDirectorySec(tif,FALSE,FALSE,pdiroff);
 }
 
@@ -274,6 +291,9 @@ TIFFWriteCustomDirectory(TIFF* tif, uint64_t* pdiroff)
 int
 TIFFRewriteDirectory( TIFF *tif )
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(213);
+#endif
 	static const char module[] = "TIFFRewriteDirectory";
 
 	/* We don't need to do anything special if it hasn't been written. */
@@ -420,6 +440,9 @@ TIFFRewriteDirectory( TIFF *tif )
 static int
 TIFFWriteDirectorySec(TIFF* tif, int isimage, int imagedone, uint64_t* pdiroff)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(209);
+#endif
 	static const char module[] = "TIFFWriteDirectorySec";
 	uint32_t ndir;
 	TIFFDirEntry* dir;
@@ -1098,6 +1121,9 @@ static uint32_t TIFFClampDoubleToUInt32(double val )
 static int
 TIFFWriteDirectoryTagSampleformatArray(TIFF* tif, uint32_t* ndir, TIFFDirEntry* dir, uint16_t tag, uint32_t count, double* value)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(220);
+#endif
 	static const char module[] = "TIFFWriteDirectoryTagSampleformatArray";
 	void* conv;
 	uint32_t i;
@@ -1331,6 +1357,9 @@ TIFFWriteDirectoryTagSbytePerSample(TIFF* tif, uint32_t* ndir, TIFFDirEntry* dir
 static int
 TIFFWriteDirectoryTagShort(TIFF* tif, uint32_t* ndir, TIFFDirEntry* dir, uint16_t tag, uint16_t value)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(218);
+#endif
 	if (dir==NULL)
 	{
 		(*ndir)++;
@@ -1353,6 +1382,9 @@ TIFFWriteDirectoryTagShortArray(TIFF* tif, uint32_t* ndir, TIFFDirEntry* dir, ui
 static int
 TIFFWriteDirectoryTagShortPerSample(TIFF* tif, uint32_t* ndir, TIFFDirEntry* dir, uint16_t tag, uint16_t value)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(217);
+#endif
 	static const char module[] = "TIFFWriteDirectoryTagShortPerSample";
 	uint16_t* m;
 	uint16_t* na;
@@ -1392,6 +1424,9 @@ TIFFWriteDirectoryTagSshort(TIFF* tif, uint32_t* ndir, TIFFDirEntry* dir, uint16
 static int
 TIFFWriteDirectoryTagSshortArray(TIFF* tif, uint32_t* ndir, TIFFDirEntry* dir, uint16_t tag, uint32_t count, int16_t* value)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(222);
+#endif
 	if (dir==NULL)
 	{
 		(*ndir)++;
@@ -1431,6 +1466,9 @@ TIFFWriteDirectoryTagSshortPerSample(TIFF* tif, uint32_t* ndir, TIFFDirEntry* di
 static int
 TIFFWriteDirectoryTagLong(TIFF* tif, uint32_t* ndir, TIFFDirEntry* dir, uint16_t tag, uint32_t value)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(216);
+#endif
 	if (dir==NULL)
 	{
 		(*ndir)++;
@@ -1494,6 +1532,9 @@ TIFFWriteDirectoryTagSlong(TIFF* tif, uint32_t* ndir, TIFFDirEntry* dir, uint16_
 static int
 TIFFWriteDirectoryTagSlongArray(TIFF* tif, uint32_t* ndir, TIFFDirEntry* dir, uint16_t tag, uint32_t count, int32_t* value)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(223);
+#endif
 	if (dir==NULL)
 	{
 		(*ndir)++;
@@ -1581,6 +1622,9 @@ TIFFWriteDirectoryTagSlong8Array(TIFF* tif, uint32_t* ndir, TIFFDirEntry* dir, u
 static int
 TIFFWriteDirectoryTagRational(TIFF* tif, uint32_t* ndir, TIFFDirEntry* dir, uint16_t tag, double value)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(215);
+#endif
 	if (dir==NULL)
 	{
 		(*ndir)++;
@@ -1592,6 +1636,9 @@ TIFFWriteDirectoryTagRational(TIFF* tif, uint32_t* ndir, TIFFDirEntry* dir, uint
 static int
 TIFFWriteDirectoryTagRationalArray(TIFF* tif, uint32_t* ndir, TIFFDirEntry* dir, uint16_t tag, uint32_t count, float* value)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(221);
+#endif
 	if (dir==NULL)
 	{
 		(*ndir)++;
@@ -1648,6 +1695,9 @@ static int TIFFWriteDirectoryTagFloat(TIFF* tif, uint32_t* ndir, TIFFDirEntry* d
 
 static int TIFFWriteDirectoryTagFloatArray(TIFF* tif, uint32_t* ndir, TIFFDirEntry* dir, uint16_t tag, uint32_t count, float* value)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(224);
+#endif
 	if (dir==NULL)
 	{
 		(*ndir)++;
@@ -1697,6 +1747,9 @@ static int TIFFWriteDirectoryTagDouble(TIFF* tif, uint32_t* ndir, TIFFDirEntry* 
 
 static int TIFFWriteDirectoryTagDoubleArray(TIFF* tif, uint32_t* ndir, TIFFDirEntry* dir, uint16_t tag, uint32_t count, double* value)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(225);
+#endif
 	if (dir==NULL)
 	{
 		(*ndir)++;
@@ -1759,6 +1812,9 @@ TIFFWriteDirectoryTagIfd8Array(TIFF* tif, uint32_t* ndir, TIFFDirEntry* dir, uin
 static int
 TIFFWriteDirectoryTagShortLong(TIFF* tif, uint32_t* ndir, TIFFDirEntry* dir, uint16_t tag, uint32_t value)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(214);
+#endif
 	if (dir==NULL)
 	{
 		(*ndir)++;
@@ -1814,6 +1870,9 @@ static int WriteAsLong4(TIFF* tif, uint64_t strile_size)
 static int
 TIFFWriteDirectoryTagLongLong8Array(TIFF* tif, uint32_t* ndir, TIFFDirEntry* dir, uint16_t tag, uint32_t count, uint64_t* value)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(219);
+#endif
     static const char module[] = "TIFFWriteDirectoryTagLongLong8Array";
     int o;
     int write_aslong4;
@@ -2268,6 +2327,9 @@ TIFFWriteDirectoryTagCheckedShort(TIFF* tif, uint32_t* ndir, TIFFDirEntry* dir, 
 static int
 TIFFWriteDirectoryTagCheckedShortArray(TIFF* tif, uint32_t* ndir, TIFFDirEntry* dir, uint16_t tag, uint32_t count, uint16_t* value)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(229);
+#endif
 	assert(count<0x80000000);
 	assert(sizeof(uint16_t) == 2);
 	if (tif->tif_flags&TIFF_SWAB)
@@ -2312,6 +2374,9 @@ TIFFWriteDirectoryTagCheckedLong(TIFF* tif, uint32_t* ndir, TIFFDirEntry* dir, u
 static int
 TIFFWriteDirectoryTagCheckedLongArray(TIFF* tif, uint32_t* ndir, TIFFDirEntry* dir, uint16_t tag, uint32_t count, uint32_t* value)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(231);
+#endif
 	assert(count<0x40000000);
 	assert(sizeof(uint32_t) == 4);
 	if (tif->tif_flags&TIFF_SWAB)
@@ -2362,6 +2427,9 @@ TIFFWriteDirectoryTagCheckedLong8(TIFF* tif, uint32_t* ndir, TIFFDirEntry* dir, 
 static int
 TIFFWriteDirectoryTagCheckedLong8Array(TIFF* tif, uint32_t* ndir, TIFFDirEntry* dir, uint16_t tag, uint32_t count, uint64_t* value)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(230);
+#endif
 	assert(count<0x20000000);
 	assert(sizeof(uint64_t) == 8);
 	if( !(tif->tif_flags&TIFF_BIGTIFF) ) {
@@ -2733,6 +2801,9 @@ void DoubleToSrational_direct(double value,  long *num,  long *denom)
 static
 void ToRationalEuclideanGCD(double value, int blnUseSignedRange, int blnUseSmallRange, uint64_t *ullNum, uint64_t *ullDenom)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(228);
+#endif
 	/* Internally, the integer variables can be bigger than the external ones,
 	* as long as the result will fit into the external variable size.
 	*/
@@ -2840,6 +2911,9 @@ void ToRationalEuclideanGCD(double value, int blnUseSignedRange, int blnUseSmall
 static
 void DoubleToRational(double value, uint32_t *num, uint32_t *denom)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(227);
+#endif
 	/*---- UN-SIGNED RATIONAL ---- */
 	double dblDiff, dblDiff2;
 	uint64_t ullNum, ullDenom, ullNum2, ullDenom2;
@@ -2904,6 +2978,9 @@ void DoubleToRational(double value, uint32_t *num, uint32_t *denom)
 static
 void DoubleToSrational(double value, int32_t *num, int32_t *denom)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(234);
+#endif
 	/*---- SIGNED RATIONAL ----*/
 	int neg = 1;
 	double dblDiff, dblDiff2;
@@ -3014,6 +3091,9 @@ TIFFWriteDirectoryTagCheckedDoubleArray(TIFF* tif, uint32_t* ndir, TIFFDirEntry*
 static int
 TIFFWriteDirectoryTagCheckedIfdArray(TIFF* tif, uint32_t* ndir, TIFFDirEntry* dir, uint16_t tag, uint32_t count, uint32_t* value)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(232);
+#endif
 	assert(count<0x40000000);
 	assert(sizeof(uint32_t) == 4);
 	if (tif->tif_flags&TIFF_SWAB)
@@ -3024,6 +3104,9 @@ TIFFWriteDirectoryTagCheckedIfdArray(TIFF* tif, uint32_t* ndir, TIFFDirEntry* di
 static int
 TIFFWriteDirectoryTagCheckedIfd8Array(TIFF* tif, uint32_t* ndir, TIFFDirEntry* dir, uint16_t tag, uint32_t count, uint64_t* value)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(233);
+#endif
 	assert(count<0x20000000);
 	assert(sizeof(uint64_t) == 8);
 	assert(tif->tif_flags&TIFF_BIGTIFF);
@@ -3035,6 +3118,9 @@ TIFFWriteDirectoryTagCheckedIfd8Array(TIFF* tif, uint32_t* ndir, TIFFDirEntry* d
 static int
 TIFFWriteDirectoryTagData(TIFF* tif, uint32_t* ndir, TIFFDirEntry* dir, uint16_t tag, uint16_t datatype, uint32_t count, uint32_t datalength, void* data)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(226);
+#endif
 	static const char module[] = "TIFFWriteDirectoryTagData";
 	uint32_t m;
 	m=0;

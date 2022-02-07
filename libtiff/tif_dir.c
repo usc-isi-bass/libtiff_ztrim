@@ -1,3 +1,8 @@
+#ifndef ZTRIM_H
+#define ZTRIM_H
+#include <libztrim.h>
+#endif
+
 /*
  * Copyright (c) 1988-1997 Sam Leffler
  * Copyright (c) 1991-1997 Silicon Graphics, Inc.
@@ -42,6 +47,9 @@
 static void
 setByteArray(void** vpp, void* vp, size_t nmemb, size_t elem_size)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(3);
+#endif
 	if (*vpp) {
 		_TIFFfree(*vpp);
 		*vpp = 0;
@@ -74,6 +82,9 @@ void _TIFFsetDoubleArray(double** dpp, double* dp, uint32_t n)
 static void
 setDoubleArrayOneValue(double** vpp, double value, size_t nmemb)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(23);
+#endif
 	if (*vpp)
 		_TIFFfree(*vpp);
 	*vpp = _TIFFmalloc(nmemb*sizeof(double));
@@ -840,6 +851,9 @@ OkToChangeTag(TIFF* tif, uint32_t tag)
 int
 TIFFSetField(TIFF* tif, uint32_t tag, ...)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(4);
+#endif
 	va_list ap;
 	int status;
 
@@ -855,6 +869,9 @@ TIFFSetField(TIFF* tif, uint32_t tag, ...)
 int
 TIFFUnsetField(TIFF* tif, uint32_t tag)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(6);
+#endif
     const TIFFField *fip =  TIFFFieldWithTag(tif, tag);
     TIFFDirectory* td = &tif->tif_dir;
 
@@ -899,6 +916,9 @@ TIFFUnsetField(TIFF* tif, uint32_t tag)
 int
 TIFFVSetField(TIFF* tif, uint32_t tag, va_list ap)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(5);
+#endif
 	return OkToChangeTag(tif, tag) ?
 	    (*tif->tif_tagmethods.vsetfield)(tif, tag, ap) : 0;
 }
@@ -1282,6 +1302,9 @@ _TIFFVGetField(TIFF* tif, uint32_t tag, va_list ap)
 int
 TIFFGetField(TIFF* tif, uint32_t tag, ...)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(7);
+#endif
 	int status;
 	va_list ap;
 
@@ -1300,6 +1323,9 @@ TIFFGetField(TIFF* tif, uint32_t tag, ...)
 int
 TIFFVGetField(TIFF* tif, uint32_t tag, va_list ap)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(8);
+#endif
 	const TIFFField* fip = TIFFFindField(tif, tag, TIFF_ANY);
 	return (fip && (isPseudoTag(tag) || TIFFFieldSet(tif, fip->field_bit)) ?
 	    (*tif->tif_tagmethods.vgetfield)(tif, tag, ap) : 0);
@@ -1318,6 +1344,9 @@ TIFFVGetField(TIFF* tif, uint32_t tag, va_list ap)
 void
 TIFFFreeDirectory(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(9);
+#endif
 	TIFFDirectory *td = &tif->tif_dir;
 	int            i;
 
@@ -1362,6 +1391,9 @@ static TIFFExtendProc _TIFFextender = (TIFFExtendProc) NULL;
 TIFFExtendProc
 TIFFSetTagExtender(TIFFExtendProc extender)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(10);
+#endif
 	TIFFExtendProc prev = _TIFFextender;
 	_TIFFextender = extender;
 	return (prev);
@@ -1377,6 +1409,9 @@ TIFFSetTagExtender(TIFFExtendProc extender)
 int
 TIFFCreateDirectory(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(11);
+#endif
 	TIFFDefaultDirectory(tif);
 	tif->tif_diroff = 0;
 	tif->tif_nextdiroff = 0;
@@ -1390,6 +1425,9 @@ TIFFCreateDirectory(TIFF* tif)
 int
 TIFFCreateCustomDirectory(TIFF* tif, const TIFFFieldArray* infoarray)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(13);
+#endif
 	TIFFDefaultDirectory(tif);
 
 	/*
@@ -1411,6 +1449,9 @@ TIFFCreateCustomDirectory(TIFF* tif, const TIFFFieldArray* infoarray)
 int
 TIFFCreateEXIFDirectory(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(14);
+#endif
 	const TIFFFieldArray* exifFieldArray;
 	exifFieldArray = _TIFFGetExifFields();
 	return TIFFCreateCustomDirectory(tif, exifFieldArray);
@@ -1422,6 +1463,9 @@ TIFFCreateEXIFDirectory(TIFF* tif)
 int
 TIFFCreateGPSDirectory(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(15);
+#endif
 	const TIFFFieldArray* gpsFieldArray;
 	gpsFieldArray = _TIFFGetGpsFields();
 	return TIFFCreateCustomDirectory(tif, gpsFieldArray);
@@ -1433,6 +1477,9 @@ TIFFCreateGPSDirectory(TIFF* tif)
 int
 TIFFDefaultDirectory(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(12);
+#endif
 	register TIFFDirectory* td = &tif->tif_dir;
 	const TIFFFieldArray* tiffFieldArray;
 
@@ -1505,6 +1552,9 @@ TIFFDefaultDirectory(TIFF* tif)
 static int
 TIFFAdvanceDirectory(TIFF* tif, uint64_t* nextdir, uint64_t* off)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(17);
+#endif
 	static const char module[] = "TIFFAdvanceDirectory";
 	if (isMapped(tif))
 	{
@@ -1647,6 +1697,9 @@ TIFFAdvanceDirectory(TIFF* tif, uint64_t* nextdir, uint64_t* off)
 uint16_t
 TIFFNumberOfDirectories(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(16);
+#endif
 	static const char module[] = "TIFFNumberOfDirectories";
 	uint64_t nextdir;
 	uint16_t n;
@@ -1678,6 +1731,9 @@ TIFFNumberOfDirectories(TIFF* tif)
 int
 TIFFSetDirectory(TIFF* tif, uint16_t dirn)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(18);
+#endif
 	uint64_t nextdir;
 	uint16_t n;
 
@@ -1712,6 +1768,9 @@ TIFFSetDirectory(TIFF* tif, uint16_t dirn)
 int
 TIFFSetSubDirectory(TIFF* tif, uint64_t diroff)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(19);
+#endif
 	tif->tif_nextdiroff = diroff;
 	/*
 	 * Reset tif_dirnumber counter and start new list of seen directories.
@@ -1727,6 +1786,9 @@ TIFFSetSubDirectory(TIFF* tif, uint64_t diroff)
 uint64_t
 TIFFCurrentDirOffset(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(20);
+#endif
 	return (tif->tif_diroff);
 }
 
@@ -1737,6 +1799,9 @@ TIFFCurrentDirOffset(TIFF* tif)
 int
 TIFFLastDirectory(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(21);
+#endif
 	return (tif->tif_nextdiroff == 0);
 }
 
@@ -1746,6 +1811,9 @@ TIFFLastDirectory(TIFF* tif)
 int
 TIFFUnlinkDirectory(TIFF* tif, uint16_t dirn)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(22);
+#endif
 	static const char module[] = "TIFFUnlinkDirectory";
 	uint64_t nextdir;
 	uint64_t off;

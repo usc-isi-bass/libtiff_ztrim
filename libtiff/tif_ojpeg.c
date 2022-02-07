@@ -1,3 +1,8 @@
+#ifndef ZTRIM_H
+#define ZTRIM_H
+#include <libztrim.h>
+#endif
+
 /* WARNING: The type of JPEG encapsulation defined by the TIFF Version 6.0
    specification is now totally obsolete and deprecated for new applications and
    images. This file was was created solely in order to read unconverted images
@@ -418,6 +423,9 @@ static void OJPEGLibjpegJpegSourceMgrTermSource(jpeg_decompress_struct* cinfo);
 int
 TIFFInitOJPEG(TIFF* tif, int scheme)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(394);
+#endif
 	static const char module[]="TIFFInitOJPEG";
 	OJPEGState* sp;
 
@@ -482,6 +490,9 @@ TIFFInitOJPEG(TIFF* tif, int scheme)
 static int
 OJPEGVGetField(TIFF* tif, uint32_t tag, va_list ap)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(405);
+#endif
 	OJPEGState* sp=(OJPEGState*)tif->tif_data;
 	switch(tag)
 	{
@@ -524,6 +535,9 @@ OJPEGVGetField(TIFF* tif, uint32_t tag, va_list ap)
 static int
 OJPEGVSetField(TIFF* tif, uint32_t tag, va_list ap)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(406);
+#endif
 	static const char module[]="OJPEGVSetField";
 	OJPEGState* sp=(OJPEGState*)tif->tif_data;
 	uint32_t ma;
@@ -611,6 +625,9 @@ OJPEGVSetField(TIFF* tif, uint32_t tag, va_list ap)
 static void
 OJPEGPrintDir(TIFF* tif, FILE* fd, long flags)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(407);
+#endif
 	OJPEGState* sp=(OJPEGState*)tif->tif_data;
 	uint8_t m;
 	(void)flags;
@@ -651,6 +668,9 @@ OJPEGPrintDir(TIFF* tif, FILE* fd, long flags)
 static int
 OJPEGFixupTags(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(395);
+#endif
 	(void) tif;
 	return(1);
 }
@@ -658,6 +678,9 @@ OJPEGFixupTags(TIFF* tif)
 static int
 OJPEGSetupDecode(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(396);
+#endif
 	static const char module[]="OJPEGSetupDecode";
 	TIFFWarningExt(tif->tif_clientdata,module,"Deprecated and troublesome old-style JPEG compression mode, please convert to new-style JPEG compression and notify vendor of writing software");
 	return(1);
@@ -666,6 +689,9 @@ OJPEGSetupDecode(TIFF* tif)
 static int
 OJPEGPreDecode(TIFF* tif, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(397);
+#endif
 	OJPEGState* sp=(OJPEGState*)tif->tif_data;
 	uint32_t m;
 	if (sp->subsamplingcorrect_done==0)
@@ -787,6 +813,9 @@ OJPEGPreDecodeSkipScanlines(TIFF* tif)
 static int
 OJPEGDecode(TIFF* tif, uint8_t* buf, tmsize_t cc, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(399);
+#endif
         static const char module[]="OJPEGDecode";
 	OJPEGState* sp=(OJPEGState*)tif->tif_data;
 	(void)s;
@@ -903,6 +932,9 @@ OJPEGDecodeScanlines(TIFF* tif, uint8_t* buf, tmsize_t cc)
 static void
 OJPEGPostDecode(TIFF* tif, uint8_t* buf, tmsize_t cc)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(398);
+#endif
 	OJPEGState* sp=(OJPEGState*)tif->tif_data;
 	(void)buf;
 	(void)cc;
@@ -918,6 +950,9 @@ OJPEGPostDecode(TIFF* tif, uint8_t* buf, tmsize_t cc)
 static int
 OJPEGSetupEncode(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(400);
+#endif
 	static const char module[]="OJPEGSetupEncode";
 	TIFFErrorExt(tif->tif_clientdata,module,"OJPEG encoding not supported; use new-style JPEG compression instead");
 	return(0);
@@ -926,6 +961,9 @@ OJPEGSetupEncode(TIFF* tif)
 static int
 OJPEGPreEncode(TIFF* tif, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(401);
+#endif
 	static const char module[]="OJPEGPreEncode";
 	(void)s;
 	TIFFErrorExt(tif->tif_clientdata,module,"OJPEG encoding not supported; use new-style JPEG compression instead");
@@ -935,6 +973,9 @@ OJPEGPreEncode(TIFF* tif, uint16_t s)
 static int
 OJPEGEncode(TIFF* tif, uint8_t* buf, tmsize_t cc, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(403);
+#endif
 	static const char module[]="OJPEGEncode";
 	(void)buf;
 	(void)cc;
@@ -946,6 +987,9 @@ OJPEGEncode(TIFF* tif, uint8_t* buf, tmsize_t cc, uint16_t s)
 static int
 OJPEGPostEncode(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(402);
+#endif
 	static const char module[]="OJPEGPostEncode";
 	TIFFErrorExt(tif->tif_clientdata,module,"OJPEG encoding not supported; use new-style JPEG compression instead");
 	return(0);
@@ -954,6 +998,9 @@ OJPEGPostEncode(TIFF* tif)
 static void
 OJPEGCleanup(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(404);
+#endif
 	OJPEGState* sp=(OJPEGState*)tif->tif_data;
 	if (sp!=0)
 	{
@@ -1001,6 +1048,9 @@ OJPEGCleanup(TIFF* tif)
 static void
 OJPEGSubsamplingCorrect(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(408);
+#endif
 	static const char module[]="OJPEGSubsamplingCorrect";
 	OJPEGState* sp=(OJPEGState*)tif->tif_data;
 	uint8_t mh;
@@ -1305,6 +1355,9 @@ OJPEGLibjpegSessionAbort(TIFF* tif)
 static int
 OJPEGReadHeaderInfoSec(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(409);
+#endif
 	static const char module[]="OJPEGReadHeaderInfoSec";
 	OJPEGState* sp=(OJPEGState*)tif->tif_data;
 	uint8_t m;
@@ -1750,6 +1803,9 @@ OJPEGReadHeaderInfoSecStreamSof(TIFF* tif, uint8_t marker_id)
 static int
 OJPEGReadHeaderInfoSecStreamSos(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(413);
+#endif
 	/* this marker needs to be checked, and part of its data needs to be saved for regeneration later on */
 	static const char module[]="OJPEGReadHeaderInfoSecStreamSos";
 	OJPEGState* sp=(OJPEGState*)tif->tif_data;
@@ -1995,6 +2051,9 @@ OJPEGReadHeaderInfoSecTablesAcTable(TIFF* tif)
 static int
 OJPEGReadBufferFill(OJPEGState* sp)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(414);
+#endif
 	uint16_t m;
 	tmsize_t n;
 	/* TODO: double-check: when subsamplingcorrect is set, no call to TIFFErrorExt or TIFFWarningExt should be made
@@ -2080,6 +2139,9 @@ OJPEGReadBufferFill(OJPEGState* sp)
 static int
 OJPEGReadByte(OJPEGState* sp, uint8_t* byte)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(410);
+#endif
 	if (sp->in_buffer_togo==0)
 	{
 		if (OJPEGReadBufferFill(sp)==0)
@@ -2116,6 +2178,9 @@ OJPEGReadByteAdvance(OJPEGState* sp)
 static int
 OJPEGReadWord(OJPEGState* sp, uint16_t* word)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(411);
+#endif
 	uint8_t m;
 	if (OJPEGReadByte(sp,&m)==0)
 		return(0);
@@ -2129,6 +2194,9 @@ OJPEGReadWord(OJPEGState* sp, uint16_t* word)
 static int
 OJPEGReadBlock(OJPEGState* sp, uint16_t len, void* mem)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(415);
+#endif
 	uint16_t mlen;
 	uint8_t* mmem;
 	uint16_t n;
@@ -2158,6 +2226,9 @@ OJPEGReadBlock(OJPEGState* sp, uint16_t len, void* mem)
 static void
 OJPEGReadSkip(OJPEGState* sp, uint16_t len)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(412);
+#endif
 	uint16_t m;
 	uint16_t n;
 	m=len;
@@ -2456,6 +2527,9 @@ OJPEGWriteStreamEoi(TIFF* tif, void** mem, uint32_t* len)
 static int
 jpeg_create_decompress_encap(OJPEGState* sp, jpeg_decompress_struct* cinfo)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(418);
+#endif
 	if( SETJMP(sp->exit_jmpbuf) )
 		return 0;
 	else {
@@ -2469,6 +2543,9 @@ jpeg_create_decompress_encap(OJPEGState* sp, jpeg_decompress_struct* cinfo)
 static int
 jpeg_read_header_encap(OJPEGState* sp, jpeg_decompress_struct* cinfo, uint8_t require_image)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(424);
+#endif
 	if( SETJMP(sp->exit_jmpbuf) )
 		return 0;
 	else {
@@ -2482,6 +2559,9 @@ jpeg_read_header_encap(OJPEGState* sp, jpeg_decompress_struct* cinfo, uint8_t re
 static int
 jpeg_start_decompress_encap(OJPEGState* sp, jpeg_decompress_struct* cinfo)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(425);
+#endif
 	if( SETJMP(sp->exit_jmpbuf) )
 		return 0;
 	else {
@@ -2495,6 +2575,9 @@ jpeg_start_decompress_encap(OJPEGState* sp, jpeg_decompress_struct* cinfo)
 static int
 jpeg_read_scanlines_encap(OJPEGState* sp, jpeg_decompress_struct* cinfo, void* scanlines, uint32_t max_lines)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(428);
+#endif
 	if( SETJMP(sp->exit_jmpbuf) )
 		return 0;
 	else {
@@ -2508,6 +2591,9 @@ jpeg_read_scanlines_encap(OJPEGState* sp, jpeg_decompress_struct* cinfo, void* s
 static int
 jpeg_read_raw_data_encap(OJPEGState* sp, jpeg_decompress_struct* cinfo, void* data, uint32_t max_lines)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(427);
+#endif
 	if( SETJMP(sp->exit_jmpbuf) )
 		return 0;
 	else {
@@ -2521,6 +2607,9 @@ jpeg_read_raw_data_encap(OJPEGState* sp, jpeg_decompress_struct* cinfo, void* da
 static void
 jpeg_encap_unwind(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(426);
+#endif
 	OJPEGState* sp=(OJPEGState*)tif->tif_data;
 	LONGJMP(sp->exit_jmpbuf,1);
 }
@@ -2529,6 +2618,9 @@ jpeg_encap_unwind(TIFF* tif)
 static void
 OJPEGLibjpegJpegErrorMgrOutputMessage(jpeg_common_struct* cinfo)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(416);
+#endif
 	char buffer[JMSG_LENGTH_MAX];
 	(*cinfo->err->format_message)(cinfo,buffer);
 	TIFFWarningExt(((TIFF*)(cinfo->client_data))->tif_clientdata,"LibJpeg","%s",buffer);
@@ -2537,6 +2629,9 @@ OJPEGLibjpegJpegErrorMgrOutputMessage(jpeg_common_struct* cinfo)
 static void
 OJPEGLibjpegJpegErrorMgrErrorExit(jpeg_common_struct* cinfo)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(417);
+#endif
 	char buffer[JMSG_LENGTH_MAX];
 	(*cinfo->err->format_message)(cinfo,buffer);
 	TIFFErrorExt(((TIFF*)(cinfo->client_data))->tif_clientdata,"LibJpeg","%s",buffer);
@@ -2546,12 +2641,18 @@ OJPEGLibjpegJpegErrorMgrErrorExit(jpeg_common_struct* cinfo)
 static void
 OJPEGLibjpegJpegSourceMgrInitSource(jpeg_decompress_struct* cinfo)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(419);
+#endif
 	(void)cinfo;
 }
 
 static boolean
 OJPEGLibjpegJpegSourceMgrFillInputBuffer(jpeg_decompress_struct* cinfo)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(420);
+#endif
 	TIFF* tif=(TIFF*)cinfo->client_data;
 	OJPEGState* sp=(OJPEGState*)tif->tif_data;
 	void* mem=0;
@@ -2569,6 +2670,9 @@ OJPEGLibjpegJpegSourceMgrFillInputBuffer(jpeg_decompress_struct* cinfo)
 static void
 OJPEGLibjpegJpegSourceMgrSkipInputData(jpeg_decompress_struct* cinfo, long num_bytes)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(421);
+#endif
 	TIFF* tif=(TIFF*)cinfo->client_data;
 	(void)num_bytes;
 	TIFFErrorExt(tif->tif_clientdata,"LibJpeg","Unexpected error");
@@ -2582,6 +2686,9 @@ OJPEGLibjpegJpegSourceMgrSkipInputData(jpeg_decompress_struct* cinfo, long num_b
 static boolean
 OJPEGLibjpegJpegSourceMgrResyncToRestart(jpeg_decompress_struct* cinfo, int desired)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(422);
+#endif
 	TIFF* tif=(TIFF*)cinfo->client_data;
 	(void)desired;
 	TIFFErrorExt(tif->tif_clientdata,"LibJpeg","Unexpected error");
@@ -2595,6 +2702,9 @@ OJPEGLibjpegJpegSourceMgrResyncToRestart(jpeg_decompress_struct* cinfo, int desi
 static void
 OJPEGLibjpegJpegSourceMgrTermSource(jpeg_decompress_struct* cinfo)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(423);
+#endif
 	(void)cinfo;
 }
 

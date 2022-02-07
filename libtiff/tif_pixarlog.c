@@ -1,3 +1,8 @@
+#ifndef ZTRIM_H
+#define ZTRIM_H
+#include <libztrim.h>
+#endif
+
 /*
  * Copyright (c) 1996-1997 Sam Leffler
  * Copyright (c) 1996 Pixar
@@ -602,6 +607,9 @@ static int PixarLogDecode(TIFF* tif, uint8_t* op, tmsize_t occ, uint16_t s);
 static int
 PixarLogGuessDataFmt(TIFFDirectory *td)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(448);
+#endif
 	int guess = PIXARLOGDATAFMT_UNKNOWN;
 	int format = td->td_sampleformat;
 
@@ -656,6 +664,9 @@ add_ms(tmsize_t m1, tmsize_t m2)
 static int
 PixarLogFixupTags(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(436);
+#endif
 	(void) tif;
 	return (1);
 }
@@ -663,6 +674,9 @@ PixarLogFixupTags(TIFF* tif)
 static int
 PixarLogSetupDecode(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(437);
+#endif
 	static const char module[] = "PixarLogSetupDecode";
 	TIFFDirectory *td = &tif->tif_dir;
 	PixarLogState* sp = DecoderState(tif);
@@ -729,6 +743,9 @@ PixarLogSetupDecode(TIFF* tif)
 static int
 PixarLogPreDecode(TIFF* tif, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(438);
+#endif
 	static const char module[] = "PixarLogPreDecode";
 	PixarLogState* sp = DecoderState(tif);
 
@@ -751,6 +768,9 @@ PixarLogPreDecode(TIFF* tif, uint16_t s)
 static int
 PixarLogDecode(TIFF* tif, uint8_t* op, tmsize_t occ, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(439);
+#endif
 	static const char module[] = "PixarLogDecode";
 	TIFFDirectory *td = &tif->tif_dir;
 	PixarLogState* sp = DecoderState(tif);
@@ -901,6 +921,9 @@ PixarLogDecode(TIFF* tif, uint8_t* op, tmsize_t occ, uint16_t s)
 static int
 PixarLogSetupEncode(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(440);
+#endif
 	static const char module[] = "PixarLogSetupEncode";
 	TIFFDirectory *td = &tif->tif_dir;
 	PixarLogState* sp = EncoderState(tif);
@@ -941,6 +964,9 @@ PixarLogSetupEncode(TIFF* tif)
 static int
 PixarLogPreEncode(TIFF* tif, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(441);
+#endif
 	static const char module[] = "PixarLogPreEncode";
 	PixarLogState *sp = EncoderState(tif);
 
@@ -1120,6 +1146,9 @@ horizontalDifference8(unsigned char *ip, int n, int stride,
 static int
 PixarLogEncode(TIFF* tif, uint8_t* bp, tmsize_t cc, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(443);
+#endif
 	static const char module[] = "PixarLogEncode";
 	TIFFDirectory *td = &tif->tif_dir;
 	PixarLogState *sp = EncoderState(tif);
@@ -1222,6 +1251,9 @@ PixarLogEncode(TIFF* tif, uint8_t* bp, tmsize_t cc, uint16_t s)
 static int
 PixarLogPostEncode(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(442);
+#endif
 	static const char module[] = "PixarLogPostEncode";
 	PixarLogState *sp = EncoderState(tif);
 	int state;
@@ -1229,6 +1261,9 @@ PixarLogPostEncode(TIFF* tif)
 	sp->stream.avail_in = 0;
 
 	do {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(444);
+#endif
 		state = deflate(&sp->stream, Z_FINISH);
 		switch (state) {
 		case Z_STREAM_END:
@@ -1289,6 +1324,9 @@ PixarLogClose(TIFF* tif)
 static void
 PixarLogCleanup(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(445);
+#endif
 	PixarLogState* sp = (PixarLogState*) tif->tif_data;
 
 	assert(sp != 0);
@@ -1321,6 +1359,9 @@ PixarLogCleanup(TIFF* tif)
 static int
 PixarLogVSetField(TIFF* tif, uint32_t tag, va_list ap)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(447);
+#endif
     static const char module[] = "PixarLogVSetField";
     PixarLogState *sp = (PixarLogState *)tif->tif_data;
     int result;
@@ -1383,6 +1424,9 @@ PixarLogVSetField(TIFF* tif, uint32_t tag, va_list ap)
 static int
 PixarLogVGetField(TIFF* tif, uint32_t tag, va_list ap)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(446);
+#endif
     PixarLogState *sp = (PixarLogState *)tif->tif_data;
 
     switch (tag) {
@@ -1406,6 +1450,9 @@ static const TIFFField pixarlogFields[] = {
 int
 TIFFInitPixarLog(TIFF* tif, int scheme)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(435);
+#endif
 	static const char module[] = "TIFFInitPixarLog";
 
 	PixarLogState* sp;

@@ -1,3 +1,8 @@
+#ifndef ZTRIM_H
+#define ZTRIM_H
+#include <libztrim.h>
+#endif
+
 /*
  * Copyright (c) 1988-1997 Sam Leffler
  * Copyright (c) 1991-1997 Silicon Graphics, Inc.
@@ -68,6 +73,9 @@ static const int threebitdeltas[8] = { 0, 1, 2, 3, 0, -3, -2, -1 };
 static int
 ThunderSetupDecode(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(474);
+#endif
 	static const char module[] = "ThunderSetupDecode";
 
         if( tif->tif_dir.td_bitspersample != 4 )
@@ -157,6 +165,9 @@ ThunderDecode(TIFF* tif, uint8_t* op, tmsize_t maxpixels)
 static int
 ThunderDecodeRow(TIFF* tif, uint8_t* buf, tmsize_t occ, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(475);
+#endif
 	static const char module[] = "ThunderDecodeRow";
 	uint8_t* row = buf;
 	
@@ -178,6 +189,9 @@ ThunderDecodeRow(TIFF* tif, uint8_t* buf, tmsize_t occ, uint16_t s)
 int
 TIFFInitThunderScan(TIFF* tif, int scheme)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(473);
+#endif
 	(void) scheme;
 
         tif->tif_setupdecode = ThunderSetupDecode;

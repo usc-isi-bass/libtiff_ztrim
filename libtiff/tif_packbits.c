@@ -1,3 +1,8 @@
+#ifndef ZTRIM_H
+#define ZTRIM_H
+#include <libztrim.h>
+#endif
+
 /*
  * Copyright (c) 1988-1997 Sam Leffler
  * Copyright (c) 1991-1997 Silicon Graphics, Inc.
@@ -34,6 +39,9 @@
 static int
 PackBitsPreEncode(TIFF* tif, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(431);
+#endif
 	(void) s;
 
         tif->tif_data = (uint8_t*)_TIFFmalloc(sizeof(tmsize_t));
@@ -52,6 +60,9 @@ PackBitsPreEncode(TIFF* tif, uint16_t s)
 static int
 PackBitsPostEncode(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(432);
+#endif
         if (tif->tif_data)
             _TIFFfree(tif->tif_data);
 	return (1);
@@ -63,6 +74,9 @@ PackBitsPostEncode(TIFF* tif)
 static int
 PackBitsEncode(TIFF* tif, uint8_t* buf, tmsize_t cc, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(433);
+#endif
 	unsigned char* bp = (unsigned char*) buf;
 	uint8_t* op;
 	uint8_t* ep;
@@ -194,6 +208,9 @@ PackBitsEncode(TIFF* tif, uint8_t* buf, tmsize_t cc, uint16_t s)
 static int
 PackBitsEncodeChunk(TIFF* tif, uint8_t* bp, tmsize_t cc, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(434);
+#endif
 	tmsize_t rowsize = *(tmsize_t*)tif->tif_data;
 
 	while (cc > 0) {
@@ -213,6 +230,9 @@ PackBitsEncodeChunk(TIFF* tif, uint8_t* bp, tmsize_t cc, uint16_t s)
 static int
 PackBitsDecode(TIFF* tif, uint8_t* op, tmsize_t occ, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(430);
+#endif
 	static const char module[] = "PackBitsDecode";
 	char *bp;
 	tmsize_t cc;
@@ -286,6 +306,9 @@ PackBitsDecode(TIFF* tif, uint8_t* op, tmsize_t occ, uint16_t s)
 int
 TIFFInitPackBits(TIFF* tif, int scheme)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(429);
+#endif
 	(void) scheme;
 	tif->tif_decoderow = PackBitsDecode;
 	tif->tif_decodestrip = PackBitsDecode;

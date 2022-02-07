@@ -1,3 +1,8 @@
+#ifndef ZTRIM_H
+#define ZTRIM_H
+#include <libztrim.h>
+#endif
+
 /*
  * Copyright (c) 1991-1997 Sam Leffler
  * Copyright (c) 1991-1997 Silicon Graphics, Inc.
@@ -35,6 +40,9 @@
 uint32_t
 TIFFComputeTile(TIFF* tif, uint32_t x, uint32_t y, uint32_t z, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(164);
+#endif
 	TIFFDirectory *td = &tif->tif_dir;
 	uint32_t dx = td->td_tilewidth;
 	uint32_t dy = td->td_tilelength;
@@ -72,6 +80,9 @@ TIFFComputeTile(TIFF* tif, uint32_t x, uint32_t y, uint32_t z, uint16_t s)
 int
 TIFFCheckTile(TIFF* tif, uint32_t x, uint32_t y, uint32_t z, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(165);
+#endif
 	TIFFDirectory *td = &tif->tif_dir;
 
 	if (x >= td->td_imagewidth) {
@@ -112,6 +123,9 @@ TIFFCheckTile(TIFF* tif, uint32_t x, uint32_t y, uint32_t z, uint16_t s)
 uint32_t
 TIFFNumberOfTiles(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(166);
+#endif
 	TIFFDirectory *td = &tif->tif_dir;
 	uint32_t dx = td->td_tilewidth;
 	uint32_t dy = td->td_tilelength;
@@ -141,6 +155,9 @@ TIFFNumberOfTiles(TIFF* tif)
 uint64_t
 TIFFTileRowSize64(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(167);
+#endif
         static const char module[] = "TIFFTileRowSize64";
 	TIFFDirectory *td = &tif->tif_dir;
 	uint64_t rowsize;
@@ -179,6 +196,9 @@ TIFFTileRowSize64(TIFF* tif)
 tmsize_t
 TIFFTileRowSize(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(168);
+#endif
 	static const char module[] = "TIFFTileRowSize";
 	uint64_t m;
 	m=TIFFTileRowSize64(tif);
@@ -191,6 +211,9 @@ TIFFTileRowSize(TIFF* tif)
 uint64_t
 TIFFVTileSize64(TIFF* tif, uint32_t nrows)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(169);
+#endif
 	static const char module[] = "TIFFVTileSize64";
 	TIFFDirectory *td = &tif->tif_dir;
 	if (td->td_tilelength == 0 || td->td_tilewidth == 0 ||
@@ -239,6 +262,9 @@ TIFFVTileSize64(TIFF* tif, uint32_t nrows)
 tmsize_t
 TIFFVTileSize(TIFF* tif, uint32_t nrows)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(170);
+#endif
 	static const char module[] = "TIFFVTileSize";
 	uint64_t m;
 	m=TIFFVTileSize64(tif,nrows);
@@ -251,11 +277,17 @@ TIFFVTileSize(TIFF* tif, uint32_t nrows)
 uint64_t
 TIFFTileSize64(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(171);
+#endif
 	return (TIFFVTileSize64(tif, tif->tif_dir.td_tilelength));
 }
 tmsize_t
 TIFFTileSize(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(172);
+#endif
 	static const char module[] = "TIFFTileSize";
 	uint64_t m;
 	m=TIFFTileSize64(tif);
@@ -271,6 +303,9 @@ TIFFTileSize(TIFF* tif)
 void
 TIFFDefaultTileSize(TIFF* tif, uint32_t* tw, uint32_t* th)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(173);
+#endif
 	(*tif->tif_deftilesize)(tif, tw, th);
 }
 

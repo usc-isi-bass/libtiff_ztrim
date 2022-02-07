@@ -1,3 +1,8 @@
+#ifndef ZTRIM_H
+#define ZTRIM_H
+#include <libztrim.h>
+#endif
+
 /*
  * Copyright (c) 1991-1997 Sam Leffler
  * Copyright (c) 1991-1997 Silicon Graphics, Inc.
@@ -207,6 +212,9 @@ TIFFDefaultRefBlackWhite(TIFFDirectory* td)
 int
 TIFFVGetFieldDefaulted(TIFF* tif, uint32_t tag, va_list ap)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(195);
+#endif
 	TIFFDirectory *td = &tif->tif_dir;
 
 	if (TIFFVGetField(tif, tag, ap))
@@ -343,6 +351,9 @@ TIFFVGetFieldDefaulted(TIFF* tif, uint32_t tag, va_list ap)
 int
 TIFFGetFieldDefaulted(TIFF* tif, uint32_t tag, ...)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(196);
+#endif
 	int ok;
 	va_list ap;
 

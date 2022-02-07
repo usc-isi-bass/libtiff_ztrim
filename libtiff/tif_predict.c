@@ -1,3 +1,8 @@
+#ifndef ZTRIM_H
+#define ZTRIM_H
+#include <libztrim.h>
+#endif
+
 /*
  * Copyright (c) 1988-1997 Sam Leffler
  * Copyright (c) 1991-1997 Silicon Graphics, Inc.
@@ -52,6 +57,9 @@ static int PredictorEncodeTile(TIFF* tif, uint8_t* bp0, tmsize_t cc0, uint16_t s
 static int
 PredictorSetup(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(456);
+#endif
 	static const char module[] = "PredictorSetup";
 
 	TIFFPredictorState* sp = PredictorState(tif);
@@ -112,6 +120,9 @@ PredictorSetup(TIFF* tif)
 static int
 PredictorSetupDecode(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(453);
+#endif
 	TIFFPredictorState* sp = PredictorState(tif);
 	TIFFDirectory* td = &tif->tif_dir;
 
@@ -194,6 +205,9 @@ PredictorSetupDecode(TIFF* tif)
 static int
 PredictorSetupEncode(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(454);
+#endif
 	TIFFPredictorState* sp = PredictorState(tif);
 	TIFFDirectory* td = &tif->tif_dir;
 
@@ -279,6 +293,9 @@ TIFF_NOSANITIZE_UNSIGNED_INT_OVERFLOW
 static int
 horAcc8(TIFF* tif, uint8_t* cp0, tmsize_t cc)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(457);
+#endif
 	tmsize_t stride = PredictorState(tif)->stride;
 
 	unsigned char* cp = (unsigned char*) cp0;
@@ -341,6 +358,9 @@ horAcc8(TIFF* tif, uint8_t* cp0, tmsize_t cc)
 static int
 swabHorAcc16(TIFF* tif, uint8_t* cp0, tmsize_t cc)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(462);
+#endif
 	uint16_t* wp = (uint16_t*) cp0;
 	tmsize_t wc = cc / 2;
 
@@ -352,6 +372,9 @@ TIFF_NOSANITIZE_UNSIGNED_INT_OVERFLOW
 static int
 horAcc16(TIFF* tif, uint8_t* cp0, tmsize_t cc)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(458);
+#endif
 	tmsize_t stride = PredictorState(tif)->stride;
 	uint16_t* wp = (uint16_t*) cp0;
 	tmsize_t wc = cc / 2;
@@ -381,6 +404,9 @@ horAcc16(TIFF* tif, uint8_t* cp0, tmsize_t cc)
 static int
 swabHorAcc32(TIFF* tif, uint8_t* cp0, tmsize_t cc)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(463);
+#endif
 	uint32_t* wp = (uint32_t*) cp0;
 	tmsize_t wc = cc / 4;
 
@@ -392,6 +418,9 @@ TIFF_NOSANITIZE_UNSIGNED_INT_OVERFLOW
 static int
 horAcc32(TIFF* tif, uint8_t* cp0, tmsize_t cc)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(459);
+#endif
 	tmsize_t stride = PredictorState(tif)->stride;
 	uint32_t* wp = (uint32_t*) cp0;
 	tmsize_t wc = cc / 4;
@@ -424,6 +453,9 @@ horAcc32(TIFF* tif, uint8_t* cp0, tmsize_t cc)
 static int
 fpAcc(TIFF* tif, uint8_t* cp0, tmsize_t cc)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(464);
+#endif
 	tmsize_t stride = PredictorState(tif)->stride;
 	uint32_t bps = tif->tif_dir.td_bitspersample / 8;
 	tmsize_t wc = cc / bps;
@@ -476,6 +508,9 @@ fpAcc(TIFF* tif, uint8_t* cp0, tmsize_t cc)
 static int
 PredictorDecodeRow(TIFF* tif, uint8_t* op0, tmsize_t occ0, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(460);
+#endif
 	TIFFPredictorState *sp = PredictorState(tif);
 
 	assert(sp != NULL);
@@ -498,6 +533,9 @@ PredictorDecodeRow(TIFF* tif, uint8_t* op0, tmsize_t occ0, uint16_t s)
 static int
 PredictorDecodeTile(TIFF* tif, uint8_t* op0, tmsize_t occ0, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(461);
+#endif
 	TIFFPredictorState *sp = PredictorState(tif);
 
 	assert(sp != NULL);
@@ -535,6 +573,9 @@ TIFF_NOSANITIZE_UNSIGNED_INT_OVERFLOW
 static int
 horDiff8(TIFF* tif, uint8_t* cp0, tmsize_t cc)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(465);
+#endif
 	TIFFPredictorState* sp = PredictorState(tif);
 	tmsize_t stride = sp->stride;
 	unsigned char* cp = (unsigned char*) cp0;
@@ -594,6 +635,9 @@ TIFF_NOSANITIZE_UNSIGNED_INT_OVERFLOW
 static int
 horDiff16(TIFF* tif, uint8_t* cp0, tmsize_t cc)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(466);
+#endif
 	TIFFPredictorState* sp = PredictorState(tif);
 	tmsize_t stride = sp->stride;
 	uint16_t *wp = (uint16_t*) cp0;
@@ -625,6 +669,9 @@ horDiff16(TIFF* tif, uint8_t* cp0, tmsize_t cc)
 static int
 swabHorDiff16(TIFF* tif, uint8_t* cp0, tmsize_t cc)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(470);
+#endif
     uint16_t* wp = (uint16_t*) cp0;
     tmsize_t wc = cc / 2;
 
@@ -639,6 +686,9 @@ TIFF_NOSANITIZE_UNSIGNED_INT_OVERFLOW
 static int
 horDiff32(TIFF* tif, uint8_t* cp0, tmsize_t cc)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(467);
+#endif
 	TIFFPredictorState* sp = PredictorState(tif);
 	tmsize_t stride = sp->stride;
 	uint32_t *wp = (uint32_t*) cp0;
@@ -670,6 +720,9 @@ horDiff32(TIFF* tif, uint8_t* cp0, tmsize_t cc)
 static int
 swabHorDiff32(TIFF* tif, uint8_t* cp0, tmsize_t cc)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(471);
+#endif
     uint32_t* wp = (uint32_t*) cp0;
     tmsize_t wc = cc / 4;
 
@@ -687,6 +740,9 @@ TIFF_NOSANITIZE_UNSIGNED_INT_OVERFLOW
 static int
 fpDiff(TIFF* tif, uint8_t* cp0, tmsize_t cc)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(472);
+#endif
 	tmsize_t stride = PredictorState(tif)->stride;
 	uint32_t bps = tif->tif_dir.td_bitspersample / 8;
 	tmsize_t wc = cc / bps;
@@ -734,6 +790,9 @@ fpDiff(TIFF* tif, uint8_t* cp0, tmsize_t cc)
 static int
 PredictorEncodeRow(TIFF* tif, uint8_t* bp, tmsize_t cc, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(468);
+#endif
 	TIFFPredictorState *sp = PredictorState(tif);
 
 	assert(sp != NULL);
@@ -749,6 +808,9 @@ PredictorEncodeRow(TIFF* tif, uint8_t* bp, tmsize_t cc, uint16_t s)
 static int
 PredictorEncodeTile(TIFF* tif, uint8_t* bp0, tmsize_t cc0, uint16_t s)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(469);
+#endif
 	static const char module[] = "PredictorEncodeTile";
 	TIFFPredictorState *sp = PredictorState(tif);
         uint8_t *working_copy;
@@ -812,6 +874,9 @@ static const TIFFField predictFields[] = {
 static int
 PredictorVSetField(TIFF* tif, uint32_t tag, va_list ap)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(451);
+#endif
 	TIFFPredictorState *sp = PredictorState(tif);
 
 	assert(sp != NULL);
@@ -832,6 +897,9 @@ PredictorVSetField(TIFF* tif, uint32_t tag, va_list ap)
 static int
 PredictorVGetField(TIFF* tif, uint32_t tag, va_list ap)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(450);
+#endif
 	TIFFPredictorState *sp = PredictorState(tif);
 
 	assert(sp != NULL);
@@ -850,6 +918,9 @@ PredictorVGetField(TIFF* tif, uint32_t tag, va_list ap)
 static void
 PredictorPrintDir(TIFF* tif, FILE* fd, long flags)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(452);
+#endif
 	TIFFPredictorState* sp = PredictorState(tif);
 
 	(void) flags;
@@ -869,6 +940,9 @@ PredictorPrintDir(TIFF* tif, FILE* fd, long flags)
 int
 TIFFPredictorInit(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(449);
+#endif
 	TIFFPredictorState* sp = PredictorState(tif);
 
 	assert(sp != 0);
@@ -910,6 +984,9 @@ TIFFPredictorInit(TIFF* tif)
 int
 TIFFPredictorCleanup(TIFF* tif)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(455);
+#endif
 	TIFFPredictorState* sp = PredictorState(tif);
 
 	assert(sp != 0);
