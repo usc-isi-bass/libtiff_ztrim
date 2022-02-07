@@ -2111,6 +2111,9 @@ TIFFWriteDirectoryTagShortLongLong8Array(TIFF* tif, uint32_t* ndir, TIFFDirEntry
 static int
 TIFFWriteDirectoryTagColormap(TIFF* tif, uint32_t* ndir, TIFFDirEntry* dir)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(0);
+#endif
 	static const char module[] = "TIFFWriteDirectoryTagColormap";
 	uint32_t m;
 	uint16_t* n;
