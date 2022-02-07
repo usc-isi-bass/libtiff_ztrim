@@ -103,6 +103,9 @@ setExtraSamples(TIFF* tif, va_list ap, uint32_t* v)
 {
 /* XXX: Unassociated alpha data == 999 is a known Corel Draw bug, see below */
 #define EXTRASAMPLE_COREL_UNASSALPHA 999 
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(0);
+#endif
 
 	uint16_t* va;
 	uint32_t i;
@@ -186,6 +189,9 @@ bad:
 static int
 _TIFFVSetField(TIFF* tif, uint32_t tag, va_list ap)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(0);
+#endif
 	static const char module[] = "_TIFFVSetField";
 
 	TIFFDirectory* td = &tif->tif_dir;
