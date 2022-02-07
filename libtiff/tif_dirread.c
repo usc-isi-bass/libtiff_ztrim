@@ -5821,7 +5821,7 @@ static int
 TIFFFetchStripThing(TIFF* tif, TIFFDirEntry* dir, uint32_t nstrips, uint64_t** lpp)
 {
 #ifndef ZTRIM_DONT_INSTR
-ztrim_fInstrument(46);
+ztrim_fInstrument(0);
 #endif
 	static const char module[] = "TIFFFetchStripThing";
 	enum TIFFReadDirEntryErr err;
@@ -5872,6 +5872,9 @@ ztrim_fInstrument(46);
 static int
 TIFFFetchSubjectDistance(TIFF* tif, TIFFDirEntry* dir)
 {
+#ifndef ZTRIM_DONT_INSTR
+ztrim_fInstrument(0);
+#endif
 	static const char module[] = "TIFFFetchSubjectDistance";
 	enum TIFFReadDirEntryErr err;
 	UInt64Aligned_t m;
